@@ -9,9 +9,10 @@ import Style from "../Style";
 import ButtonSave from "../components/ButtonSave";
 import { emptyField, hasId, showMessage } from "../Functions";
 import SelectFormation from "../components/SelectFormation";
+import axiosURL from "../API";
+
 
 const AcademicEducation = ({ route }) => {
-  const baseUrl = "http://10.107.144.24:8080/";
   const visible = route.params.edit;
   const id = route.params.id;
 
@@ -31,22 +32,22 @@ const AcademicEducation = ({ route }) => {
 
   //consumindo APIs de cursos
   useEffect(() => {
-    axios
-      .get(`${baseUrl}curso/area/listar`)
+    axiosURL
+      .get(`curso/area/listar`)
       .then((response) => setEducationType(response.data))
       .catch(() => console.log("api de area de atuacao não está respondendo"));
 
-    axios
-      .get(`${baseUrl}curso/nivel/listar`)
+      axiosURL
+      .get(`curso/nivel/listar`)
       .then((response) => setEducationLevel(response.data))
       .catch(() => console.log("api de nivel de cursos não está respondendo"));
   }, []);
 
   //consumindo APIs de nome de cursos após selecionar um curso
   useEffect(() => {
-    axios
+    axiosURL
       .get(
-        `${baseUrl}curso/listar?areaAtuacao=${personalData.areaAtuacao}&nivel=${personalData.nivel}`
+        `curso/listar?areaAtuacao=${personalData.areaAtuacao}&nivel=${personalData.nivel}`
       )
       .then((response) => setEducationName(response.data))
       .catch(() =>
@@ -59,8 +60,8 @@ const AcademicEducation = ({ route }) => {
   const saveData = () => {
     //METHOD POST
     if (!hasId(personalData)) {
-      axios
-        .post(`${baseUrl}candidato/cadastrar/curso/${id}`, {
+      axiosURL
+        .post(`candidato/cadastrar/curso/${1}`, {
           curso: personalData.curso,
         })
         .then((response) => {
@@ -82,8 +83,8 @@ const AcademicEducation = ({ route }) => {
   //METHOD GET
   useEffect(() => {
     if (visible) {
-      axios
-        .get(`${baseUrl}candidato/buscar/1`)
+      axiosURL
+        .get(`candidato/buscar/1`)
         .then((response) => {
           var responseCurso = response.data.curso;
 

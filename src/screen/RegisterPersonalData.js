@@ -19,14 +19,7 @@ import CheckboxComponent from "../components/CheckBox";
 import ButtonSave from "../components/ButtonSave";
 import { emptyField, showMessage } from "../Functions";
 import InputCalendar from "../components/InputCalendar";
-
-import {
-  Button,
-  Paragraph,
-  Dialog,
-  Portal,
-  Provider,
-} from "react-native-paper";
+import axiosURL from "../API";
 
 const genero = [
   "Selecione um Genero",
@@ -60,7 +53,6 @@ const def = [
 ];
 
 const RegisterPersonalData = ({ route }) => {
-  const baseUrl = "http://10.107.144.5:8080/";
   const edit = true;
   const id = route.params.id;
 
@@ -118,8 +110,8 @@ const RegisterPersonalData = ({ route }) => {
         personalData.telefone
       )
     ) {
-      axios
-        .put(`${baseUrl}/candidato/buscar/${1}`, {
+      axiosURL
+        .put(`candidato/buscar/${1}`, {
           id: "",
           nome: "",
           nomeSocial: "",
@@ -148,8 +140,8 @@ const RegisterPersonalData = ({ route }) => {
   //METHOD GET
   useEffect(() => {
     if (edit) {
-      axios
-        .get(`${baseUrl}/candidato/buscar/${1}`)
+      axiosURL
+        .get(`candidato/buscar/${1}`)
         .then((response) => {
           const email = response.data.email[0].email;
           let emailRecuperacao = response.data.email[1] ?? "";

@@ -9,11 +9,11 @@ import Style from "../Style";
 import Select from "../components/Select";
 import ButtonSave from "../components/ButtonSave";
 import { listState, emptyField } from "../Functions";
+import axiosURL from "../API";
 
 //06693590
 const RegisterAdress = ({ navigation, route }) => {
   var state = listState();
-  const baseUrl = "http://10.107.144.24:8080/";
   const [clicked, setClick] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
@@ -46,32 +46,30 @@ const RegisterAdress = ({ navigation, route }) => {
 
   //GET API VIACEP
   useEffect(() => {
-    if (adressTyped.cep != "") {
-      if (validate(adressTyped.cep)) {
-        axios
-          .get(`https://viacep.com.br/ws/${adressTyped.cep}/json/`)
-          .then(
-            (response) => (
-              setAdressAPI(response.data), setButtonDisabled(false)
-            )
-          )
-          .catch(() => setButtonDisabled(false));
+    if (!route.params.edit) {
+      if (adressTyped.cep != "") {
+        if (validate(adressTyped.cep)) {
+          axios
+            .get(`https://viacep.com.br/ws/${adressTyped.cep}/json/`)
+            .then((response) => setAdressAPI(response.data))
+            .catch(() => setButtonDisabled(false));
+        } else {
+          console.log("nao deu certo texto");
+          //setButtonDisabled(true);
+        }
       } else {
-        console.log("nao deu certo  texto");
-        setButtonDisabled(true);
+        // setButtonDisabled(true);
       }
-    } else {
-      setButtonDisabled(true);
     }
   }, [adressTyped.cep]);
 
   //METHOD GET
   useEffect(() => {
     if (route.params.edit) {
-      axios
-        .get(`${baseUrl}/candidato/buscar/${1}`)
+      axiosURL
+        .get(`candidato/buscar/${1}`)
         .then((response) => {
-          setAdressTyped(reponse.data);
+          setAdressTyped(response.data);
         })
         .catch((error) => {
           console.log("erro ao pegar dados de endereço");
@@ -80,11 +78,10 @@ const RegisterAdress = ({ navigation, route }) => {
     }
   }, []);
 
-  
   const saveData = () => {
     //METODO PUT
     if (route.params.edit) {
-      axios
+      axiosURL
         .put(`${baseUrl}${id}`, {})
         .then((response) => {
           console.log("dados  de endereço  atualizados com sucesso");
@@ -97,8 +94,8 @@ const RegisterAdress = ({ navigation, route }) => {
     } else {
       //METODO POST
       if (emptyField(adressTyped.cep)) {
-        axios
-          .post(`${baseUrl}/candidato/cadastrar/endereco/1`, { adressTyped })
+        axiosURL
+          .post(`candidato/cadastrar/endereco/1`, { adressTyped })
           .then((response) => {
             console.log("dados cadastrados com sucesso");
             return true;
@@ -133,34 +130,34 @@ const RegisterAdress = ({ navigation, route }) => {
               keyObject={"cep"}
               error={error}
               required={true}
-              object={adressTyped}
+              object={adressTyped.cep}
               onChangeObject={setAdressTyped}
             />
             <InputData
               editable={false}
               label="Logradouro"
               keyObject="rua"
-              object={adressTyped}
+              object={adressTyped.rua}
               onChangeObject={setAdressTyped}
               valueAPI={adressAPI.logradouro}
             />
             <InputData
               label="Número"
               keyObject="numero"
-              object={adressTyped}
+              object={adressTyped.numero}
               onChangeObject={setAdressTyped}
             />
             <InputData
               label="Bairro"
               keyObject="bairro"
-              object={adressTyped}
+              object={adressTyped.bairro}
               onChangeObject={setAdressTyped}
               valueAPI={adressAPI.bairro}
             />
             <Select
               data={state}
               keyObject={"sigla"}
-              object={adressTyped}
+              object={adressTyped.sigla}
               onChangeObject={setAdressTyped}
               valueAPI={adressAPI.uf}
             />

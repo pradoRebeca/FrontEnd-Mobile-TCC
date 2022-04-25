@@ -3,8 +3,6 @@ import { Button, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 
-const navigation = useNavigation();
-
 export const emptyField = (...n) => {
   const array = [...n];
   if (array.includes("") || array.includes(null) || array.includes(undefined)) {

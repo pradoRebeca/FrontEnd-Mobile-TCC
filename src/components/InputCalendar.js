@@ -5,11 +5,21 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 
-const InputCalendar = ({ label, keyObject, object, onChangeObject, valueDefault }) => {
-  const [text, setText] = useState(valueDefault ?? label);
+const InputCalendar = ({
+  label,
+  keyObject,
+  object,
+  onChangeObject,
+  valueDefault,
+}) => {
+  const [text, setText] = useState(label);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-
-  
+console
+  useEffect(() => {
+    if (valueDefault) {
+      setText(valueDefault);
+    }
+  }, [valueDefault]);
 
   const formatDate = (data, mode) => {
     let dateTimeString;

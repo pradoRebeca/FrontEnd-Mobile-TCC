@@ -11,6 +11,7 @@ import {
 
 import axiosURL from "../API";
 import DisplayInformation from "../components/DisplayInformations";
+import Information from "../components/Informations";
 
 const user = [
   {
@@ -18,23 +19,18 @@ const user = [
     nome: "valor obj",
     dataNascimento: "valor obj",
     profi: null,
-    email: ["eemil@1", "eemil@2"],
-  },
-  {
-    idCurrssoannsns: "2",
-    nome: "valor obj",
-    dataNascimento: "valor obj",
-    profi: null,
-    maisATRI: "Home.js",
-    telefone: ["11 942778653", "11 942778611"],
-  },
-  {
-    idMamsskaas: "3",
-    nome: "valor obj",
-    dataNascimento: "valor obj",
-    profi: null,
-    maisATRI: "",
-  },
+    email: [
+
+      {
+        id: 1,
+        email: "eemil@1",
+      },
+      {
+        id: 1,
+        email: "eemil@1",
+      },
+    ],
+  }
 ];
 
 const endereco = {
@@ -52,36 +48,33 @@ const CandidateProfile = () => {
   const [personalInformation, setPersonalInformation] = useState([]);
   const [experienceData, setExperienceData] = useState([]);
   const [cursoData, setCursoData] = useState([]);
+  const [endereco, setEndereco] = useState([]);
   const [deficienciaData, setDeficienciaData] = useState([]);
 
   useEffect(() => {
     axiosURL
       .get(`candidato/buscar/1`)
       .then((response) => {
-        setPersonalData(response.data);
         setExperienceData(response.data.experiencia);
         setCursoData(response.data.curso);
-        setPersonalInformation({
-          ...personalData,
-          experiencia: null,
-          curso: null,
-          deficiencia: null,
-        });
-        setDeficienciaData(response.data.deficiencia);
-        return true;
+        setDeficienciaData(response.data.deficiencia); 
+         setEndereco(response.data.endereco)
+         setPersonalInformation({...response.data, experiencia : null, deficiencia: null, endereco: null, curso: null})
       })
       .catch((error) => {
-        console.log(error);
+        console.warn(error);
         return false;
       });
   }, []);
 
+
+  console.log('personalInformation ', personalInformation)
   //Filtro para cada seção
-  useEffect(() => {
-    setExperienceData(personalData.experiencia);
-    setCursoData(personalData.curso);
-    setPersonalInformation({ ...personalData, experiencia: null, curso: null });
-  }, [personalData]);
+  //useEffect(() => {
+ //   setExperienceData(personalData.experiencia);
+ //   setCursoData(personalData.curso);
+  //  setPersonalInformation({ ...personalData, experiencia: null, curso: null });
+ // }, [personalData]);
 
   return (
     <SafeAreaView>
@@ -99,11 +92,11 @@ const CandidateProfile = () => {
           <View style={style.infoText}>
             <View style={style.info}>
               <Text style={style.infoTitle}>Nome</Text>
-              <Text style={style.infoDescretion}>{personalData.nome}</Text>
+              <Text style={style.infoDescretion}>{personalInformation.nome}</Text>
             </View>
             <View style={style.info}>
               <Text style={style.infoTitle}>Deficiencia</Text>
-              <Text style={style.infoDescretion}>{personalData.email}</Text>
+              {/* <Text style={style.infoDescretion}>{personalInformatio}</Text> */}
             </View>
           </View>
         </View>
@@ -112,7 +105,7 @@ const CandidateProfile = () => {
             <DisplayInformation
               titleSection="Informações Pessoais"
               mode="personalInformation"
-              data={[endereco]}
+              data={[personalInformation]}
               nameSreen="RegisterPersonalData"
             />
           </View>
@@ -126,7 +119,7 @@ const CandidateProfile = () => {
           <View style={style.container}>
             <DisplayInformation
               titleSection="Formações Academicas"
-              data={user}
+              data={cursoData}
               nameSreen="Formação Academica"
               addInformation={true}
             />
@@ -134,7 +127,7 @@ const CandidateProfile = () => {
           <View style={style.container}>
             <DisplayInformation
               titleSection="Experiencia Profissional"
-              data={user}
+              data={experienceData}
               nameSreen="Experiencia Profissional"
               addInformation={true}
               mode={"profissionalExperience"}

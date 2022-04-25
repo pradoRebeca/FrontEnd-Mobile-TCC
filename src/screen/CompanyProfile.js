@@ -131,7 +131,7 @@ const CompanyProfile = ({ route }) => {
               <Image
                 style={style.companyLogo}
                 source={{
-                  uri: "https://cdn-icons-png.flaticon.com/512/2093/2093465.png",
+                  uri: "https://sim.marica.rj.gov.br/img/icones/empresa2.png",
                 }}
               />
             </View>
@@ -219,6 +219,7 @@ const style = StyleSheet.create({
     flexDirection: "column",
   },
   firstPart: {
+    //backgroundColor: 'yellow',
     paddingTop: 10,
     // marginBottom: 10,
     // backgroundColor: "yellow",

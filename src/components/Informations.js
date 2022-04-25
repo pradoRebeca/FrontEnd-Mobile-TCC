@@ -36,32 +36,40 @@ const Information = ({ data, nameSreen }) => {
     if (!title.startsWith("id")) {
       if (des != "" && des != null) {
         if (Array.isArray(des)) {
-          return des.map((item) => (
-            <View>
-              <Text style={style.infoTitle}>{title}</Text>
-              <Text style={style.infoDescretion}>{item}</Text>
-            </View>
-          ));
+          if(title == "email" || title == "telefone"){
+            const array =  des.map(item =>(item.email ?? item.numero))
+            return array.map((item) => (
+              <View>
+               <Text style={style.infoTitle}>{title}</Text>
+               <Text style={style.infoDescretion}>{item}</Text>
+             </View>
+            ));
+          } else {
+            return des.map((item) => (
+              <View>
+               <Text style={style.infoTitle}>{title}</Text>
+               <Text style={style.infoDescretion}>{item}</Text>
+             </View>
+            ));
+          }
         } else {
           return (
-            <View>
+           <View>
               <Text style={style.infoTitle}>{title}</Text>
               <Text style={style.infoDescretion}>{des}</Text>
             </View>
           );
         }
       }
-    } else {
-      console.log(title);
-    }
+    } 
   };
 
   const renderItem = () => {
     return titleText.map((item) => renderText(item[0], item[1]));
   };
 
-  console.log("data ", data);
-  console.log("titleText ", titleText);
+
+
 
   return (
     <View style={style.viewInfo}>

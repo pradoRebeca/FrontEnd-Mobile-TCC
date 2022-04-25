@@ -13,10 +13,12 @@ import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 
+
 import InputData from "../components/InputData";
 import { emptyField, showMessage } from "../Functions";
 //import { showMessage } from "../alerts/ShowMessage";
 import ButtonHome from "../components/ButtonHome";
+import axiosURL from "../API";
 
 //GOOGLE COLOR rgb('#4285F4','#0DF9D58','#FAB400','#DB4437')
 
@@ -33,8 +35,8 @@ const Register = () => {
   const register = () => {
     if (emptyField(personalData.nome, personalData.email, personalData.senha)) {
       console.log("todoss campos preenchidos");
-      axios
-        .post("http://10.107.144.24:8080/candidato/cadastrar", {
+      axiosURL
+        .post("candidato/cadastrar", {
           nome: personalData.nome,
           senha: personalData.senha,
           email: personalData.email,

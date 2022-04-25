@@ -8,18 +8,17 @@ import InputData from "../components/InputData";
 import ButtonSave from "../components/ButtonSave";
 import { emptyField } from "../Functions";
 import InputCalendar from "../components/InputCalendar";
+import axiosURL from "../API";
 
 const ProfissionalExperience = ({ route }) => {
-  const baseUrl = "http://10.107.144.24:8080/";
-
   const edit = route.params.edit;
   const id = route.params.id;
 
   const [personalData, setPersonalData] = useState({
     id: "",
     cargo: "",
-    dataInicio: null,
-    dataFim: null,
+    dataInicio: "",
+    dataSaida: "",
     atribuicoes: "",
     nomeEmpresa: "",
   });
@@ -35,11 +34,11 @@ const ProfissionalExperience = ({ route }) => {
     ) {
       //METHOD PUT
       if (edit) {
-        axios
-          .put(`${baseUrl}candidato/atualizar/experiencia/${1}`, {
+        axiosURL
+          .put(`candidato/atualizar/experiencia/${1}`, {
             cargo: personalData.cargo,
             dataInicio: personalData.dataInicio,
-            dataFim: personalData.dataFim,
+            dataSaida: personalData.dataSaida,
             atribuicoes: personalData.atribuicoes,
             nomeEmpresa: personalData.nomeEmpresa,
           })
@@ -53,11 +52,11 @@ const ProfissionalExperience = ({ route }) => {
           });
       } else {
         //METHOD POST
-        axios
-          .post(`${baseUrl}candidato/cadastrar/experiencia/${1}`, {
+        axiosURL
+          .post(`candidato/cadastrar/experiencia/${1}`, {
             cargo: personalData.cargo,
             dataInicio: personalData.dataInicio,
-            dataFim: personalData.dataFim,
+            dataSaida: personalData.dataFim,
             atribuicoes: personalData.atribuicoes,
             nomeEmpresa: personalData.nomeEmpresa,
           })
@@ -80,10 +79,10 @@ const ProfissionalExperience = ({ route }) => {
   //METHOD GET
   useEffect(() => {
     if (edit) {
-      axios
-        .get(`${baseUrl}candidato/listar/experiencia/${id}`)
+      axiosURL
+        .get(`candidato/listar/experiencia/${1}`)
         .then((response) => {
-          setPersonalData({ ...response.data });
+          setPersonalData({ ...response.data.content[0]});
           return true;
         })
         .catch((error) => {
@@ -95,8 +94,8 @@ const ProfissionalExperience = ({ route }) => {
 
   //METHOD DELETE
   const deleteData = () => {
-    axios
-      .delete(`${baseUrl}candidato/deletar/experiencia/${1}`)
+    axiosURL
+      .delete(`candidato/deletar/experiencia/${1}`)
       .then((response) => {
         console.log("dados deletados com sucesso");
         return true;
@@ -141,8 +140,8 @@ const ProfissionalExperience = ({ route }) => {
             <InputCalendar
               object={personalData}
               onChangeObject={setPersonalData}
-              valueDefault={personalData.dataFim}
-              keyObject="dataFim"
+              valueDefault={personalData.dataSaida}
+              keyObject="dataSaida"
               label="Data de Saída"
             />
             <InputCalendar
