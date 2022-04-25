@@ -60,7 +60,8 @@ const CandidateProfile = () => {
         setDeficienciaData(response.data.deficiencia); 
          setEndereco(response.data.endereco)
          setPersonalInformation({...response.data, experiencia : null, deficiencia: null, endereco: null, curso: null})
-      })
+         console.log('personalInformation ', [endereco])
+        })
       .catch((error) => {
         console.warn(error);
         return false;
@@ -68,7 +69,7 @@ const CandidateProfile = () => {
   }, []);
 
 
-  console.log('personalInformation ', personalInformation)
+
   //Filtro para cada seção
   //useEffect(() => {
  //   setExperienceData(personalData.experiencia);
@@ -85,7 +86,7 @@ const CandidateProfile = () => {
             <Image
               style={style.image}
               source={{
-                uri: personalData.image ?? image,
+                uri: personalInformation.image ?? image,
               }}
             />
           </View>

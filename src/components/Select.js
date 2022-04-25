@@ -5,9 +5,9 @@ const Select = (props) => {
   const [selectedValue, setSelectedValue] = useState();
 
   const functionSelected = () => {
-    if (props.valueAPI != undefined) {
+    if (props.valueDefault != undefined) {
       return props.data
-        .filter((item) => item.sigla === props.valueAPI)
+        .filter((item) => item.sigla === props.valueDefault)
         .map((item) => <Picker.Item label={item.estado} value={item} />);
     } else {
       return <Picker.Item label={"Selecione um estado"} value={undefined} />;

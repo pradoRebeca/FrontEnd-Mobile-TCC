@@ -102,8 +102,8 @@ const AcademicEducation = ({ route }) => {
   //METHOD DELETE
   const deleteData = () => {
     console.log("id do curso", id);
-    axios
-      .delete(`${baseUrl}candidato/deletar/curso/${id}`)
+    axiosURL
+      .delete(`candidato/deletar/curso/${id}`)
       .then((response) => {
         showMessage("Dados deletados com sucesso.");
         console.log("dados deletados com sucesso");

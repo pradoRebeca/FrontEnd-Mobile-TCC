@@ -26,7 +26,7 @@ const RegisterAdress = ({ navigation, route }) => {
     sigla: "",
     cep: "",
   });
-
+console.log('endereco ', adressTyped)
   const [error, setError] = useState({
     message: "",
     display: true,
@@ -69,7 +69,7 @@ const RegisterAdress = ({ navigation, route }) => {
       axiosURL
         .get(`candidato/buscar/${1}`)
         .then((response) => {
-          setAdressTyped(response.data);
+          setAdressTyped(response.data.endereco);
         })
         .catch((error) => {
           console.log("erro ao pegar dados de endereço");
@@ -82,7 +82,14 @@ const RegisterAdress = ({ navigation, route }) => {
     //METODO PUT
     if (route.params.edit) {
       axiosURL
-        .put(`${baseUrl}${id}`, {})
+        .put(`candidato/atualizar/endereco/1`, {
+          rua: adressTyped.rua ,
+            numero: adressTyped.numero,
+            bairro: adressTyped.bairro,
+            cidade: adressTyped.cidade,
+            sigla: adressTyped.sigla,
+            cep: adressTyped.cep,
+        })
         .then((response) => {
           console.log("dados  de endereço  atualizados com sucesso");
           return true;
@@ -95,7 +102,14 @@ const RegisterAdress = ({ navigation, route }) => {
       //METODO POST
       if (emptyField(adressTyped.cep)) {
         axiosURL
-          .post(`candidato/cadastrar/endereco/1`, { adressTyped })
+          .post(`candidato/cadastrar/endereco/1`, { 
+            rua: adressTyped.rua ,
+            numero: adressTyped.numero,
+            bairro: adressTyped.bairro,
+            cidade: adressTyped.cidade,
+            sigla: adressTyped.sigla,
+            cep: adressTyped.cep,
+           })
           .then((response) => {
             console.log("dados cadastrados com sucesso");
             return true;
@@ -130,36 +144,37 @@ const RegisterAdress = ({ navigation, route }) => {
               keyObject={"cep"}
               error={error}
               required={true}
-              object={adressTyped.cep}
+              object={adressTyped}
+              valueDefault={adressAPI.cep ?? adressTyped.cep}
               onChangeObject={setAdressTyped}
             />
             <InputData
               editable={false}
               label="Logradouro"
               keyObject="rua"
-              object={adressTyped.rua}
+              object={adressTyped}
               onChangeObject={setAdressTyped}
-              valueAPI={adressAPI.logradouro}
+              valueDefault={adressAPI.logradouro ?? adressTyped.rua}
             />
             <InputData
               label="Número"
               keyObject="numero"
-              object={adressTyped.numero}
+              object={adressTyped}
               onChangeObject={setAdressTyped}
             />
             <InputData
               label="Bairro"
               keyObject="bairro"
-              object={adressTyped.bairro}
+              object={adressTyped}
               onChangeObject={setAdressTyped}
-              valueAPI={adressAPI.bairro}
+              valueDefault={adressAPI.bairro ?? adressTyped.bairro}
             />
             <Select
               data={state}
               keyObject={"sigla"}
-              object={adressTyped.sigla}
+              object={adressTyped}
               onChangeObject={setAdressTyped}
-              valueAPI={adressAPI.uf}
+              valueDefault={adressAPI.uf ?? adressTyped.sigla}
             />
             {/* <InputData
               label="Complemento"
