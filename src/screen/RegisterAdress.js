@@ -161,6 +161,7 @@ console.log('endereco ', adressTyped)
               keyObject="numero"
               object={adressTyped}
               onChangeObject={setAdressTyped}
+              valueDefault={adressTyped.numero}
             />
             <InputData
               label="Bairro"
