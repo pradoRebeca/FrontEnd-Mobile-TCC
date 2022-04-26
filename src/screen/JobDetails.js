@@ -14,6 +14,7 @@ import { FontAwesome } from "@expo/vector-icons";
 
 //file-text-o
 import ButtonOptionsJob from "../components/ButtonOptionsJob";
+//import JobRequirements from "../components/JobRequirements";
 
 const JobDetails = ({ route }) => {
   const navigation = useNavigation();
@@ -59,6 +60,7 @@ const JobDetails = ({ route }) => {
               <ButtonOptionsJob label="Dispensar" icon="block" />
             </View>
             <View style={style.details}>
+
               <View style={style.requisitoVaga}>
                 <FontAwesome name="file-text-o" size={14} />
                 <Text

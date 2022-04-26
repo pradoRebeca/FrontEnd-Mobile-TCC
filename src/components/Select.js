@@ -4,13 +4,16 @@ import { View, Picker, StyleSheet } from "react-native";
 const Select = (props) => {
   const [selectedValue, setSelectedValue] = useState();
 
+  const label = props.label;
+  
+
   const functionSelected = () => {
-    if (props.valueDefault != undefined) {
+    if (props.valueDefault != '') {
       return props.data
         .filter((item) => item.sigla === props.valueDefault)
         .map((item) => <Picker.Item label={item.estado} value={item} />);
     } else {
-      return <Picker.Item label={"Selecione um estado"} value={undefined} />;
+      return <Picker.Item label={ props.label} value={undefined} />;
     }
   };
 

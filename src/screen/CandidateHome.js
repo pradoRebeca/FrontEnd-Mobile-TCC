@@ -11,6 +11,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import axios from "axios";
 import axiosURL from "../API";
+import { ActivityIndicator, Colors } from 'react-native-paper';
 
 import CardJobPreview from "../components/CardJobPreview";
 import { setWarningFilter } from "react-native/Libraries/LogBox/Data/LogBoxData";
@@ -80,7 +81,9 @@ const userData = [
 ];
 
 const CandidateHome = ({ navigation }) => {
-  const [error, setError] = useState(true);
+  const [activityIndicator, setActivityIndicator] = useState(true)
+
+  const [error, setError] = useState(false);
   const [job, setJob] = useState([]);
   //const imageWithouJob = "https://sim.marica.rj.gov.br/img/icones/empresa2.pngs";
 
@@ -89,10 +92,12 @@ const CandidateHome = ({ navigation }) => {
       .get(`vaga/listar`)
       .then((response) => {
         setJob(response.data.content);
+        setActivityIndicator(false)
         setError(false);
         return true;
       })
       .catch((error) => {
+        setActivityIndicator(false)
         setError(true);
         return false;
       });
@@ -114,6 +119,11 @@ const CandidateHome = ({ navigation }) => {
         }
       >
         {error && <NotFound />}
+
+        
+          <ActivityIndicator animating={error ? false : true} color={'red'} />
+        
+
         {job && (
           <FlatList
             keyExtractor={(item) => item.id}

@@ -8,14 +8,16 @@ import ModifyTitle from "../components/ModifyTitle";
 import Style from "../Style";
 import Select from "../components/Select";
 import ButtonSave from "../components/ButtonSave";
-import { listState, emptyField } from "../Functions";
+import { listState, emptyField, listCity } from "../Functions";
 import axiosURL from "../API";
 
 //06693590
 const RegisterAdress = ({ navigation, route }) => {
   var state = listState();
+
   const [clicked, setClick] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [displayButtons, setDisplayButtons] = useState(false);
 
   const [adressAPI, setAdressAPI] = useState([]);
   const [adressTyped, setAdressTyped] = useState({
@@ -25,8 +27,9 @@ const RegisterAdress = ({ navigation, route }) => {
     cidade: "",
     sigla: "",
     cep: "",
+    estadoCidade: "",
   });
-console.log('endereco ', adressTyped)
+  console.log("endereco ", adressTyped);
   const [error, setError] = useState({
     message: "",
     display: true,
@@ -44,6 +47,11 @@ console.log('endereco ', adressTyped)
     }
   };
 
+  const [city, setCity] = useState(listState(adressTyped.sigla));
+  // useEffect(() => {
+  //   setCity(listCity(adressTyped.city));
+  // }, [adressTyped.cidade]);
+
   //GET API VIACEP
   useEffect(() => {
     if (!route.params.edit) {
@@ -51,8 +59,13 @@ console.log('endereco ', adressTyped)
         if (validate(adressTyped.cep)) {
           axios
             .get(`https://viacep.com.br/ws/${adressTyped.cep}/json/`)
-            .then((response) => setAdressAPI(response.data))
-            .catch(() => setButtonDisabled(false));
+            .then((response) => {
+              setAdressAPI(response.data);
+              setDisplayButtons(true);
+            })
+            .catch(() => {
+              setButtonDisabled(false), setButtonDisabled(false);
+            });
         } else {
           console.log("nao deu certo texto");
           //setButtonDisabled(true);
@@ -66,13 +79,15 @@ console.log('endereco ', adressTyped)
   //METHOD GET
   useEffect(() => {
     if (route.params.edit) {
+      setDisplayButtons(true);
       axiosURL
         .get(`candidato/buscar/${1}`)
         .then((response) => {
-          setAdressTyped(response.data.endereco);
+          setAdressTyped(response.data.endereco), setDisplayButtons(true);
         })
         .catch((error) => {
-          console.log("erro ao pegar dados de endereço");
+          console.log("erro ao pegar dados de endereço"),
+            setDisplayButtons(true);
           return false;
         });
     }
@@ -83,12 +98,12 @@ console.log('endereco ', adressTyped)
     if (route.params.edit) {
       axiosURL
         .put(`candidato/atualizar/endereco/1`, {
-          rua: adressTyped.rua ,
-            numero: adressTyped.numero,
-            bairro: adressTyped.bairro,
-            cidade: adressTyped.cidade,
-            sigla: adressTyped.sigla,
-            cep: adressTyped.cep,
+          rua: adressTyped.rua,
+          numero: adressTyped.numero,
+          bairro: adressTyped.bairro,
+          cidade: adressTyped.cidade,
+          sigla: adressTyped.sigla,
+          cep: adressTyped.cep,
         })
         .then((response) => {
           console.log("dados  de endereço  atualizados com sucesso");
@@ -102,14 +117,14 @@ console.log('endereco ', adressTyped)
       //METODO POST
       if (emptyField(adressTyped.cep)) {
         axiosURL
-          .post(`candidato/cadastrar/endereco/1`, { 
-            rua: adressTyped.rua ,
+          .post(`candidato/cadastrar/endereco/1`, {
+            rua: adressTyped.rua,
             numero: adressTyped.numero,
             bairro: adressTyped.bairro,
             cidade: adressTyped.cidade,
             sigla: adressTyped.sigla,
             cep: adressTyped.cep,
-           })
+          })
           .then((response) => {
             console.log("dados cadastrados com sucesso");
             return true;
@@ -148,35 +163,51 @@ console.log('endereco ', adressTyped)
               valueDefault={adressAPI.cep ?? adressTyped.cep}
               onChangeObject={setAdressTyped}
             />
-            <InputData
-              editable={false}
-              label="Logradouro"
-              keyObject="rua"
-              object={adressTyped}
-              onChangeObject={setAdressTyped}
-              valueDefault={adressAPI.logradouro ?? adressTyped.rua}
-            />
-            <InputData
-              label="Número"
-              keyObject="numero"
-              object={adressTyped}
-              onChangeObject={setAdressTyped}
-              valueDefault={adressTyped.numero}
-            />
-            <InputData
-              label="Bairro"
-              keyObject="bairro"
-              object={adressTyped}
-              onChangeObject={setAdressTyped}
-              valueDefault={adressAPI.bairro ?? adressTyped.bairro}
-            />
-            <Select
-              data={state}
+            {displayButtons && (
+              <>
+                <InputData
+                  editable={false}
+                  label="Logradouro"
+                  keyObject="rua"
+                  object={adressTyped}
+                  onChangeObject={setAdressTyped}
+                  valueDefault={adressAPI.logradouro ?? adressTyped.rua}
+                />
+                <InputData
+                  label="Número"
+                  keyObject="numero"
+                  object={adressTyped}
+                  onChangeObject={setAdressTyped}
+                  valueDefault={adressTyped.numero}
+                />
+
+                <InputData
+                  label="Bairro"
+                  keyObject="bairro"
+                  object={adressTyped}
+                  onChangeObject={setAdressTyped}
+                  valueDefault={adressAPI.bairro ?? adressTyped.bairro}
+                />
+                <Select
+                  label={"Selecione um estado"}
+                  data={state}
+                  keyObject="sigla"
+                  object={adressTyped}
+                  onChangeObject={setAdressTyped}
+                  valueDefault={adressAPI.uf ?? adressTyped.sigla}
+                />
+              </>
+            )}
+
+            {/* <Select
+              label={"Selecione uma cidade"}
+              data={city}
               keyObject={"sigla"}
               object={adressTyped}
               onChangeObject={setAdressTyped}
-              valueDefault={adressAPI.uf ?? adressTyped.sigla}
-            />
+              valueDefault={adressAPI.localidade ?? adressTyped.estadoCidade}
+            /> */}
+
             {/* <InputData
               label="Complemento"
               massageError="complemento"

@@ -67,6 +67,35 @@ export const listState = () => {
   return localidade;
 };
 
+//funcao para api listar cidades e guardar dentro do objeto adressAPI
+export const listCity = (sigla) => {
+  const [city, setCity] = useState([]);
+  const [localidade, setLocalidade] = useState([]);
+
+  useEffect(() => {
+    if(sigla != ''){
+      axios
+      .get(`http://educacao.dadosabertosbr.com/api/cidades/${sigla}`)
+      .then((response) => setCity(response.data))
+      .catch(() => console.log("api de municipios não está respondendo"));
+    }else{
+      axios
+      .get(`http://educacao.dadosabertosbr.com/api/cidades/sp`)
+      .then((response) => setCity(response.data))
+      .catch(() => console.log("api de municipios não está respondendo"));
+    }
+  }, []);
+
+  useEffect(() => {
+    setLocalidade(
+      city.map((item) => ({ estado: item.split(':')[1], sigla: item.split(':')[0] }))
+    );
+  }, [city]);
+
+  return localidade;
+};
+
+
 export const showMessage = (title, functionOk) =>
   Alert.alert("", title, [
     {

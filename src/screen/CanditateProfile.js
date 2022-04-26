@@ -20,7 +20,6 @@ const user = [
     dataNascimento: "valor obj",
     profi: null,
     email: [
-
       {
         id: 1,
         email: "eemil@1",
@@ -30,7 +29,7 @@ const user = [
         email: "eemil@1",
       },
     ],
-  }
+  },
 ];
 
 const endereco = {
@@ -57,25 +56,29 @@ const CandidateProfile = () => {
       .then((response) => {
         setExperienceData(response.data.experiencia);
         setCursoData(response.data.curso);
-        setDeficienciaData(response.data.deficiencia); 
-         setEndereco(response.data.endereco)
-         setPersonalInformation({...response.data, experiencia : null, deficiencia: null, endereco: null, curso: null})
-         console.log('personalInformation ', [endereco])
-        })
+        setDeficienciaData(response.data.deficiencia);
+        setEndereco(response.data.endereco);
+        setPersonalInformation({
+          ...response.data,
+          experiencia: null,
+          deficiencia: null,
+          endereco: null,
+          curso: null,
+        });
+        console.log("personalInformation ", [endereco]);
+      })
       .catch((error) => {
         console.warn(error);
         return false;
       });
   }, []);
 
-
-
   //Filtro para cada seção
   //useEffect(() => {
- //   setExperienceData(personalData.experiencia);
- //   setCursoData(personalData.curso);
+  //   setExperienceData(personalData.experiencia);
+  //   setCursoData(personalData.curso);
   //  setPersonalInformation({ ...personalData, experiencia: null, curso: null });
- // }, [personalData]);
+  // }, [personalData]);
 
   return (
     <SafeAreaView>
@@ -93,7 +96,9 @@ const CandidateProfile = () => {
           <View style={style.infoText}>
             <View style={style.info}>
               <Text style={style.infoTitle}>Nome</Text>
-              <Text style={style.infoDescretion}>{personalInformation.nome}</Text>
+              <Text style={style.infoDescretion}>
+                {personalInformation.nome}
+              </Text>
             </View>
             <View style={style.info}>
               <Text style={style.infoTitle}>Deficiencia</Text>
