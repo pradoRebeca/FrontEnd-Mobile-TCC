@@ -8,12 +8,12 @@ const Select = (props) => {
   
 
   const functionSelected = () => {
-    if (props.valueDefault != '') {
+    if (props.valueDefault != '' && props.valueDefault != undefined) {
       return props.data
         .filter((item) => item.sigla === props.valueDefault)
-        .map((item) => <Picker.Item label={item.estado} value={item} />);
+        .map((item) => <Picker.Item color='black'  label={item.estado} value={item} />);
     } else {
-      return <Picker.Item label={ props.label} value={undefined} />;
+      return <Picker.Item color="#7C7C7C" label={props.label} value={undefined} />;
     }
   };
 
@@ -39,7 +39,7 @@ const Select = (props) => {
       >
         {functionSelected()}
         {props.data.map((item) => (
-          <Picker.Item label={item.estado} value={item} />
+          <Picker.Item color='black' label={item.estado} value={item} />
         ))}
       </Picker>
     </View>
@@ -53,6 +53,6 @@ const style = StyleSheet.create({
     height: 40,
     width: "100%",
     backgroundColor: "#F5F5F5",
-    color: "#7C7C7C",
+   
   },
 });

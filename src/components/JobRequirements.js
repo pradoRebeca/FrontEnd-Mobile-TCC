@@ -6,15 +6,18 @@ import { FontAwesome } from "@expo/vector-icons";
 
 const JobRequirements = ({ title, data, key }) => {
   const render = () => {
-    if (Array.isArray(data)) {
-      return data.map((item) => (
-        <Text style={style.description}>{item[key]}</Text>
-      ));
-    } else {
-      return <Text style={style.description}>{data}</Text>;
-    }
-  };
-
+console.log(data)
+      if (Array.isArray(data)) {
+        return data.map((item) => (
+          <Text style={style.description}>{item[key]}</Text>
+        ));
+      } else {
+        return <Text style={style.description}>{data}</Text>;
+      }
+    };
+  
+    
+ 
   return (
     <>
       <View style={style.title}>

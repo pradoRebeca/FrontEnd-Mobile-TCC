@@ -25,12 +25,15 @@ const InputData = ({
     }
   });
 
+ 
+
   useEffect(() => {
-    setText(valueDefault);
+      setText(valueDefault);
   }, [valueDefault]);
 
   const onChangeText = (element) => {
     onChangeObject({ ...object, [keyObject]: element });
+    console.log(element)
   };
 
   if([label].includes('*')){

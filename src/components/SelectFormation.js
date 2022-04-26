@@ -44,9 +44,9 @@ const SelectFormation = (props) => {
     if (props.edit) {
       return data
         .filter((item) => item.id === props.valueDefult)
-        .map((item) => <Picker.Item label={item[label]} value={item[value]} />);
+        .map((item) => <Picker.Item  color='black' label={item[label]} value={item[value]} />);
     } else {
-      return <Picker.Item label={labelInicial} value={undefined}/>
+      return <Picker.Item color="#7C7C7C" label={labelInicial} value={undefined}/>
     }
   };
   
@@ -59,9 +59,8 @@ const SelectFormation = (props) => {
         onValueChange={(itemValue, itemIndex) => onChangeText(itemValue)}
       >
         {functionSelected()}
-       
         {data.map((item) => (
-          <Picker.Item key={item[value]} label={item[label]} value={item[value]} />
+          <Picker.Item color='black' key={item[value]} label={item[label]} value={item[value]} />
         ))}
       </Picker>
     </View>
@@ -73,7 +72,6 @@ const style = StyleSheet.create({
     height: 40,
     width: "100%",
     backgroundColor: "#F5F5F5",
-    color: "#7C7C7C",
   },
 });
 

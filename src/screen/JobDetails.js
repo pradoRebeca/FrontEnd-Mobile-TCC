@@ -14,11 +14,13 @@ import { FontAwesome } from "@expo/vector-icons";
 
 //file-text-o
 import ButtonOptionsJob from "../components/ButtonOptionsJob";
+import JobRequirements from "../components/JobRequirements";
+import axiosURL from "../API";
 //import JobRequirements from "../components/JobRequirements";
 
 const JobDetails = ({ route }) => {
   const navigation = useNavigation();
-
+  const [stateJob, setStateJob] = useState([])
   const [dataVaga, setDataVaga] = useState(
     route.params.dataVaga ?? {
       deficiencia: [],
@@ -26,6 +28,23 @@ const JobDetails = ({ route }) => {
       formacaoDesejada: [],
     }
   );
+  const [buttonsOptions, setButtonsOptions] = useState({
+    '1': false,
+    '2': false,
+    '3': false,
+  });
+  
+
+  useEffect(() => {
+    axiosURL
+    .put(`vaga/candidatar/${1}?idStatus=${3}`)
+    .then((response) => {
+      return true;
+    })
+    .catch((error) => {
+      return false;
+    });
+  }, [buttonsOptions])
 
   return (
     <SafeAreaView>
@@ -55,34 +74,65 @@ const JobDetails = ({ route }) => {
                 label="Candidatar-se"
                 type="blue"
                 icon="check-circle-outline"
+                object={buttonsOptions}
+                stateButton={setButtonsOptions}
+                button={'candidatar'}
+               id={1}
               />
-              <ButtonOptionsJob label="Salvar" icon="bookmark-border" />
-              <ButtonOptionsJob label="Dispensar" icon="block" />
+              <ButtonOptionsJob
+                label="Salvar"
+                icon="bookmark-border"
+                object={buttonsOptions}
+                stateButton={setButtonsOptions}
+                button={'salvar'}
+                id={2}
+              />
+              <ButtonOptionsJob
+                label="Dispensar"
+                icon="block"
+                object={buttonsOptions}
+                stateButton={setButtonsOptions}
+                button={'dispensar'}
+                id={3}
+              />
             </View>
             <View style={style.details}>
+              {dataVaga.requisitos && (
+                <>
+                  <View style={style.requisitoVaga}>
+                    <FontAwesome name="file-text-o" size={14} />
+                    <Text
+                      style={{
+                        marginLeft: 10,
+                        fontSize: 15,
+                        fontWeight: "500",
+                      }}
+                    >
+                      Requisitos
+                    </Text>
+                  </View>
 
-              <View style={style.requisitoVaga}>
-                <FontAwesome name="file-text-o" size={14} />
-                <Text
-                  style={{ marginLeft: 10, fontSize: 15, fontWeight: "500" }}
-                >
-                  Requisitos
-                </Text>
-              </View>
-
-              <Text style={style.descricaoRequisitoVaga}>
-                {dataVaga.requisitos}
-              </Text>
-
-              <Text style={style.requisitoVaga}>Salario</Text>
-              <Text style={style.descricaoRequisitoVaga}>
-                {dataVaga.salario.salario}
-              </Text>
+                  <Text style={style.descricaoRequisitoVaga}>
+                    {dataVaga.requisitos}
+                  </Text>
+                </>
+              )}
+              {dataVaga.salario && (
+                <>
+                  <Text style={style.requisitoVaga}>Salario</Text>
+                  <Text style={style.descricaoRequisitoVaga}>
+                    {dataVaga.salario.salario}
+                  </Text>
+                </>
+              )}
 
               <Text style={style.requisitoVaga}>Suporte</Text>
-              {dataVaga.suporte.map((item) => (
-                <Text style={style.descricaoRequisitoVaga}>{item.suporte}</Text>
-              ))}
+              {dataVaga.suporte &&
+                dataVaga.suporte.map((item) => (
+                  <Text style={style.descricaoRequisitoVaga}>
+                    {item.suporte}
+                  </Text>
+                ))}
 
               <Text style={style.requisitoVaga}>Beneficios</Text>
               {dataVaga.beneficio.map((item) => (

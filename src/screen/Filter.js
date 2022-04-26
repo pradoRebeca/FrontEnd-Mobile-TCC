@@ -11,6 +11,7 @@ import { Checkbox } from "react-native-paper";
 import CheckboxComponent from "../components/CheckBox";
 import ButtonSave from "../components/ButtonSave";
 
+import axiosURL from "../API";
 import { listState, emptyField } from "../Functions";
 
 const genero = [
@@ -45,7 +46,6 @@ const def = [
 ];
 
 const Filter = ({ route }) => {
-  const baseUrl = "http://10.107.144.5:8080/";
   const edit = true;
 
   const state = listState();

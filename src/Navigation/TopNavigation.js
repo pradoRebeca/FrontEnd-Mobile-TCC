@@ -26,7 +26,12 @@ const TopNavigation = () => {
       <Tab.Screen
         name="Salvar"
         component={SaveJob}
-        options={{ tabBarLabel: "Candidatura" }}
+        options={{ tabBarLabel: "Salvar" }}
+      />
+       <Tab.Screen
+        name="Dispensadas"
+        component={SaveJob}
+        options={{ tabBarLabel: "Dispensadas" }}
       />
     </Tab.Navigator>
   );

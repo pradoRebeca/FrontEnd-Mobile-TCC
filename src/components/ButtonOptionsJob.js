@@ -3,23 +3,19 @@ import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "@expo/vector-icons/MaterialIcons";
 
-const ButtonOptionsJob = ({ label, type, icon, functionClicked}) => {
+const ButtonOptionsJob = ({ label, type, icon, object, stateButton, button, id}) => {
+  const [buttonsOptions, setButtonsOptions] = useState(false);
   const navigation = useNavigation();
-
+console.log(id)
   const onClick = () => {
-    console.log("buttonSave foi clicado");
-    if (functionClicked()) {
-      alert("dados enviados com sucesso");
-      navigation.goBack();
-    } else {
-      alert("campos invalidos");
-    }
+    setButtonsOptions(!buttonsOptions)
+    stateButton({...object, [id]: !buttonsOptions})
   };
 
   return (
     <>
       <TouchableOpacity
-        onPress={() => console.log("click")}
+        onPress={() => onClick()}
         accessible={true}
         accessibilityHint="Salvar informações"
         accessibilityLabel="Salvar"
@@ -35,7 +31,7 @@ const ButtonOptionsJob = ({ label, type, icon, functionClicked}) => {
 export default ButtonOptionsJob;
 
 const style = StyleSheet.create({
-  //   container: {
+  //   container: {r
   //     width: 100,
   //     height: 40,
   //     display: "flex",

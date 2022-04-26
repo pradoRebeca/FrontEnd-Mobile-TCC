@@ -24,12 +24,12 @@ const RegisterAdress = ({ navigation, route }) => {
     rua: "",
     numero: "",
     bairro: "",
-    cidade: "",
+    cidade: "abc",
     sigla: "",
     cep: "",
-    estadoCidade: "",
+    estado: "",
   });
-  console.log("endereco ", adressTyped);
+
   const [error, setError] = useState({
     message: "",
     display: true,
@@ -75,7 +75,7 @@ const RegisterAdress = ({ navigation, route }) => {
       }
     }
   }, [adressTyped.cep]);
-
+  console.log("endereco ", adressTyped);
   //METHOD GET
   useEffect(() => {
     if (route.params.edit) {
@@ -101,6 +101,7 @@ const RegisterAdress = ({ navigation, route }) => {
           rua: adressTyped.rua,
           numero: adressTyped.numero,
           bairro: adressTyped.bairro,
+          estado: adressTyped.estado,
           cidade: adressTyped.cidade,
           sigla: adressTyped.sigla,
           cep: adressTyped.cep,
@@ -122,6 +123,7 @@ const RegisterAdress = ({ navigation, route }) => {
             numero: adressTyped.numero,
             bairro: adressTyped.bairro,
             cidade: adressTyped.cidade,
+            estado: adressTyped.estado,
             sigla: adressTyped.sigla,
             cep: adressTyped.cep,
           })
@@ -163,30 +165,36 @@ const RegisterAdress = ({ navigation, route }) => {
               valueDefault={adressAPI.cep ?? adressTyped.cep}
               onChangeObject={setAdressTyped}
             />
+
             {displayButtons && (
               <>
                 <InputData
-                  editable={false}
+                  key="rua"
                   label="Logradouro"
                   keyObject="rua"
                   object={adressTyped}
                   onChangeObject={setAdressTyped}
-                  valueDefault={adressAPI.logradouro ?? adressTyped.rua}
+                  valueDefault={adressTyped.rua}
+                  valueAPI={adressAPI.logradouro}
                 />
                 <InputData
+                  key="numero"
                   label="Número"
                   keyObject="numero"
                   object={adressTyped}
                   onChangeObject={setAdressTyped}
                   valueDefault={adressTyped.numero}
+                  valueAPI={adressAPI.numero}
                 />
 
                 <InputData
+                  key="bairro"
                   label="Bairro"
                   keyObject="bairro"
                   object={adressTyped}
                   onChangeObject={setAdressTyped}
-                  valueDefault={adressAPI.bairro ?? adressTyped.bairro}
+                  valueDefault={adressTyped.bairro}
+                  valueAPI={adressAPI.bairro}
                 />
                 <Select
                   label={"Selecione um estado"}
@@ -194,7 +202,8 @@ const RegisterAdress = ({ navigation, route }) => {
                   keyObject="sigla"
                   object={adressTyped}
                   onChangeObject={setAdressTyped}
-                  valueDefault={adressAPI.uf ?? adressTyped.sigla}
+                  valueDefault={adressTyped.sigla}
+                  valueAPI={adressAPI.uf}
                 />
               </>
             )}

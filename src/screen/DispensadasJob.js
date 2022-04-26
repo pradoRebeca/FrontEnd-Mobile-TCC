@@ -14,7 +14,7 @@ const CandidateJob = () => {
 
   useEffect(() => {
     axiosURL
-      .get(`vaga/listar/vagas/status?idCandidato=1&idStatus=1`)
+      .get(`vaga/listar/vagas/status?idCandidato=1&idStatus=3`)
       .then((response) => {
         setJob(response.data.content);
         setError(false);

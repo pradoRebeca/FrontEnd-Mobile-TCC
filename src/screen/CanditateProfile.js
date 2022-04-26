@@ -12,6 +12,8 @@ import {
 import axiosURL from "../API";
 import DisplayInformation from "../components/DisplayInformations";
 import Information from "../components/Informations";
+import { ActivityIndicator } from 'react-native-paper';
+
 
 const user = [
   {
@@ -49,6 +51,8 @@ const CandidateProfile = () => {
   const [cursoData, setCursoData] = useState([]);
   const [endereco, setEndereco] = useState([]);
   const [deficienciaData, setDeficienciaData] = useState([]);
+  const [display, setDisplay] = useState(true);
+
 
   useEffect(() => {
     axiosURL
@@ -65,7 +69,6 @@ const CandidateProfile = () => {
           endereco: null,
           curso: null,
         });
-        console.log("personalInformation ", [endereco]);
       })
       .catch((error) => {
         console.warn(error);
@@ -84,6 +87,7 @@ const CandidateProfile = () => {
     <SafeAreaView>
       {/* <SearchBar /> */}
       <ScrollView>
+
         <View style={style.infoPreview}>
           <View style={style.viewImage}>
             <Image
@@ -102,7 +106,7 @@ const CandidateProfile = () => {
             </View>
             <View style={style.info}>
               <Text style={style.infoTitle}>Deficiencia</Text>
-              {/* <Text style={style.infoDescretion}>{personalInformatio}</Text> */}
+            <Text style={style.infoDescretion}>{personalInformation}</Text> 
             </View>
           </View>
         </View>

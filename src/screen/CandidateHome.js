@@ -11,7 +11,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import axios from "axios";
 import axiosURL from "../API";
-import { ActivityIndicator, Colors } from 'react-native-paper';
+import { ActivityIndicator } from "react-native-paper";
 
 import CardJobPreview from "../components/CardJobPreview";
 import { setWarningFilter } from "react-native/Libraries/LogBox/Data/LogBoxData";
@@ -89,16 +89,14 @@ const CandidateHome = ({ navigation }) => {
     axiosURL
       .get(`vaga/listar`)
       .then((response) => {
-        setJob(response.data.content);
-        setError(false);
-        return true;
+        setJob(response.data.content.filter((item) => item.status == 2)),
+          setError(false);
       })
       .catch((error) => {
         setError(true);
-        return false;
       });
   }, []);
-
+  console.log(error);
   return (
     <SafeAreaView>
       <StatusBar backgroundColor="#1E7596" />
@@ -116,9 +114,7 @@ const CandidateHome = ({ navigation }) => {
       >
         {error && <NotFound />}
 
-        
-          <ActivityIndicator animating={error ? false : true} color={'red'} />
-        
+        <ActivityIndicator animating={error ? false : true} color={"#1E7596"} />
 
         {job && (
           <FlatList
