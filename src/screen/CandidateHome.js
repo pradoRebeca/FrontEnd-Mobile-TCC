@@ -81,8 +81,6 @@ const userData = [
 ];
 
 const CandidateHome = ({ navigation }) => {
-  const [activityIndicator, setActivityIndicator] = useState(true)
-
   const [error, setError] = useState(false);
   const [job, setJob] = useState([]);
   //const imageWithouJob = "https://sim.marica.rj.gov.br/img/icones/empresa2.pngs";
@@ -92,12 +90,10 @@ const CandidateHome = ({ navigation }) => {
       .get(`vaga/listar`)
       .then((response) => {
         setJob(response.data.content);
-        setActivityIndicator(false)
         setError(false);
         return true;
       })
       .catch((error) => {
-        setActivityIndicator(false)
         setError(true);
         return false;
       });
