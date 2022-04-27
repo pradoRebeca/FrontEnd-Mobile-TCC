@@ -1,8 +1,8 @@
-import react, {useState, useEffect} from "react";
+import react, { useState, useEffect } from "react";
 import { View, StyleSheet, Text, SafeAreaView, FlatList } from "react-native";
 import NotFound from "../components/NotFound";
 import axiosURL from "../API";
-import { ActivityIndicator } from 'react-native-paper';
+import { ActivityIndicator } from "react-native-paper";
 
 import CardJobPreview from "../components/CardJobPreview";
 
@@ -14,7 +14,7 @@ const CandidateJob = () => {
 
   useEffect(() => {
     axiosURL
-      .get(`vaga/listar/vagas/status?idCandidato=1&idStatus=3`)
+      .get(`vaga/listar/vagas/status?idCandidato=${1}&idStatus=${3}`)
       .then((response) => {
         setJob(response.data.content);
         setError(false);
@@ -26,7 +26,7 @@ const CandidateJob = () => {
       });
   }, []);
 
-  console.log(job)
+  console.log("dispensar ", job);
 
   return (
     <SafeAreaView>
@@ -45,22 +45,19 @@ const CandidateJob = () => {
       >
         {error && <NotFound />}
 
-        
-          <ActivityIndicator animating={error ? false : true} color={'red'} />
-        
-
+        {!job && <ActivityIndicator animating={true} color={"red"} />}
         {job && (
           <FlatList
             keyExtractor={(item) => item.id}
             data={job}
             renderItem={(item) => (
-              <CardJobPreview data={item.item} key={item.id} />
+              <CardJobPreview data={item.item} key={item.id} type={'dispensar'} />
             )}
           />
         )}
       </View>
-    </SafeAreaView>)
-  
+    </SafeAreaView>
+  );
 };
 
 export default CandidateJob;

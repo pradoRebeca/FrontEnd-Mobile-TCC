@@ -1,8 +1,8 @@
-import react, {useState, useEffect} from "react";
+import react, { useState, useEffect } from "react";
 import { View, StyleSheet, Text, SafeAreaView, FlatList } from "react-native";
 import NotFound from "../components/NotFound";
 import axiosURL from "../API";
-import { ActivityIndicator } from 'react-native-paper';
+import { ActivityIndicator } from "react-native-paper";
 
 import CardJobPreview from "../components/CardJobPreview";
 
@@ -11,10 +11,9 @@ const SaveJob = () => {
   const [job, setJob] = useState([]);
 
   //const imageWithouJob = "https://sim.marica.rj.gov.br/img/icones/empresa2.pngs";
-
   useEffect(() => {
     axiosURL
-      .get(`vaga/listar/vagas/status?idCandidato=1&idStatus=2`)
+      .get(`vaga/listar/vagas/status?idCandidato=${1}&idStatus=${2}`)
       .then((response) => {
         setJob(response.data.content);
         setError(false);
@@ -26,8 +25,8 @@ const SaveJob = () => {
       });
   }, []);
 
-  console.log(job)
-
+  // console.log(job);
+// renderData()
   return (
     <SafeAreaView>
       {/* <StatusBar backgroundColor="#1E7596" /> */}
@@ -45,22 +44,20 @@ const SaveJob = () => {
       >
         {error && <NotFound />}
 
-        
-          <ActivityIndicator animating={error ? false : true} color={'red'} />
-        
+        {!job && <ActivityIndicator animating={true} color={"red"} />}
 
         {job && (
           <FlatList
             keyExtractor={(item) => item.id}
             data={job}
             renderItem={(item) => (
-              <CardJobPreview data={item.item} key={item.id} />
+              <CardJobPreview data={item.item} key={item.id} type={'salvar'} />
             )}
           />
         )}
       </View>
-    </SafeAreaView>)
-  
+    </SafeAreaView>
+  );
 };
 
 export default SaveJob;

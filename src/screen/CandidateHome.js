@@ -13,7 +13,6 @@ import axios from "axios";
 import axiosURL from "../API";
 import { ActivityIndicator } from "react-native-paper";
 
-
 import CardJobPreview from "../components/CardJobPreview";
 import NotFound from "../components/NotFound";
 import SearchBar from "../components/SearchBar";
@@ -101,7 +100,7 @@ const CandidateHome = ({ navigation }) => {
   return (
     <SafeAreaView>
       <StatusBar backgroundColor="#1E7596" />
-   
+
       {/* <TopNavigation navigation={navigation} /> */}
       <View
         style={
@@ -114,8 +113,7 @@ const CandidateHome = ({ navigation }) => {
         }
       >
         {error && <NotFound />}
-
-        <ActivityIndicator animating={error ? false : true} color={"#1E7596"} />
+        {!job && <ActivityIndicator animating={true} color={"red"} />}
 
         {job && (
           <FlatList

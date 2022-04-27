@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Alert } from "react-native";
+import { Button, Alert, ToastAndroid } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 
@@ -73,28 +73,30 @@ export const listCity = (sigla) => {
   const [localidade, setLocalidade] = useState([]);
 
   useEffect(() => {
-    if(sigla != ''){
+    if (sigla != "") {
       axios
-      .get(`http://educacao.dadosabertosbr.com/api/cidades/${sigla}`)
-      .then((response) => setCity(response.data))
-      .catch(() => console.log("api de municipios não está respondendo"));
-    }else{
+        .get(`http://educacao.dadosabertosbr.com/api/cidades/${sigla}`)
+        .then((response) => setCity(response.data))
+        .catch(() => console.log("api de municipios não está respondendo"));
+    } else {
       axios
-      .get(`http://educacao.dadosabertosbr.com/api/cidades/sp`)
-      .then((response) => setCity(response.data))
-      .catch(() => console.log("api de municipios não está respondendo"));
+        .get(`http://educacao.dadosabertosbr.com/api/cidades/sp`)
+        .then((response) => setCity(response.data))
+        .catch(() => console.log("api de municipios não está respondendo"));
     }
   }, []);
 
   useEffect(() => {
     setLocalidade(
-      city.map((item) => ({ estado: item.split(':')[1], sigla: item.split(':')[0] }))
+      city.map((item) => ({
+        estado: item.split(":")[1],
+        sigla: item.split(":")[0],
+      }))
     );
   }, [city]);
 
   return localidade;
 };
-
 
 export const showMessage = (title, functionOk) =>
   Alert.alert("", title, [
@@ -103,6 +105,8 @@ export const showMessage = (title, functionOk) =>
       onPress: () => console.log("ok Pressed"),
     },
   ]);
+
+export const showToast = (text) => ToastAndroid.show(text, ToastAndroid.SHORT);
 
 export const showDialog = (text, functionOk, functionCancel) =>
   Alert.alert("", "My Alert Msg", [

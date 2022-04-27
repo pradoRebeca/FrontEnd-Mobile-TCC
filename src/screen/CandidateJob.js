@@ -3,6 +3,8 @@ import { View, StyleSheet, Text, SafeAreaView, FlatList } from "react-native";
 import NotFound from "../components/NotFound";
 import axiosURL from "../API";
 import { ActivityIndicator } from 'react-native-paper';
+import Icon from "@expo/vector-icons/MaterialIcons";
+
 
 import CardJobPreview from "../components/CardJobPreview";
 
@@ -12,17 +14,24 @@ const CandidateJob = () => {
 
   //const imageWithouJob = "https://sim.marica.rj.gov.br/img/icones/empresa2.pngs";
 
+const carregar = () =>{ 
+ if(job.length < 0){
+    console.log('é para carregar')
+    return <ActivityIndicator animating={true} color={'red'} />
+  } else{
+    console.log('nao é para carregar')
+  }
+}
+
   useEffect(() => {
     axiosURL
-      .get(`vaga/listar/vagas/status?idCandidato=1&idStatus=1`)
+      .get(`vaga/listar/vagas/status?idCandidato=${1}&idStatus=${1}`)
       .then((response) => {
         setJob(response.data.content);
         setError(false);
-        return true;
       })
       .catch((error) => {
-        setError(true);
-        return false;
+        setError(true);     
       });
   }, []);
 
@@ -45,8 +54,10 @@ const CandidateJob = () => {
       >
         {error && <NotFound />}
 
-        
-          <ActivityIndicator animating={error ? false : true} color={'red'} />
+     {!job && 
+      <ActivityIndicator animating={true} color={'red'} />
+     }
+         
         
 
         {job && (
@@ -54,7 +65,7 @@ const CandidateJob = () => {
             keyExtractor={(item) => item.id}
             data={job}
             renderItem={(item) => (
-              <CardJobPreview data={item.item} key={item.id} />
+              <CardJobPreview data={item.item} key={item.id} type={'candidatar'} />
             )}
           />
         )}

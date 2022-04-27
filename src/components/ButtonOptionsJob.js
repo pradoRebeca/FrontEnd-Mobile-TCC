@@ -3,13 +3,15 @@ import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "@expo/vector-icons/MaterialIcons";
 
-const ButtonOptionsJob = ({ label, type, icon, object, stateButton, button, id}) => {
+const ButtonOptionsJob = ({ label, type, icon, stateButton, functionClicked, id}) => {
   const [buttonsOptions, setButtonsOptions] = useState(false);
   const navigation = useNavigation();
-console.log(id)
+
+
   const onClick = () => {
-    setButtonsOptions(!buttonsOptions)
-    stateButton({...object, [id]: !buttonsOptions})
+    // setButtonsOptions(!buttonsOptions)
+    stateButton(id)
+    functionClicked()
   };
 
   return (

@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   ScrollView,
   SafeAreaView,
+ 
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
@@ -16,11 +17,13 @@ import { FontAwesome } from "@expo/vector-icons";
 import ButtonOptionsJob from "../components/ButtonOptionsJob";
 import JobRequirements from "../components/JobRequirements";
 import axiosURL from "../API";
+import { emptyField, showMessage, showToast } from "../Functions";
+
 //import JobRequirements from "../components/JobRequirements";
 
 const JobDetails = ({ route }) => {
   const navigation = useNavigation();
-  const [stateJob, setStateJob] = useState([])
+  const [stateJob, setStateJob] = useState([]);
   const [dataVaga, setDataVaga] = useState(
     route.params.dataVaga ?? {
       deficiencia: [],
@@ -28,23 +31,53 @@ const JobDetails = ({ route }) => {
       formacaoDesejada: [],
     }
   );
-  const [buttonsOptions, setButtonsOptions] = useState({
-    '1': false,
-    '2': false,
-    '3': false,
-  });
-  
+  const [buttonsOptions, setButtonsOptions] = useState("");
 
   useEffect(() => {
     axiosURL
-    .put(`vaga/candidatar/${1}?idStatus=${3}`)
-    .then((response) => {
-      return true;
-    })
-    .catch((error) => {
-      return false;
-    });
-  }, [buttonsOptions])
+      .put(`vaga/candidatar/${1}?idStatus=${3}`)
+      .then((response) => {
+        return true;
+      })
+      .catch((error) => {
+        return false;
+      });
+  }, [buttonsOptions]);
+
+  //METHOD POST -> salvar status da vaga como 'salva, dispensada, e candidata''
+  const saveStatus = () => {
+    let actionOK;
+    let actionCancel;
+    switch (buttonsOptions) {
+      case 1:
+        actionOK = "candidatada";
+        actionCancel = "candidatar";
+        break;
+      case 2:
+        actionOK = "salva";
+        actionCancel = "salvar";
+        break;
+      case 1:
+        actionOK = "dispensada";
+        actionCancel = "dispensar";
+        break;
+    }
+   
+    // console.log(dataVaga.id);
+    // console.log(buttonsOptions);
+    if (buttonsOptions != undefined &&  buttonsOptions != "") {
+      axiosURL
+        .post(
+          `vaga/candidatar?idVaga=${dataVaga.id}&idStatus=${buttonsOptions}&idCandidato=1`
+        )
+        .then((response) => console.log(`Vaga ${actionOK} com sucesso`))
+        .catch((error) => console.log(`Houve erro ao se ${actionCancel}`));
+    } else {
+      console.log("nenhuma opcao escolhida");
+    }
+  };
+
+  //console.log("opcao", buttonsOptions);
 
   return (
     <SafeAreaView>
@@ -74,26 +107,23 @@ const JobDetails = ({ route }) => {
                 label="Candidatar-se"
                 type="blue"
                 icon="check-circle-outline"
-                object={buttonsOptions}
                 stateButton={setButtonsOptions}
-                button={'candidatar'}
-               id={1}
+                id={1}
+                functionClicked={saveStatus}
               />
               <ButtonOptionsJob
                 label="Salvar"
                 icon="bookmark-border"
-                object={buttonsOptions}
                 stateButton={setButtonsOptions}
-                button={'salvar'}
                 id={2}
+                functionClicked={saveStatus}
               />
               <ButtonOptionsJob
                 label="Dispensar"
                 icon="block"
-                object={buttonsOptions}
                 stateButton={setButtonsOptions}
-                button={'dispensar'}
                 id={3}
+                functionClicked={saveStatus}
               />
             </View>
             <View style={style.details}>

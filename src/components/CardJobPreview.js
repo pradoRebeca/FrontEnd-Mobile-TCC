@@ -3,32 +3,42 @@ import { Image, StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { Dimensions } from "react-native";
 import { Octicons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
-import { Ionicons } from "@expo/vector-icons";
+//import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import Icon from "@expo/vector-icons/MaterialIcons";
 
 const windowWidth = Dimensions.get("window").width;
 
-const CardJobPreview = ({ data }) => {
+const CardJobPreview = ({ data, type }) => {
   const [dataJob, setDataJob] = useState(data ?? []);
   const navigation = useNavigation();
-  const [icon, setIcon] = useState(false);
 
   const changeIcon = () => {
     setIcon(!icon);
   };
+
+  let icon;
+
+  switch (type) {
+    case "salvar":
+      icon = "bookmark-border";
+      break;
+    case "candidatar":
+      icon = "check-circle-outline";
+      break;
+    case "dispensar":
+      icon = "block";
+      break;
+  }
 
   return (
     <View style={style.content}>
       <View style={style.firstPart}>
         <View style={style.viewJobTitle}>
           <Text style={style.jobTitle}>{dataJob.titulo}...</Text>
-          <TouchableOpacity onPress={changeIcon}>
-            <Ionicons
-              color="#b0b0b0"
-              name={icon ? "bookmark" : "bookmark-outline"}
-              size={23}
-            />
-          </TouchableOpacity>
+       
+            <Icon color="#b0b0b0" name={icon} size={23} />
+        
         </View>
         {dataJob.empresa && (
           <View style={style.infoFirstPart}>
