@@ -9,8 +9,21 @@ const TopNavigation = () => {
   return (
     <Tab.Navigator
       initialRouteName="Inicial"
+
       screenOptions={{
-        headerShown: false,
+        tabBarLabelStyle: { fontSize: 13, textTransform: "capitalize"},
+        headerShown: true,
+    
+        // tabBarStyle: { backgroundColor: 'powderblue' },
+        tabBarActiveTintColor: "#1E7596",
+        // tabBarInactiveTintColor: "red",
+        tabBarPressColor: "#DCEBF2",
+        // tabBarBounces: 0,
+        tabBarIndicatorStyle: { backgroundColor: "#1E7596" },
+        // tabBarIndicatorContainerStyle: {
+        //   backgroundColor: "#4392B8",
+        // },
+        tabBarItemStyle: {minWidth: 50,},
       }}
     >
       <Tab.Screen
@@ -21,17 +34,18 @@ const TopNavigation = () => {
       <Tab.Screen
         name="Candidaturas"
         component={CandidateJob}
-        options={{ tabBarLabel: "Candidatura" }}
+        options={{ tabBarLabel: "Canditatar" }}
       />
       <Tab.Screen
         name="Salvar"
         component={SaveJob}
         options={{ tabBarLabel: "Salvar" }}
       />
-       <Tab.Screen
+      <Tab.Screen
         name="Dispensadas"
         component={SaveJob}
-        options={{ tabBarLabel: "Dispensadas" }}
+        options={{ tabBarLabel: "Dispensar",}}
+
       />
     </Tab.Navigator>
   );

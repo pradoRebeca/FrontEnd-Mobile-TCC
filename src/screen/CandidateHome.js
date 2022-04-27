@@ -13,9 +13,10 @@ import axios from "axios";
 import axiosURL from "../API";
 import { ActivityIndicator } from "react-native-paper";
 
+
 import CardJobPreview from "../components/CardJobPreview";
-import { setWarningFilter } from "react-native/Libraries/LogBox/Data/LogBoxData";
 import NotFound from "../components/NotFound";
+import SearchBar from "../components/SearchBar";
 
 const userData = [
   {
@@ -100,7 +101,7 @@ const CandidateHome = ({ navigation }) => {
   return (
     <SafeAreaView>
       <StatusBar backgroundColor="#1E7596" />
-      {/* <SearchBar /> */}
+   
       {/* <TopNavigation navigation={navigation} /> */}
       <View
         style={

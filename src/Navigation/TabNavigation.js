@@ -16,6 +16,9 @@ const TabNavigation = () => {
     <Tab.Navigator
       screenOptions={{
         tabBarStyle: { backgroundColor: "#1E7596" },
+        headerStyle: {
+          backgroundColor: "#1E7596",
+        },
         tabBarInactiveTintColor: "#DCEBF2",
         tabBarActiveTintColor: "white",
         headerShown: false,
@@ -26,6 +29,7 @@ const TabNavigation = () => {
     >
       <Tab.Screen
         options={{
+          headerShown: true,
           tabBarIcon: ({ color }) => (
             <Foundation name="shopping-bag" color={color} size={26} />
           ),
@@ -33,10 +37,25 @@ const TabNavigation = () => {
         name="Vagas"
         component={TopNavigation}
       />
-      {/* <Tab.Screen   options={{headerShown: true,
-                tabBarIcon: ({ color }) => (<Ionicons name="chatbox-ellipses-outline" color={color} size={26} />)}} name="Chat" component={Screen} />
-            <Tab.Screen   options={{
-                tabBarIcon: ({ color }) => (<Ionicons name="settings-outline" color={color} size={26} /> )}} name="Acessibilidade" component={Screen} /> */}
+      {/* <Tab.Screen
+        options={{
+          headerShown: true,
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="chatbox-ellipses-outline" color={color} size={26} />
+          ),
+        }}
+        name="Chat"
+        component={Screen}
+      />
+      <Tab.Screen
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="settings-outline" color={color} size={26} />
+          ),
+        }}
+        name="Acessibilidade"
+        component={Screen}
+      /> */}
       <Tab.Screen
         options={{
           tabBarIcon: ({ color }) => (

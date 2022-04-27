@@ -26,7 +26,7 @@ const StackNavigation = () => {
       screenOptions={{
         headerBackAccessibilityLabel: "Voltar",
         headerStyle: { backgroundColor: "#1E7596" },
-        headerShown: false,
+        headerShown: true,
         title: false,
         gestureEnabled: true,
         back: { color: "white" },
@@ -34,56 +34,56 @@ const StackNavigation = () => {
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}
     >
-      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Home" component={Home} options={{headerShown: false}}/>
       <Stack.Screen
         name="Login"
-        options={{ headerShown: true, headerTransparent: true }}
+        options={{headerTransparent: true }}
         component={Login}
       />
       <Stack.Screen
         name="Register"
-        options={{ headerShown: true, headerTransparent: true }}
+        options={{headerTransparent: true }}
         component={Register}
       />
       <Stack.Screen
         name="CandidateHome"
         component={TabNavigation}
-        options={{ headerShown: true }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="RegisterPersonalData"
-        options={{ headerShown: true }}
+        // options={{ headerShown: true }}
         component={RegisterPersonalData}
       />
       <Stack.Screen
         name="Cadastrar Endereço"
-        options={{ headerShown: true }}
+        // options={{ headerShown: true }}
         component={RegisterAdress}
       />
       <Stack.Screen
         name="Formação Academica"
-        options={{ headerShown: true }}
+        // options={{ headerShown: true }}
         component={AcademicEducation}
       />
       <Stack.Screen
         name="Experiencia Profissional"
-        options={{ headerShown: true }}
+        // options={{ headerShown: true }}
         component={ProfissionalExperience}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="Informacoes Adicionais"
         options={{ headerShown: true }}
         component={OtherInformation}
-      />
+      /> */}
       <Stack.Screen
         name="Detalhes da Vaga"
-        options={{ headerShown: true }}
+        // options={{ headerShown: true }}
         component={JobDetails}
       />
       <Stack.Screen name="Perfil da Empresa" component={CompanyProfile} />
       <Stack.Screen
         name="Filtrar"
-        options={{ headerShown: true }}
+        // options={{ headerShown: true }}
         component={Filter}
       />
     </Stack.Navigator>
