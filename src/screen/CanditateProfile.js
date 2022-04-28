@@ -56,7 +56,7 @@ const CandidateProfile = () => {
 
   useEffect(() => {
     axiosURL
-      .get(`candidato/buscar/1`)
+      .get(`candidato/buscar/${1}`)
       .then((response) => {
         setExperienceData(response.data.experiencia);
         setCursoData(response.data.curso);
@@ -87,8 +87,7 @@ const CandidateProfile = () => {
     <SafeAreaView>
       {/* <SearchBar /> */}
       <ScrollView>
-
-        <View style={style.infoPreview}>
+        {/* <View style={style.infoPreview}>
           <View style={style.viewImage}>
             <Image
               style={style.image}
@@ -109,7 +108,7 @@ const CandidateProfile = () => {
             <Text style={style.infoDescretion}>{personalInformation}</Text> 
             </View>
           </View>
-        </View>
+        </View> */}
         <View style={style.conatinerInformations}>
           <View style={style.container}>
             <DisplayInformation

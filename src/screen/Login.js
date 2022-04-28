@@ -15,6 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 
 import InputData from "../components/InputData";
 import ButtonHome from "../components/ButtonHome";
+import TitleScreen from "../components/TitleSreen";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -32,7 +33,7 @@ const Login = () => {
       <ScrollView>
         <StatusBar backgroundColor="#DCEBF2" />
         <Image style={style.image} source={require("../img/logoLogin.png")} />
-        <Text style={style.titleScreen}>Login</Text>
+        <TitleScreen title='Login'/>
         <View style={{ width: "100%", padding: "8%" }}>
           <InputData
             keyObject="nome"
@@ -49,9 +50,9 @@ const Login = () => {
         </View>
         <View style={style.passwordRedefinir}>
           <TouchableOpacity
-            onPress={() => navigation.navigate({ name: "Register" })}
+            onPress={() => navigation.navigate({ name: "Esqueci a senha" })}
           >
-            <Text style={{ ...style.text, fontWeight: "700" }}>
+            <Text style={{ ...style.text }}>
               Esqueci senha
             </Text>
           </TouchableOpacity>

@@ -23,7 +23,7 @@ export default ButtonHome;
 
 const style = StyleSheet.create({
   viewButton: {
-    height: 50,
+    height: 40,
     width: 300,
     backgroundColor: "#225E77",
     display: "flex",
@@ -34,8 +34,8 @@ const style = StyleSheet.create({
   },
   titleButton: {
     color: "white",
-    fontSize: 24,
-    letterSpacing: 1,
+    // fontSize: 24,
+   
     fontWeight: "500",
   },
 });

@@ -11,7 +11,7 @@ import {
 import { Dimensions } from "react-native";
 
 import ButtonComponent from "../components/Button";
-
+import TitleScreen from "../components/TitleSreen";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
@@ -20,6 +20,7 @@ const Home = ({ navigation }) => {
     <SafeAreaView style={style.content}>
      <StatusBar backgroundColor='#DCEBF2'/>
         <Image style={style.image} source={require("../img/logo.png")} />
+     
         <Text style={style.text}>
           orem Ipsum is simply dummy text of the printing and typesetting
          

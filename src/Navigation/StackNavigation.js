@@ -16,8 +16,12 @@ import OtherInformation from "../screen/OtherInformation";
 import JobDetails from "../screen/JobDetails";
 import CompanyProfile from "../screen/CompanyProfile";
 import Filter from "../screen/Filter";
+import ForgetPassword from "../screen/ForgetPassword";
 import { backgroundColor } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 import SaveJob from "../screen/SaveJob";
+import EmailValidation from "../screen/EmailValidation";
+import RedefinePassword from "../screen/RedefinePassword";
+import SearchBar from "../components/SearchBar";
 
 const StackNavigation = () => {
   const Stack = createStackNavigator();
@@ -29,45 +33,41 @@ const StackNavigation = () => {
         headerShown: true,
         title: false,
         gestureEnabled: true,
-        back: { color: "white" },
+        // back: { color: "white" },
         gestureDirection: "horizontal",
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}
     >
-      <Stack.Screen name="Home" component={Home} options={{headerShown: false}}/>
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen
         name="Login"
-        options={{headerTransparent: true }}
+        options={{ headerTransparent: true }}
         component={Login}
       />
       <Stack.Screen
         name="Register"
-        options={{headerTransparent: true }}
+        options={{ headerTransparent: true }}
         component={Register}
       />
       <Stack.Screen
+        options={{
+          headerShown: false,
+        }}
         name="CandidateHome"
         component={TabNavigation}
-        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="RegisterPersonalData"
-        // options={{ headerShown: true }}
         component={RegisterPersonalData}
       />
-      <Stack.Screen
-        name="Cadastrar Endereço"
-        // options={{ headerShown: true }}
-        component={RegisterAdress}
-      />
-      <Stack.Screen
-        name="Formação Academica"
-        // options={{ headerShown: true }}
-        component={AcademicEducation}
-      />
+      <Stack.Screen name="Cadastrar Endereço" component={RegisterAdress} />
+      <Stack.Screen name="Formação Academica" component={AcademicEducation} />
       <Stack.Screen
         name="Experiencia Profissional"
-        // options={{ headerShown: true }}
         component={ProfissionalExperience}
       />
       {/* <Stack.Screen
@@ -75,16 +75,23 @@ const StackNavigation = () => {
         options={{ headerShown: true }}
         component={OtherInformation}
       /> */}
-      <Stack.Screen
-        name="Detalhes da Vaga"
-        // options={{ headerShown: true }}
-        component={JobDetails}
-      />
+      <Stack.Screen name="Detalhes da Vaga" component={JobDetails} />
       <Stack.Screen name="Perfil da Empresa" component={CompanyProfile} />
+      <Stack.Screen name="Filtrar" component={Filter} />
       <Stack.Screen
-        name="Filtrar"
-        // options={{ headerShown: true }}
-        component={Filter}
+        options={{ headerTransparent: true }}
+        name="Esqueci a senha"
+        component={ForgetPassword}
+      />
+      <Stack.Screen
+        options={{ headerTransparent: true }}
+        name="Validacao email"
+        component={EmailValidation}
+      />
+      <Stack.Screen
+        options={{ headerTransparent: true }}
+        name="Redefinicao de senha"
+        component={RedefinePassword}
       />
     </Stack.Navigator>
   );

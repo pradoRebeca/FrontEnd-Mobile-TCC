@@ -99,6 +99,7 @@ const CandidateHome = ({ navigation }) => {
   console.log(error);
   return (
     <SafeAreaView>
+    {/* <SearchBar/> */}
       <StatusBar backgroundColor="#1E7596" />
 
       {/* <TopNavigation navigation={navigation} /> */}
@@ -113,7 +114,8 @@ const CandidateHome = ({ navigation }) => {
         }
       >
         {error && <NotFound />}
-        {!job && <ActivityIndicator animating={true} color={"red"} />}
+        <ActivityIndicator animating={error ? false : true} color={"#1E7596"} />
+
 
         {job && (
           <FlatList

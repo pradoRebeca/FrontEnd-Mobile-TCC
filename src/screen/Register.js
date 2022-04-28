@@ -19,6 +19,7 @@ import { emptyField, showMessage } from "../Functions";
 //import { showMessage } from "../alerts/ShowMessage";
 import ButtonHome from "../components/ButtonHome";
 import axiosURL from "../API";
+import TitleScreen from "../components/TitleSreen";
 
 //GOOGLE COLOR rgb('#4285F4','#0DF9D58','#FAB400','#DB4437')
 
@@ -53,8 +54,9 @@ const Register = () => {
   return (
     <SafeAreaView style={style.content}>
       <Image style={style.imageLogo} source={require("../img/logoLogin.png")} />
-      <Text style={style.titleScreen}>Cadastre-se</Text>
-      <View style={{ width: "100%", paddingLeft: "8%", paddingRight: "10%" }}>
+     
+      <TitleScreen title='Cadastre-se'/>
+      <View style={{ width: "100%", paddingLeft: "8%", paddingRight: "10%", marginTop: 30 }}>
         <InputData
           object={personalData}
           onChangeObject={setPersonalData}

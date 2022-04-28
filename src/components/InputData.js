@@ -84,7 +84,7 @@ const InputData = ({
         // maxLength={length}
         left={
           mode ? (
-            <TextInput.Icon name={nameIcon} color="#DCEBF2" size={30} />
+            <TextInput.Icon name={nameIcon} color="#DCEBF2" size={25} />
           ) : (
             ""
           )
@@ -107,7 +107,7 @@ const InputData = ({
             ? { ...style.inputText, backgroundColor: "white" }
             : style.inputText
         }
-        dense={1}
+       
         onPress={text}
       />
       {/* {errorMassage.display && (
@@ -129,6 +129,7 @@ const style = StyleSheet.create({
   inputText: {
     backgroundColor: "#F5F5F5",
     width: "100%",
+    height: 55,
   },
   label:{
     color: 'red',

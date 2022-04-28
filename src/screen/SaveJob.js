@@ -44,7 +44,7 @@ const SaveJob = () => {
       >
         {error && <NotFound />}
 
-        {!job && <ActivityIndicator animating={true} color={"red"} />}
+        <ActivityIndicator animating={error ? false : true} color={"#1E7596"} />
 
         {job && (
           <FlatList

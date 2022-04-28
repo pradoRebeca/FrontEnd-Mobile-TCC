@@ -9,8 +9,23 @@ import { Ionicons } from "@expo/vector-icons";
 
 import CandidateProfile from "../screen/CanditateProfile";
 import TopNavigation from "./TopNavigation";
+import { useEffect } from 'react';
+import { BackHandler } from 'react-native';
+
+import SearchBar from "../components/SearchBar";
+import Photo from "../components/Photo";
 
 const TabNavigation = () => {
+
+
+
+
+// useEffect(() => {
+//   BackHandler.addEventListener('backPress', () => true)
+//   // BackHandler.removeEventListener('backPress', () => true)
+// }, [])
+
+
   const Tab = createBottomTabNavigator();
   return (
     <Tab.Navigator
@@ -29,7 +44,9 @@ const TabNavigation = () => {
     >
       <Tab.Screen
         options={{
-          headerShown: true,
+         headerShown: true,
+         
+         headerTitle:() => <SearchBar/>,
           tabBarIcon: ({ color }) => (
             <Foundation name="shopping-bag" color={color} size={26} />
           ),
@@ -46,8 +63,8 @@ const TabNavigation = () => {
         }}
         name="Chat"
         component={Screen}
-      />
-      <Tab.Screen
+      /> */}
+      {/* <Tab.Screen
         options={{
           tabBarIcon: ({ color }) => (
             <Ionicons name="settings-outline" color={color} size={26} />
@@ -58,6 +75,8 @@ const TabNavigation = () => {
       /> */}
       <Tab.Screen
         options={{
+          headerShown: true,
+          headerTitle:() => <Photo/>,
           tabBarIcon: ({ color }) => (
             <FontAwesome name="user-circle-o" color={color} size={26} />
           ),

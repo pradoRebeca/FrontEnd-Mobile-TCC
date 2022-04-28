@@ -26,16 +26,17 @@ const style = StyleSheet.create({
   content: {
     top: 0,
     width: '100%',
-    height: 60,
-    backgroundColor: '#1E7596', 
+    height: '100%',
+    // backgroundColor: '#1E7596', 
+    // backgroundColor: 'blue',
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-around',
+   justifyContent: 'center',
     alignItems: 'center',
   },
   search: {
     borderRadius: 30,
-    width: '85%',
+    width: '90%',
     height: 35,
   },
 })

@@ -13,7 +13,7 @@ const TopNavigation = () => {
       screenOptions={{
         tabBarLabelStyle: { fontSize: 13, textTransform: "capitalize"},
         headerShown: true,
-    
+      
         // tabBarStyle: { backgroundColor: 'powderblue' },
         tabBarActiveTintColor: "#1E7596",
         // tabBarInactiveTintColor: "red",
