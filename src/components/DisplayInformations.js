@@ -101,12 +101,12 @@ const DisplayInformation = ({
         renderItem={(item) => (
           <Information data={item.item} mode={mode} nameSreen={nameSreen} />
         )}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item}
         ItemSeparatorComponent={ItemSeparator}
       />
-      {/*[itens].map((item) => (
-        <Information data={item} mode={mode} nameSreen={nameSreen} />
-      ))*/}
+      {/* {[data].map((item) => (
+        <Information data={item.item} mode={mode} nameSreen={nameSreen} />
+      ))} */}
 
       {buttonAdd()}
     </>

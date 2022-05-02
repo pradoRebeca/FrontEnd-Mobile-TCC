@@ -17,65 +17,30 @@ const InputData = ({
   required
 }) => {
   //06693590
-  const [text, setText] = useState("");
+  const [text, setText] = useState('');
 
-  useEffect(() => {
-    if (valueAPI != undefined) {
-      setText(valueAPI);
-    }
-  });
+  // useEffect(() => {
+  //   if (valueAPI != undefined) {
+  //     setText(valueAPI);
+  //   }
+  // }, []);
 
- 
+  console.log('valor do valueDefault', valueDefault)
 
   useEffect(() => {
       setText(valueDefault);
   }, [valueDefault]);
 
   const onChangeText = (element) => {
-    onChangeObject({ ...object, [keyObject]: element });
-    console.log(element)
+
+   return  onChangeObject({ ...object, [keyObject]: element});
+  
   };
 
   if([label].includes('*')){
     console.log('tem asterisco')
   }
-  //alerta da input parfa verificar se tem erro ou não
-  // const [errorMassage, setErrorMassage] = useState({
-  //   message: "",
-  //   display: false,
-  //   type: "info",
-  // });
-
-  // const hasErrors = () => {
-  //   console.log(error)
-  //   setErrorMassage(error);
-  // };
-
-  // var styleInput;
-  // var modeInput;
-  // var iconInput;
-
-  // switch(mode){
-  //   case 'calendar':
-  //     iconInput = <TextInput.Icon name={nameIcon} color="#DCEBF2" size={30} />;
-  //     modeInput = 'outlined'
-  //     styleInput = style.inputText
-  //     break;
-
-  //   case 'register':
-  //       iconInput = '';
-  //       modeInput = 'flat'
-  //       styleInput = { ...style.inputText, backgroundColor: "white" }
-  //       break;
-
-  //   case 'initial':
-  //       iconInput = <TextInput.Icon name={nameIcon} color="#DCEBF2" size={30} />;
-  //       modeInput = 'flat'
-  //       styleInput = style.inputText
-  //       break;
-
-  // }
-
+ 
   return (
     <View style={style.container} accessible={true}>
       {/* <Text>{label}</Text> */}
@@ -105,7 +70,7 @@ const InputData = ({
         style={
           mode
             ? { ...style.inputText, backgroundColor: "white" }
-            : style.inputText
+            : {...style.inputText, height: 40,}
         }
        
         onPress={text}

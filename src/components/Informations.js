@@ -68,23 +68,39 @@ const Information = ({ data, nameSreen }) => {
     return titleText.map((item) => renderText(item[0], item[1]));
   };
 
-
+  // const existItem = () => {
+  //   if (data.length <= 0) {
+  //     return (
+  //       <TouchableOpacity
+  //         style={style.button}
+  //         onPress={() =>
+  //           navigation.navigate(nameSreen, {
+  //             edit: true,
+  //             id: data[id],
+  //           })
+  //         }
+  //       >
+  //         <Text style={{ color: "#1E7596" }}>{action}</Text>
+  //       </TouchableOpacity>
+  //     );
+  //   }
+  // };
 
 
   return (
     <View style={style.viewInfo}>
       {renderItem()}
       <TouchableOpacity
-        style={style.button}
-        onPress={() =>
-          navigation.navigate(nameSreen, {
-            edit: true,
-            id: data[id],
-          })
-        }
-      >
-        <Text style={{ color: "#1E7596" }}>{action}</Text>
-      </TouchableOpacity>
+          style={style.button}
+          onPress={() =>
+            navigation.navigate(nameSreen, {
+              edit: true,
+              id: data[id],
+            })
+          }
+        >
+          <Text style={{ color: "#1E7596" }}>{action}</Text>
+        </TouchableOpacity>
     </View>
   );
 };

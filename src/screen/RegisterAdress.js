@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StatusBar, ScrollView, Image } from "react-native";
+import { View, StatusBar, ScrollView, Image, Button } from "react-native";
 import { KeyboardAvoidingView } from "react-native";
 import axios from "axios";
 
@@ -8,13 +8,14 @@ import ModifyTitle from "../components/ModifyTitle";
 import Style from "../Style";
 import Select from "../components/Select";
 import ButtonSave from "../components/ButtonSave";
-import { listState, emptyField, listCity } from "../Functions";
+import { listState, emptyField, listCity, showMessage } from "../Functions";
 import axiosURL from "../API";
 
 //06693590
 const RegisterAdress = ({ navigation, route }) => {
   var state = listState();
 
+  const [apiResponse, setApiResponse] = useState(0)
   const [clicked, setClick] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [displayButtons, setDisplayButtons] = useState(false);
@@ -24,7 +25,7 @@ const RegisterAdress = ({ navigation, route }) => {
     rua: "",
     numero: "",
     bairro: "",
-    cidade: "abc",
+    cidade: "",
     sigla: "",
     cep: "",
     estado: "",
@@ -57,14 +58,18 @@ const RegisterAdress = ({ navigation, route }) => {
     if (!route.params.edit) {
       if (adressTyped.cep != "") {
         if (validate(adressTyped.cep)) {
+          console.log(validate(adressTyped.cep))
           axios
             .get(`https://viacep.com.br/ws/${adressTyped.cep}/json/`)
             .then((response) => {
+            //  console.log(response.data)
               setAdressAPI(response.data);
               setDisplayButtons(true);
             })
             .catch(() => {
-              setButtonDisabled(false), setButtonDisabled(false);
+              setButtonDisabled(false),
+                setButtonDisabled(false),
+                showMessage("CEP não encontrado");
             });
         } else {
           console.log("nao deu certo texto");
@@ -75,7 +80,9 @@ const RegisterAdress = ({ navigation, route }) => {
       }
     }
   }, [adressTyped.cep]);
-  console.log("endereco ", adressTyped);
+
+  //console.log("endereco ", adressTyped);
+
   //METHOD GET
   useEffect(() => {
     if (route.params.edit) {
@@ -117,6 +124,7 @@ const RegisterAdress = ({ navigation, route }) => {
     } else {
       //METODO POST
       if (emptyField(adressTyped.cep)) {
+        console.log(adressTyped)
         axiosURL
           .post(`candidato/cadastrar/endereco/1`, {
             rua: adressTyped.rua,
@@ -142,8 +150,8 @@ const RegisterAdress = ({ navigation, route }) => {
     }
   };
 
-  // console.log(adressTyped)
-  // console.log(adressAPI)
+  console.log('endereco '  ,adressTyped)
+  //console.log( 'via cep', adressAPI)
 
   return (
     <>
@@ -162,20 +170,19 @@ const RegisterAdress = ({ navigation, route }) => {
               error={error}
               required={true}
               object={adressTyped}
-              valueDefault={adressAPI.cep ?? adressTyped.cep}
+              valueDefault={adressAPI.cep}
               onChangeObject={setAdressTyped}
             />
 
-            {displayButtons && (
-              <>
+            
                 <InputData
                   key="rua"
                   label="Logradouro"
                   keyObject="rua"
                   object={adressTyped}
                   onChangeObject={setAdressTyped}
-                  valueDefault={adressTyped.rua}
-                  valueAPI={adressAPI.logradouro}
+                  // valueDefault={adressAPI.rua}
+                  valueDefault={adressAPI.logradouro}
                 />
                 <InputData
                   key="numero"
@@ -184,7 +191,7 @@ const RegisterAdress = ({ navigation, route }) => {
                   object={adressTyped}
                   onChangeObject={setAdressTyped}
                   valueDefault={adressTyped.numero}
-                  valueAPI={adressAPI.numero}
+                  // valueAPI={adressAPI.numero}
                 />
 
                 <InputData
@@ -193,8 +200,17 @@ const RegisterAdress = ({ navigation, route }) => {
                   keyObject="bairro"
                   object={adressTyped}
                   onChangeObject={setAdressTyped}
-                  valueDefault={adressTyped.bairro}
-                  valueAPI={adressAPI.bairro}
+                  valueDefault={adressAPI.bairro}
+                  // valueAPI={adressAPI.bairro}
+                />
+                <InputData
+                  key="cicade"
+                  label="Cidade"
+                  keyObject="cidade"
+                  object={adressTyped}
+                  onChangeObject={setAdressTyped}
+                  valueDefault={adressAPI.localidade}
+                 // valueAPI={adressAPI.localidade}
                 />
                 <Select
                   label={"Selecione um estado"}
@@ -202,11 +218,11 @@ const RegisterAdress = ({ navigation, route }) => {
                   keyObject="sigla"
                   object={adressTyped}
                   onChangeObject={setAdressTyped}
-                  valueDefault={adressTyped.sigla}
-                  valueAPI={adressAPI.uf}
+                  valueDefault={adressAPI.uf}
+                  // valueAPI={adressAPI.uf}
                 />
-              </>
-            )}
+            
+     
 
             {/* <Select
               label={"Selecione uma cidade"}
@@ -226,6 +242,10 @@ const RegisterAdress = ({ navigation, route }) => {
             /> */}
           </KeyboardAvoidingView>
           <ButtonSave disabled={buttonDisabled} functionClicked={saveData} />
+          <Button title="Cadastrar Endereço" onPress={() => {
+            setApiResponse(200)
+            
+            }}/>
         </View>
       </ScrollView>
     </>

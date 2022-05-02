@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import {
   Image,
   ScrollView,
@@ -16,15 +16,24 @@ import { useNavigation } from "@react-navigation/native";
 import InputData from "../components/InputData";
 import ButtonHome from "../components/ButtonHome";
 import TitleScreen from "../components/TitleSreen";
+import { AuthContext } from "../contexts/AuthContext";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-console.log(windowWidth);
 const Login = () => {
+  const { singIn } = useContext(AuthContext);
   const navigation = useNavigation();
 
+  const [personalData, setPersonalData] = useState({
+    email: "",
+    senha: "",
+  });
+
+  
   const logon = () => {
+   //console.log('dados login: ' ,personalData.email, personalData.senha)
+    //singIn(personalData.email, personalData.senha)
     navigation.navigate({ name: "CandidateHome" });
   };
 
@@ -33,16 +42,22 @@ const Login = () => {
       <ScrollView>
         <StatusBar backgroundColor="#DCEBF2" />
         <Image style={style.image} source={require("../img/logoLogin.png")} />
-        <TitleScreen title='Login'/>
+        <TitleScreen title="Login" />
         <View style={{ width: "100%", padding: "8%" }}>
           <InputData
-            keyObject="nome"
+            object={personalData}
+            onChangeObject={setPersonalData}
+            valueDefault={personalData.email}
+            keyObject="email"
             label="Usuario"
             nameIcon="account"
             mode={true}
           />
           <InputData
-            keyObject="nome"
+            object={personalData}
+            onChangeObject={setPersonalData}
+            valueDefault={personalData.senha}
+            keyObject="senha"
             label="Senha"
             nameIcon="lock"
             mode={true}
@@ -52,9 +67,7 @@ const Login = () => {
           <TouchableOpacity
             onPress={() => navigation.navigate({ name: "Esqueci a senha" })}
           >
-            <Text style={{ ...style.text }}>
-              Esqueci senha
-            </Text>
+            <Text style={{ ...style.text }}>Esqueci senha</Text>
           </TouchableOpacity>
         </View>
 

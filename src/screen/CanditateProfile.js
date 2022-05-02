@@ -34,7 +34,7 @@ const user = [
   },
 ];
 
-const endereco = {
+const enderecoRua = {
   rua: "rua a",
   numero: "12",
   bairro: "",
@@ -121,7 +121,7 @@ const CandidateProfile = () => {
           <View style={style.container}>
             <DisplayInformation
               titleSection="Cadastrar Endereço"
-              data={[endereco]}
+             // data={[enderecoRua]}
               nameSreen="Cadastrar Endereço"
             />
           </View>

@@ -52,6 +52,8 @@ const ProfissionalExperience = ({ route }) => {
           });
       } else {
         //METHOD POST
+        console.log('testeeeeeeeeeee')
+        console.log(personalData)
         axiosURL
           .post(`candidato/cadastrar/experiencia/${1}`, {
             cargo: personalData.cargo,

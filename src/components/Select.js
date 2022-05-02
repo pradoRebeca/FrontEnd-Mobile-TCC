@@ -1,21 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, Picker, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 
 const Select = (props) => {
   const [selectedValue, setSelectedValue] = useState();
 
   const label = props.label;
-  
-
-  const functionSelected = () => {
-    if (props.valueDefault != '' && props.valueDefault != undefined) {
-      return props.data
-        .filter((item) => item.sigla === props.valueDefault)
-        .map((item) => <Picker.Item color='black'  label={item.estado} value={item} />);
-    } else {
-      return <Picker.Item color="#7C7C7C" label={props.label} value={undefined} />;
-    }
-  };
+  console.log("select: ", props.valueDefault);
 
   const onChange = (obj) => {
     console.log(obj);
@@ -29,6 +20,30 @@ const Select = (props) => {
     }
   };
 
+  const functionSelected = () => {
+    if (props.valueDefault != "" && props.valueDefault != undefined) {
+      return props.data
+        .filter((item) => item.sigla === props.valueDefault)
+        .map((item) => (
+          <Picker.Item
+            color="black"
+            key={item.sigla}
+            label={item.estado}
+            value={item}
+          />
+        ));
+    } else {
+      return (
+        <Picker.Item
+          color="#7C7C7C"
+          key={undefined}
+          label={props.label}
+          value={undefined}
+        />
+      );
+    }
+  };
+
   return (
     <View style={{ backgroundColor: "#F5F5F5", marginBottom: 10 }}>
       <Picker
@@ -39,7 +54,12 @@ const Select = (props) => {
       >
         {functionSelected()}
         {props.data.map((item) => (
-          <Picker.Item color='black' label={item.estado} value={item} />
+          <Picker.Item
+            color="black"
+            label={item.estado}
+            key={item.sigla}
+            value={item}
+          />
         ))}
       </Picker>
     </View>
@@ -53,6 +73,5 @@ const style = StyleSheet.create({
     height: 40,
     width: "100%",
     backgroundColor: "#F5F5F5",
-   
   },
 });
