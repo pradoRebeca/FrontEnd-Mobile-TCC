@@ -19,27 +19,46 @@ const InputData = ({
   //06693590
   const [text, setText] = useState('');
 
+  //const [value, setValue] = useState(valueDefault)
+  // console.log('value ', keyObject, ': ', value)
+
+
+ useEffect(() => {
+   if(valueDefault != undefined && valueDefault != ''){
+    console.log('value ', keyObject, ': ', valueDefault)
+    onChangeText(valueDefault)
+   }  
+ }, [valueDefault])
+
+
   // useEffect(() => {
-  //   if (valueAPI != undefined) {
-  //     setText(valueAPI);
+  //   console.log('value api: ', valueAPI)
+  //   if (value != undefined && value != '') {
+  //     setText(value);
+  //     onChangeObject({ ...object, [keyObject]: value});
+   
+  //   }else{
+  // console.log(keyObject, value)
   //   }
+  // }, [value]);
+
+  //console.log('valor do valueDefault', valueDefault)
+
+  // useEffect(() => {
+  //   console.log(text)
+  //     setText(valueDefault);
+  //     onChangeObject({ ...object, [keyObject] : text});
   // }, []);
 
-  console.log('valor do valueDefault', valueDefault)
-
-  useEffect(() => {
-      setText(valueDefault);
-  }, [valueDefault]);
 
   const onChangeText = (element) => {
-
-   return  onChangeObject({ ...object, [keyObject]: element});
-  
+    setText(element)
+   onChangeObject({ ...object, [keyObject]: element});
   };
 
-  if([label].includes('*')){
-    console.log('tem asterisco')
-  }
+  // if([label].includes('*')){
+  //   console.log('tem asterisco')
+  // }
  
   return (
     <View style={style.container} accessible={true}>
@@ -56,7 +75,7 @@ const InputData = ({
         }
         editable={editable}
         
-        onEndEditing={(e) => onChangeText(e.nativeEvent.text)}
+       onEndEditing={(e) => onChangeText(e.nativeEvent.text)}
         numberOfLines={3}
         multiline={multiline}
         activeUnderlineColor="#225E77"
