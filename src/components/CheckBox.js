@@ -7,6 +7,7 @@ const CheckboxComponent = ({ data, type, text }) => {
     new Array(data.length).fill(false)
   );
 
+  const [dataCheckbox, setDataCheckbox] = useState(data.map(item => item.id))
   const [idChecked, setIdChecked] = useState([]);
 
   const handleOnChange = (position, id) => {
@@ -15,19 +16,31 @@ const CheckboxComponent = ({ data, type, text }) => {
     );
 
     setCheckedState(updatedCheckedState);
-
-    checkedState.map((item, index) => {
-      if (index === position) {
-        setIdChecked((idChecked[Symbol.iterator] = [...idChecked, id]));
-      }
-    });
+    // const unchecked = checkedState.map((item, index) => {
+    //   if (index === position) {
+    //     setIdChecked((idChecked[Symbol.iterator] = [...idChecked, id]));
+    //   }
+    // });
   };
 
-  useEffect(() => {
-    const camposCheckedsemRepeticao = [...new Set(idChecked)];
-    console.log("array com os itens checkados: ", camposCheckedsemRepeticao);
-  }, [checkedState]);
+const getValues = (item, id) => {
+      
+        if(checkedState[item]){
+          setIdChecked((idChecked[Symbol.iterator] = [...idChecked, id]));    
+        }else{
+          // const [id, ...rest] = idChecked[Symbol.iterator]
+          // setIdChecked([rest]);  
+        }
+      
+}
 
+  // useEffect(() => {
+  //   const updatedCheckedState = checkedState.map((item, index) =>
+  //     console.log(item, index)
+  //   );
+  // }, [checkedState]);
+console.log('checked: ', idChecked)
+  console.log('checkbox: ',checkedState)
   let textTitle = text;
 
   const render = () => {
@@ -42,7 +55,7 @@ const CheckboxComponent = ({ data, type, text }) => {
             label={tipo}
             value={id}
             status={checkedState[index] ? "checked" : "unchecked"}
-            onPress={() => handleOnChange(index, id)}
+            onPress={() => {handleOnChange(index), getValues(index, id)}}
           />
         );
       });
@@ -57,7 +70,7 @@ const CheckboxComponent = ({ data, type, text }) => {
             label={tipo}
             value={id}
             status={checkedState[index] ? "checked" : "unchecked"}
-            onPress={() => handleOnChange(index, id)}
+            onPress={() => {handleOnChange(index), getValues(index)}}
           />
         );
       });

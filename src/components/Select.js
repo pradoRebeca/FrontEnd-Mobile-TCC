@@ -3,14 +3,14 @@ import { View, StyleSheet } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 
 const Select = (props) => {
+console.log(props.valueDefault)
 
   const [selectedValue, setSelectedValue] = useState();
 
   const label = props.label;
-  // console.log("select: ", props.valueDefault);
 
   const onChange = (obj) => {
-    console.log(obj);
+    console.log('onchange ');
     if (obj != null) {
       setSelectedValue(obj);
       props.onChangeObject({
@@ -48,10 +48,7 @@ const Select = (props) => {
   };
 
   
-  useEffect(()=> {
-    functionSelected()
-
-  }, [props.valueDefault])
+ 
   return (
     <View style={{ backgroundColor: "#F5F5F5", marginBottom: 10 }}>
       <Picker

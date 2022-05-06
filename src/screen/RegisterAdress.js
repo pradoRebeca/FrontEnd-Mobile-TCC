@@ -120,13 +120,13 @@ const RegisterAdress = ({ navigation, route }) => {
     if (route.params.edit) {
       axiosURL
         .put(`candidato/atualizar/endereco/1`, {
-          rua: adressTyped.rua,
-          numero: adressTyped.numero,
-          bairro: adressTyped.bairro,
-          estado: adressTyped.estado,
-          cidade: adressTyped.cidade,
-          sigla: adressTyped.sigla,
-          cep: adressTyped.cep,
+          rua: rua.rua,
+          numero: numero.numero,
+          bairro: bairro.bairro,
+          estado: sigla.estado,
+          cidade: cidade.cidade,
+          sigla: sigla.sigla,
+          cep: cep.cep,
         })
         .then((response) => {
           console.log("dados  de endereço  atualizados com sucesso");
@@ -142,13 +142,13 @@ const RegisterAdress = ({ navigation, route }) => {
         console.log(adressTyped);
         axiosURL
           .post(`candidato/cadastrar/endereco/1`, {
-            rua: adressTyped.rua,
-            numero: adressTyped.numero,
-            bairro: adressTyped.bairro,
-            cidade: adressTyped.cidade,
-            estado: adressTyped.estado,
-            sigla: adressTyped.sigla,
-            cep: adressTyped.cep,
+            rua: rua.rua,
+            numero: numero.numero,
+            bairro: bairro.bairro,
+            estado: sigla.estado,
+            cidade: cidade.cidade,
+            sigla: sigla.sigla,
+            cep: cep.cep,
           })
           .then((response) => {
             console.log("dados cadastrados com sucesso");
@@ -169,12 +169,12 @@ const RegisterAdress = ({ navigation, route }) => {
   // console.log( 'via cep', adressAPI)
 
 
-  // console.log('bairro: ', bairro)
-  // console.log('cep: ', cep)
-  // console.log('rua: ', rua)
-  // console.log('cidade: ', cidade)
-  // console.log('estado: ', sigla.estado)
-  // console.log('numero: ', numero)
+  console.log('bairro: ', bairro)
+  console.log('cep: ', cep)
+  console.log('rua: ', rua)
+  console.log('cidade: ', cidade)
+  console.log('estado: ', sigla.estado)
+  console.log('numero: ', numero)
   console.log('sigla: ', sigla)
 
 
@@ -227,7 +227,7 @@ const RegisterAdress = ({ navigation, route }) => {
               label="Cidade"
               keyObject="cidade"
               object={cidade}
-              valueDefault={adressAPI.cep ?? cidade.cidade}
+              valueDefault={adressAPI.localidade ?? cidade.cidade}
               onChangeObject={setCidade}
               type='adress'
             />
