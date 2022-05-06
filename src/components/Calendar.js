@@ -6,7 +6,7 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 const Calendar = ({ onChange }) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
-  const formatDate = (data) => {
+  const formatDateBD = (data) => {
     let dateTimeString =
       data.getDate() +
       "-" +
@@ -18,6 +18,8 @@ const Calendar = ({ onChange }) => {
     return dateTimeString;
   };
 
+
+
   const showDatePicker = () => {
     setDatePickerVisibility(true);
   };
@@ -27,7 +29,7 @@ const Calendar = ({ onChange }) => {
   };
 
   const handleConfirm = (date) => {
-    const format = formatDate(date);
+    const format = formatDateBD(date);
     hideDatePicker();
     onChange(format);
   };

@@ -21,25 +21,23 @@ const RegisterAdress = ({ navigation, route }) => {
   const [displayButtons, setDisplayButtons] = useState(false);
 
   const [adressAPI, setAdressAPI] = useState({});
-  // const [teste, setTeste] = useState({
-  //   rua: "1",
-  //   numero: "12",
-  //   bairro: "dsds",
-  //   cidade: "dsdsd",
-  //   sigla: "SP",
-  //   cep: "06693590",
-  //   estado: "dsd",
+  // const [adressTyped, setAdressTyped] = useState({
+  //   rua: "",
+  //   numero: "",
+  //   bairro: "",
+  //   sigla: "",
+  //   cidade: "",
+  //   cep: "",
+  //   estado: "",
   // });
 
-  const [adressTyped, setAdressTyped] = useState({
-    rua: "",
-    numero: "",
-    bairro: "",
-    sigla: "",
-    cidade: "",
-    cep: "",
-    estado: "",
-  });
+  const [cep, setCep] = useState({cep: ''});
+  const [rua, setRua] = useState({rua : ''});
+  const [bairro, setBairro] = useState({bairro: ''});
+  const [cidade, setCidade] = useState({cidade: ''});
+  const [sigla, setSigla] = useState({sigla: ''});
+  const [numero, setNumero] = useState({numero: ''});
+
 
   const [error, setError] = useState({
     message: "",
@@ -58,23 +56,31 @@ const RegisterAdress = ({ navigation, route }) => {
     }
   };
 
-  const [city, setCity] = useState(listState(adressTyped.sigla));
   // useEffect(() => {
   //   setCity(listCity(adressTyped.city));
   // }, [adressTyped.cidade]);
 
   //GET API VIACEP
+  // function searchCEP() {
+  //   axios
+  //     .get(`https://viacep.com.br/ws/${cep.cep}/json/`)
+  //     .then((response) => setAdressAPI(response.data))
+  //     .catch((error) => console.log("error: ", error));
+  // }
 
-  
+  // useEffect(() => {
+  //   searchCEP()
+  // }, [adressTyped.cep])
+
   useEffect(() => {
-//      console.log("valor do cep: ", adressTyped.cep);
-// setAdressAPI('abcjs')
-// console.log(adressAPI)
-    if (adressTyped.cep != "") {
-      if (validate(adressTyped.cep)) {
+  //  console.log("passo");
+    // setAdressAPI('abcjs')
+    // console.log(adressAPI)
+    if (cep.cep != "") {
+      if (validate(cep.cep)) {
         //console.log(validate(adressTyped.cep))
         axios
-          .get(`https://viacep.com.br/ws/${adressTyped.cep}/json/`)
+          .get(`https://viacep.com.br/ws/${cep.cep}/json/`)
           .then((response) => setAdressAPI(response.data))
           .catch(() => {
             setButtonDisabled(false),
@@ -88,7 +94,7 @@ const RegisterAdress = ({ navigation, route }) => {
     } else {
       // setButtonDisabled(true);
     }
-  },[adressTyped.cep]);
+  }, [cep.cep]);
 
   // console.log("adressAPI: ", adressAPI);
 
@@ -159,8 +165,19 @@ const RegisterAdress = ({ navigation, route }) => {
     }
   };
 
-  console.log("endereco ", adressTyped);
-  //console.log( 'via cep', adressAPI)
+ // console.log("endereco ", adressTyped);
+  // console.log( 'via cep', adressAPI)
+
+
+  // console.log('bairro: ', bairro)
+  // console.log('cep: ', cep)
+  // console.log('rua: ', rua)
+  // console.log('cidade: ', cidade)
+  // console.log('estado: ', sigla.estado)
+  // console.log('numero: ', numero)
+  console.log('sigla: ', sigla)
+
+
 
   return (
     <>
@@ -178,65 +195,65 @@ const RegisterAdress = ({ navigation, route }) => {
               keyObject={"cep"}
               error={error}
               required={true}
-              object={adressTyped}
-              valueDefault={adressTyped.cep}
-              onChangeObject={setAdressTyped}
+              object={cep}
+              valueDefault={adressAPI.cep ?? cep.cep}
+              onChangeObject={setCep}
+              type='adress'
+              mask={'cep'}
             />
 
             <InputData
               key="rua"
               label="Logradouro"
               keyObject="rua"
-              object={adressTyped}
-              onChangeObject={setAdressTyped}
-              valueDefault={adressAPI.logradouro}
-              // valueDefault={teste.rua}
+              object={rua}
+              onChangeObject={setRua}
+              valueDefault={adressAPI.logradouro ?? rua.rua}
+              type='adress'
+            
             />
-            {/* <InputData
+            <InputData
               key="numero"
               label="Número"
               keyObject="numero"
-              object={adressTyped}
-              onChangeObject={setAdressTyped}
-              valueDefault={adressAPI.numero}
-              // valueAPI={adressAPI.numero}
-            /> */}
-
-            {/* <InputData
-              key="bairro"
-              label="Bairro"
-              keyObject="bairro"
-              object={adressTyped}
-              onChangeObject={setAdressTyped}
-              valueDefault={adressAPI.bairro ?? adressTyped.bairro}
-               
-            /> */}
-            {/* <InputData
+              object={numero}
+              valueDefault={numero.numero}
+              onChangeObject={setNumero}
+              type='adress'
+            />
+            
+            <InputData
               key="cicade"
               label="Cidade"
               keyObject="cidade"
-              object={adressTyped}
-              onChangeObject={setAdressTyped}
-              valueAPI={adressAPI.localidade}
-              // valueAPI={adressAPI.localidade}
-            /> */}
-            {/* <Select
+              object={cidade}
+              valueDefault={adressAPI.cep ?? cidade.cidade}
+              onChangeObject={setCidade}
+              type='adress'
+            />
+
+            <InputData
+              key="bairro"
+              label="Bairro"
+              keyObject="bairro"
+              object={bairro}
+              onChangeObject={setBairro}
+              valueDefault={adressAPI.bairro ?? bairro.bairro}
+              type='adress'
+            />
+
+            <Select
               label={"Selecione um estado"}
               data={state}
               keyObject="sigla"
-              object={adressTyped}
-              onChangeObject={setAdressTyped}
-              valueDefault={adressAPI.uf}
-              // valueAPI={adressAPI.uf}
-            /> */}
+              object={sigla}
+              valueDefault={adressAPI.uf ?? sigla.sigla}
+              onChangeObject={setSigla}
+            
+            />
           </KeyboardAvoidingView>
           <ButtonSave disabled={buttonDisabled} functionClicked={saveData} />
-          <Button
-            title="Cadastrar Endereço"
-            onPress={() => {
-              setApiResponse(200);
-            }}
-          />
+          {/* <Button title="Pesquisar CEP" onPress={searchCEP} /> */}
         </View>
       </ScrollView>
     </>

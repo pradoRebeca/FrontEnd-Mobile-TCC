@@ -1,25 +1,24 @@
 import React from "react";
 import { View, StyleSheet, Image } from "react-native";
-import { Avatar } from "react-native-paper";
+import { FontAwesome } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
-const Photo = ({ navigation }) => {
+const HeaderSearch = () => {
+    const navigation = useNavigation();
+
     return (
     <View style={style.content}>
       <View style={style.viewImage}>
         <Image style={style.image} source={require("../img/logoMenor.png")} />
       </View>
 
-      <Avatar.Image
-        size={40}
-        source={{
-          uri: "https://www.promoview.com.br/uploads/2017/04/b72a1cfe.png",
-        }}
-      />
+      <FontAwesome name="search" size={20} color='#fff' onPress={() => navigation.navigate('Pesquisar')}/>
+      
     </View>
   );
 };
 
-export default Photo;
+export default HeaderSearch;
 
 const style = StyleSheet.create({
   content: {
@@ -33,19 +32,14 @@ const style = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
-  search: {
-    borderRadius: 30,
-    width: "100%",
-    height: 35,
-  },
   viewImage: {
+      marginLeft: 5,
     height: 40,
-    width: 50,
+    width: 40,
     // backgroundColor: "yellow",
   },
   image:{
       width: '100%',
       height: '100%',
-      resizeMode: 'contain',
-  }
+  },
 });

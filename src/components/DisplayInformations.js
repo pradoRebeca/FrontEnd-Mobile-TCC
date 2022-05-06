@@ -105,7 +105,7 @@ const DisplayInformation = ({
         ItemSeparatorComponent={ItemSeparator}
       />
       {/* {[data].map((item) => (
-        <Information data={item.item} mode={mode} nameSreen={nameSreen} />
+        <Information data={item} mode={mode} nameSreen={nameSreen} />
       ))} */}
 
       {buttonAdd()}

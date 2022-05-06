@@ -34,7 +34,9 @@ const style = StyleSheet.create({
   },
   descreption: {
     marginTop: 20,
-    backgroundColor: 'yellow',
+    paddingLeft: 20,
+    paddingRight: 20,
+    // backgroundColor: 'yellow',
     textAlign: "center",
   },
 });

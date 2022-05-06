@@ -22,6 +22,7 @@ import SaveJob from "../screen/SaveJob";
 import EmailValidation from "../screen/EmailValidation";
 import RedefinePassword from "../screen/RedefinePassword";
 import SearchBar from "../components/SearchBar";
+import Search from "../screen/Search";
 
 const StackNavigation = () => {
   const Stack = createStackNavigator();
@@ -33,9 +34,10 @@ const StackNavigation = () => {
         headerShown: true,
         title: false,
         gestureEnabled: true,
+       
         // back: { color: "white" },
-        gestureDirection: "horizontal",
-        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        // gestureDirection: "horizontal",
+        // cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}
     >
       <Stack.Screen
@@ -93,6 +95,16 @@ const StackNavigation = () => {
         name="Redefinicao de senha"
         component={RedefinePassword}
       />
+      {/* <Stack.Screen
+       options={{ headerShow: false }}
+        // options={({ navigation }) => ({
+        //   headerTitle: () => (
+        //     <SearchBar />
+        //   ),
+        // })}
+        name="Pesquisar"
+        component={Search}
+      /> */}
     </Stack.Navigator>
   );
 };

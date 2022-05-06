@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { HelperText, TextInput } from "react-native-paper";
+// import TextInputMask from "react-native-text-input-mask";
 
 const InputData = ({
   label,
@@ -14,29 +15,46 @@ const InputData = ({
   nameIcon,
   valueDefault,
   error,
-  required
+  required,
+  type,
+  mask,
 }) => {
   //06693590
-  const [text, setText] = useState('');
+  const [text, setText] = useState("");
 
   //const [value, setValue] = useState(valueDefault)
   // console.log('value ', keyObject, ': ', value)
 
+  const onChangeText = (element) => {
+    setText(element);
+    onChangeObject({ ...object, [keyObject]: element });
+    // console.log('value ', keyObject, ': ', valueDefault)
+  };
 
- useEffect(() => {
-   if(valueDefault != undefined && valueDefault != ''){
-    console.log('value ', keyObject, ': ', valueDefault)
-    onChangeText(valueDefault)
-   }  
- }, [valueDefault])
+  useEffect(() => {
+    if (type) {
+      onChangeText(valueDefault);
+    } else {
+      setText(valueDefault);
+    }
+  }, [valueDefault]);
 
+  let inputmask;
+
+  switch (mask) {
+    case "tel":
+      inputmask = "([00]) [0] [0000]-[0000]";
+      break;
+    case "cep":
+      inputmask = "[00000]-[000]";
+  }
 
   // useEffect(() => {
   //   console.log('value api: ', valueAPI)
   //   if (value != undefined && value != '') {
   //     setText(value);
   //     onChangeObject({ ...object, [keyObject]: value});
-   
+
   //   }else{
   // console.log(keyObject, value)
   //   }
@@ -50,16 +68,10 @@ const InputData = ({
   //     onChangeObject({ ...object, [keyObject] : text});
   // }, []);
 
-
-  const onChangeText = (element) => {
-    setText(element)
-   onChangeObject({ ...object, [keyObject]: element});
-  };
-
   // if([label].includes('*')){
   //   console.log('tem asterisco')
   // }
- 
+
   return (
     <View style={style.container} accessible={true}>
       {/* <Text>{label}</Text> */}
@@ -74,25 +86,31 @@ const InputData = ({
           )
         }
         editable={editable}
-        
-       onEndEditing={(e) => onChangeText(e.nativeEvent.text)}
+        onEndEditing={(e) => onChangeText(e.nativeEvent.text)}
         numberOfLines={3}
         multiline={multiline}
         activeUnderlineColor="#225E77"
         outlineColor="#F5F5F5"
         value={text}
         mode={mode ? "flat" : "outlined"}
-        label={<Text style={required ? {color:'#C14040'} : {color: '#808080'} }>{required ? label+' *' : label}</Text>}
+        label={
+          <Text style={required ? { color: "#C14040" } : { color: "#808080" }}>
+            {required ? label + " *" : label}
+          </Text>
+        }
         activeOutlineColor="#225E77"
-        onChangeText={(text) => setText(text)}
+        onChangeText={(formatted, extracted) => setText(extracted)}
         outLineColor="#6D6D6D"
         style={
           mode
             ? { ...style.inputText, backgroundColor: "white" }
-            : {...style.inputText, height: 40,}
+            : { ...style.inputText, height: 40 }
         }
-       
-        onPress={text}
+        // mask={typeMask}
+        // onPress={text}
+        // render={ mask ? (mask) => (
+        //   <TextInputMask mask={inputmask} />
+        // ) : ''}
       />
       {/* {errorMassage.display && (
         <HelperText type={errorMassage.type} visible={hasErrors}>
@@ -115,7 +133,7 @@ const style = StyleSheet.create({
     width: "100%",
     height: 55,
   },
-  label:{
-    color: 'red',
-  }
+  label: {
+    color: "red",
+  },
 });

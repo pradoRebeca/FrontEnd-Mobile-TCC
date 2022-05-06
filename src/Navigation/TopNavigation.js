@@ -11,7 +11,7 @@ const TopNavigation = () => {
       initialRouteName="Inicial"
 
       screenOptions={{
-        tabBarLabelStyle: { fontSize: 13, textTransform: "capitalize"},
+        tabBarLabelStyle: { fontSize: 15, textTransform: "capitalize"},
         headerShown: true,
       
         // tabBarStyle: { backgroundColor: 'powderblue' },
@@ -21,30 +21,32 @@ const TopNavigation = () => {
         // tabBarBounces: 0,
         tabBarIndicatorStyle: { backgroundColor: "#1E7596" },
         // tabBarIndicatorContainerStyle: {
-        //   backgroundColor: "#4392B8",
+        //   backgroundColor: "#1E7596",
         // },
-        tabBarItemStyle: {minWidth: 50,},
+        tabBarItemStyle: {minWidth: 50,},   
+       
       }}
+
     >
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Incial"
         component={CandidateHome}
         options={{ tabBarLabel: "Inicial" }}
-      />
+      /> */}
       <Tab.Screen
         name="Candidaturas"
         component={CandidateJob}
-        options={{ tabBarLabel: "Canditatar" }}
+        options={{ tabBarLabel: "Candidaturas" }}
       />
       <Tab.Screen
         name="Salvar"
         component={SaveJob}
-        options={{ tabBarLabel: "Salvar" }}
+        options={{ tabBarLabel: "Salvas" }}
       />
       <Tab.Screen
         name="Dispensadas"
         component={SaveJob}
-        options={{ tabBarLabel: "Dispensar",}}
+        options={{ tabBarLabel: "Dispensadas",}}
 
       />
     </Tab.Navigator>

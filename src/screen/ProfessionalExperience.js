@@ -14,6 +14,7 @@ const ProfissionalExperience = ({ route }) => {
   const edit = route.params.edit;
   const id = route.params.id;
 
+  const [responseStatus, setResponseStatus] = useState(0)
   const [personalData, setPersonalData] = useState({
     id: "",
     cargo: "",
@@ -99,6 +100,7 @@ const ProfissionalExperience = ({ route }) => {
     axiosURL
       .delete(`candidato/deletar/experiencia/${1}`)
       .then((response) => {
+
         console.log("dados deletados com sucesso");
         return true;
       })
@@ -168,9 +170,11 @@ export default ProfissionalExperience;
 
 const style = StyleSheet.create({
   container: {
-    // backgroundColor: 'blue',
-    height: "100%",
     // flex: 1,
+    // backgroundColor: 'blue',
+    // height: "100%",
+    display: 'flex',
+    justifyContent: 'space-between',
     padding: 10,
   },
   candidateData: {

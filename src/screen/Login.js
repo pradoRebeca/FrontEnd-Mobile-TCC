@@ -39,7 +39,7 @@ const Login = () => {
 
   return (
     <SafeAreaView style={style.content}>
-      <ScrollView>
+   
         <StatusBar backgroundColor="#DCEBF2" />
         <Image style={style.image} source={require("../img/logoLogin.png")} />
         <TitleScreen title="Login" />
@@ -67,7 +67,7 @@ const Login = () => {
           <TouchableOpacity
             onPress={() => navigation.navigate({ name: "Esqueci a senha" })}
           >
-            <Text style={{ ...style.text }}>Esqueci senha</Text>
+            <Text style={{ ...style.text, fontWeight: "700" }}>Esqueci senha</Text>
           </TouchableOpacity>
         </View>
 
@@ -110,7 +110,6 @@ const Login = () => {
             </TouchableOpacity>
           </View>
         </View>
-      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -123,12 +122,20 @@ const style = StyleSheet.create({
     width: windowWidth,
   },
   content: {
+    // flex: 1,
+    // backgroundColor: "white",
+    // display: "flex",
+    // flexDirection: "column",
+    // alignItems: "center",
+    // justifyContent: "flex-start",
+    width: "100%",
     flex: 1,
     backgroundColor: "white",
     display: "flex",
     flexDirection: "column",
+    justifyContent: "space-between",
     alignItems: "center",
-    justifyContent: "flex-start",
+    // alignItens: "center",
   },
   viewButton: {
     height: 50,
@@ -172,6 +179,7 @@ const style = StyleSheet.create({
   text: {
     color: "#225E77",
     fontSize: 15,
+  
   },
   footer: {
     width: "100%",

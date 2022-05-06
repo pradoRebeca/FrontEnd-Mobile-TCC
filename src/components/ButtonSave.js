@@ -51,6 +51,7 @@ export default ButtonSave;
 
 const style = StyleSheet.create({
   container: {
+    bottom: 0,
     width: "100%",
     height: 40,
     display: "flex",

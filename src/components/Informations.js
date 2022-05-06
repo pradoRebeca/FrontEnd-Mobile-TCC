@@ -29,7 +29,7 @@ const Information = ({ data, nameSreen }) => {
   }
 
   useEffect(() => {
-    setTitleText(Object.entries(data));
+    setTitleText(data ? Object.entries(data) : []);
   }, []);
 
   const renderText = (title, des) => {
@@ -65,7 +65,12 @@ const Information = ({ data, nameSreen }) => {
   };
 
   const renderItem = () => {
-    return titleText.map((item) => renderText(item[0], item[1]));
+    console.log(titleText.length)
+    console.log(titleText)
+    if(titleText.length >= 0) {
+      return titleText.map((item) => renderText(item[0], item[1]));
+    }
+    
   };
 
   // const existItem = () => {
