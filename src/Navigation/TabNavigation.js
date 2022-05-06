@@ -44,7 +44,7 @@ const TabNavigation = () => {
       <Tab.Screen
         options={{
           headerShown: true,
-          headerLeft: () => (
+          headerTitle: () => (
            <HeaderSearch/>
           ),
           tabBarIcon: ({ color }) => (
