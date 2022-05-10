@@ -35,7 +35,7 @@ const RegisterAdress = ({ navigation, route }) => {
   const [rua, setRua] = useState({rua : ''});
   const [bairro, setBairro] = useState({bairro: ''});
   const [cidade, setCidade] = useState({cidade: ''});
-  const [sigla, setSigla] = useState({sigla: ''});
+  const [sigla, setSigla] = useState({sigla: '', estado: ''});
   const [numero, setNumero] = useState({numero: ''});
 
 
@@ -88,7 +88,7 @@ const RegisterAdress = ({ navigation, route }) => {
               showMessage("CEP não encontrado");
           });
       } else {
-        console.log("nao deu certo texto");
+        // console.log("nao deu certo texto");
         //setButtonDisabled(true);
       }
     } else {
@@ -123,9 +123,9 @@ const RegisterAdress = ({ navigation, route }) => {
           rua: rua.rua,
           numero: numero.numero,
           bairro: bairro.bairro,
-          estado: sigla.estado,
           cidade: cidade.cidade,
           sigla: sigla.sigla,
+          estado: sigla.estado,
           cep: cep.cep,
         })
         .then((response) => {
@@ -247,7 +247,7 @@ const RegisterAdress = ({ navigation, route }) => {
               data={state}
               keyObject="sigla"
               object={sigla}
-              valueDefault={adressAPI.uf ?? sigla.sigla}
+              valueDefault={adressAPI.uf ?? sigla}
               onChangeObject={setSigla}
             
             />

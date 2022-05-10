@@ -3,14 +3,12 @@ import { View, StyleSheet } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 
 const Select = (props) => {
-console.log(props.valueDefault)
+console.log('default:',props.valueDefault)
 
   const [selectedValue, setSelectedValue] = useState();
 
-  const label = props.label;
-
   const onChange = (obj) => {
-    console.log('onchange ');
+   // console.log('onchange ');
     if (obj != null) {
       setSelectedValue(obj);
       props.onChangeObject({
@@ -18,13 +16,13 @@ console.log(props.valueDefault)
         sigla: obj.sigla,
         estado: obj.estado,
       });
+    }else{
+      console.log('nao da poara mudar')
     }
   };
 
-  
-
   const functionSelected = () => {
-    if (props.valueDefault != "" && props.valueDefault != undefined) {
+    if (props.valueDefault != "" && props.valueDefault != undefined ) {
       return props.data
         .filter((item) => item.sigla === props.valueDefault)
         .map((item) => (
@@ -47,7 +45,9 @@ console.log(props.valueDefault)
     }
   };
 
-  
+  // useEffect(()=> {
+  //   functionSelected()
+  // }, [props.valueDefault])
  
   return (
     <View style={{ backgroundColor: "#F5F5F5", marginBottom: 10 }}>
@@ -58,14 +58,14 @@ console.log(props.valueDefault)
         onValueChange={(text) => onChange(text)}
       >
         {functionSelected()}
-        {props.data.map((item) => (
+        {/* {props.data.map((item) => (
           <Picker.Item
             color="black"
             label={item.estado}
             key={item.sigla}
             value={item}
           />
-        ))}
+        ))} */}
       </Picker>
     </View>
   );

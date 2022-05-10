@@ -62,6 +62,7 @@ const RegisterPersonalData = ({ route }) => {
     id: "",
     nome: "",
     nomeSocial: "",
+    deficiencia: '',
     genero: "",
     dataNascimento: null,
     informacoes: "",
@@ -136,7 +137,7 @@ const RegisterPersonalData = ({ route }) => {
     }
   };
 
-  console.log("registerPersonalData: ", personalData);
+  //console.log("registerPersonalData: ", personalData);
   //METHOD GET
   useEffect(() => {
     if (edit) {
@@ -181,6 +182,10 @@ const RegisterPersonalData = ({ route }) => {
               data={def}
               type="Deficiencia"
               text="Tipo de Deficiencias"
+              object={personalData}
+              onChangeObject={setPersonalData}
+              keyObject="deficiencia"
+
             />
 
             {/* <CheckboxComponent

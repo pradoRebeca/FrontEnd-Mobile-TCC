@@ -6,15 +6,15 @@ import ButtonDeleteInformation from "../components/ButtonDeleteInformayion";
 import ModifyTitle from "../components/ModifyTitle";
 import InputData from "../components/InputData";
 import ButtonSave from "../components/ButtonSave";
-import { emptyField } from "../Functions";
+import { emptyField, showMessage, showToast } from "../Functions";
 import InputCalendar from "../components/InputCalendar";
 import axiosURL from "../API";
 
-const ProfissionalExperience = ({ route }) => {
+const ProfissionalExperience = ({ route, refresh }) => {
+  const [reponse, setResponse] = useState(0)
   const edit = route.params.edit;
   const id = route.params.id;
 
-  const [responseStatus, setResponseStatus] = useState(0)
   const [personalData, setPersonalData] = useState({
     id: "",
     cargo: "",
@@ -44,16 +44,18 @@ const ProfissionalExperience = ({ route }) => {
             nomeEmpresa: personalData.nomeEmpresa,
           })
           .then((response) => {
-            console.log("dados atualizados com sucesso");
+            showToast('Dados atualizados com sucesso')
+            console.log("dados atualizados com sucesso. Tente novamente.");
             return true;
           })
           .catch((error) => {
+            showMessage('Erro ao atualizar dados')
             console.log("erro ao atualizar dados");
             return false;
           });
       } else {
         //METHOD POST
-        console.log('testeeeeeeeeeee')
+        //console.log('testeeeeeeeeeee')
         console.log(personalData)
         axiosURL
           .post(`candidato/cadastrar/experiencia/${1}`, {
@@ -64,15 +66,18 @@ const ProfissionalExperience = ({ route }) => {
             nomeEmpresa: personalData.nomeEmpresa,
           })
           .then((response) => {
+            showToast('Dados cadastrados com sucesso')
             console.log("dados cadastrados com sucesso");
             return true;
           })
           .catch((error) => {
+            showMessage('Erro ao cadastrar os dados. Tente novamente.')
             console.log("erro ao cadastrar dados");
             return false;
           });
       }
     } else {
+      showMessage('Preencha algum campo.')
       console.log("preencha algum campo");
       return false;
     }
@@ -100,11 +105,12 @@ const ProfissionalExperience = ({ route }) => {
     axiosURL
       .delete(`candidato/deletar/experiencia/${1}`)
       .then((response) => {
-
+        showToast('Dados deletados com sucesso')
         console.log("dados deletados com sucesso");
         return true;
       })
       .catch((error) => {
+        showMessage('Erro ao deletar os dados. Tente novamente.')
         console.log("erro ao deletar dados");
         return false;
       });

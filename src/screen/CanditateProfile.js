@@ -87,28 +87,6 @@ const CandidateProfile = () => {
     <SafeAreaView>
       {/* <SearchBar /> */}
       <ScrollView>
-        {/* <View style={style.infoPreview}>
-          <View style={style.viewImage}>
-            <Image
-              style={style.image}
-              source={{
-                uri: personalInformation.image ?? image,
-              }}
-            />
-          </View>
-          <View style={style.infoText}>
-            <View style={style.info}>
-              <Text style={style.infoTitle}>Nome</Text>
-              <Text style={style.infoDescretion}>
-                {personalInformation.nome}
-              </Text>
-            </View>
-            <View style={style.info}>
-              <Text style={style.infoTitle}>Deficiencia</Text>
-            <Text style={style.infoDescretion}>{personalInformation}</Text> 
-            </View>
-          </View>
-        </View> */}
         <View style={style.conatinerInformations}>
           <View style={style.container}>
             <DisplayInformation

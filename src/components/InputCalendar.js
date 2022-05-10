@@ -14,7 +14,8 @@ const InputCalendar = ({
 }) => {
   const [text, setText] = useState(label);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-console
+
+// console
   useEffect(() => {
     if (valueDefault) {
       setText(valueDefault);
@@ -52,11 +53,14 @@ console
   };
 
   const hideDatePicker = () => {
+  
     setText(label);
     setDatePickerVisibility(false);
+  
   };
 
   const handleConfirm = (date) => {
+ 
     hideDatePicker();
     const formatUser = formatDate(date, "user");
     const formatDatabase = formatDate(date, "database");
@@ -66,7 +70,7 @@ console
 
   return (
     <TouchableOpacity onPress={() => showDatePicker()} style={style.container}>
-      <Text style={style.inputText}>{text}</Text>
+      <Text style={text.includes('Data') ? style.inputText :  {...style.inputText, color:'#000'}}>{text}</Text>
       <Icon name="calendar" color="#1E7596" size={30} />
       {isDatePickerVisible && (
         <DateTimePickerModal

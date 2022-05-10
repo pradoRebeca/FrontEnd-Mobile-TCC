@@ -3,13 +3,21 @@ import { View, StyleSheet } from "react-native";
 
 import { Searchbar } from "react-native-paper";
 
-const SearchBar = () => {
-  const [focus, setFocus] = useState(false);
-  const [search, setSearch] = React.useState("");
+const SearchBar = ({ onChangeText }) => {
+  const [search, setSearch] = useState("");
+  const onChange = (query) => {
+    setSearch(query);
+    onChangeText(query);
+  };
 
-  const onChange = (query) => setSearch(query);
+  // const keyPress = ({ nativeEvent: { key: keyValue } }) => {
+  //   // console.log(keyValue);
+  //   if(keyValue === 'Enter')
+  //   {
+  //     console.log("enter");
+  //   }
+  // }
 
-  console.log(focus);
   return (
     <View style={style.content}>
       <Searchbar
@@ -18,9 +26,9 @@ const SearchBar = () => {
         onChangeText={onChange}
         value={search}
         selectionColor={"#225E77"}
-        // onFocus={() => setFocus(true)}
-        // onBlur={() => setFocus(false)}
-      />
+        // onKeyPress={keyPress}
+
+         />
     </View>
   );
 };
@@ -32,7 +40,7 @@ const style = StyleSheet.create({
     top: 0,
     width: "100%",
     height: 60,
-    backgroundColor: '#1E7596',
+    backgroundColor: "#1E7596",
     // backgroundColor: 'blue',
     display: "flex",
     flexDirection: "row",

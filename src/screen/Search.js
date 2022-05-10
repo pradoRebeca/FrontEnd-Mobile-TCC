@@ -24,15 +24,16 @@ const Search = ({ navigation }) => {
   const {idUser, user} = useContext(AuthContext)
   console.log('nome do usuario: ' , user.email)
 
+  const [textSearch, setTextSearch] = useState("")
   const [error, setError] = useState(false);
   const [job, setJob] = useState([]);
   //const imageWithouJob = "https://sim.marica.rj.gov.br/img/icones/empresa2.pngs";
-
+//console.log('screen:', textSearch)
   useEffect(() => {
     axiosURL
       .get(`vaga/listar`)
       .then((response) => {
-        setJob(response.data.content.filter((item) => item.status == 2)),
+        setJob(response.data.content.filter((item) => item.status == 1)),
           setError(false);
       })
       .catch((error) => {
@@ -42,8 +43,8 @@ const Search = ({ navigation }) => {
   console.log(error);
   return (
     <SafeAreaView>
-    <SearchBar/>
-      <StatusBar backgroundColor="#1E7596" />
+    <SearchBar  onChangeText={setTextSearch}/>
+      <StatusBar backgroundColor="#1E7596"/>
       <View
         style={
           error
@@ -55,7 +56,7 @@ const Search = ({ navigation }) => {
         }
       >
         {error && <NotFound />}
-        <ActivityIndicator animating={error ? false : true} color={"#1E7596"} />
+        {/* <ActivityIndicator animating={error ? false : true} color={"#1E7596"} /> */}
 
 
         {job && (

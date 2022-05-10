@@ -2,45 +2,53 @@ import React, { useEffect, useState } from "react";
 import { Checkbox } from "react-native-paper";
 import { StyleSheet, View, Text } from "react-native";
 
-const CheckboxComponent = ({ data, type, text }) => {
+const CheckboxComponent = ({
+  data,
+  type,
+  text,
+  object,
+  onChangeObject,
+  keyObject,
+}) => {
   const [checkedState, setCheckedState] = useState(
     new Array(data.length).fill(false)
   );
 
-  const [dataCheckbox, setDataCheckbox] = useState(data.map(item => item.id))
+  const [dataCheckbox, setDataCheckbox] = useState(data.map((item) => item.id));
   const [idChecked, setIdChecked] = useState([]);
 
   const handleOnChange = (position, id) => {
     const updatedCheckedState = checkedState.map((item, index) =>
       index === position ? !item : item
     );
-
     setCheckedState(updatedCheckedState);
-    // const unchecked = checkedState.map((item, index) => {
-    //   if (index === position) {
-    //     setIdChecked((idChecked[Symbol.iterator] = [...idChecked, id]));
-    //   }
-    // });
+
+    // const totalPrice = updatedCheckedState.map(
+    //   (item, index) => {
+    //     if (currentState === true) {
+    //       return 1 +  dataCheckbox[index];
+    //     }
+    //     return sum;
+    //   },
+    //   0
+    // );
+    // setIdChecked(totalPrice);
   };
 
-const getValues = (item, id) => {
-      
-        if(checkedState[item]){
-          setIdChecked((idChecked[Symbol.iterator] = [...idChecked, id]));    
-        }else{
-          // const [id, ...rest] = idChecked[Symbol.iterator]
-          // setIdChecked([rest]);  
-        }
-      
-}
-
   // useEffect(() => {
-  //   const updatedCheckedState = checkedState.map((item, index) =>
-  //     console.log(item, index)
-  //   );
+   
   // }, [checkedState]);
-console.log('checked: ', idChecked)
-  console.log('checkbox: ',checkedState)
+
+
+  useEffect(() => {
+    onChangeObject({ ...object, [keyObject]: idChecked });
+  }, [checkedState]);
+
+
+
+  console.log(idChecked);
+
+
   let textTitle = text;
 
   const render = () => {
@@ -55,7 +63,9 @@ console.log('checked: ', idChecked)
             label={tipo}
             value={id}
             status={checkedState[index] ? "checked" : "unchecked"}
-            onPress={() => {handleOnChange(index), getValues(index, id)}}
+            onPress={() => {
+              handleOnChange(index);
+            }}
           />
         );
       });
@@ -70,7 +80,9 @@ console.log('checked: ', idChecked)
             label={tipo}
             value={id}
             status={checkedState[index] ? "checked" : "unchecked"}
-            onPress={() => {handleOnChange(index), getValues(index)}}
+            onPress={() => {
+              handleOnChange(index);
+            }}
           />
         );
       });
