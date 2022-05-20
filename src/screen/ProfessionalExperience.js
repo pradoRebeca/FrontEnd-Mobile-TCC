@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, StatusBar, ScrollView } from "react-native";
 import axios from "axios";
+import { useNavigation } from "@react-navigation/native";
 
 import ButtonDeleteInformation from "../components/ButtonDeleteInformayion";
 import ModifyTitle from "../components/ModifyTitle";
@@ -11,6 +12,7 @@ import InputCalendar from "../components/InputCalendar";
 import axiosURL from "../API";
 
 const ProfissionalExperience = ({ route, refresh }) => {
+  const navigation = useNavigation();
   const [reponse, setResponse] = useState(0)
   const edit = route.params.edit;
   const id = route.params.id;
@@ -36,7 +38,7 @@ const ProfissionalExperience = ({ route, refresh }) => {
       //METHOD PUT
       if (edit) {
         axiosURL
-          .put(`candidato/atualizar/experiencia/${1}`, {
+          .put(`candidato/atualizar/experiencia/${id}`, {
             cargo: personalData.cargo,
             dataInicio: personalData.dataInicio,
             dataSaida: personalData.dataSaida,
@@ -45,36 +47,40 @@ const ProfissionalExperience = ({ route, refresh }) => {
           })
           .then((response) => {
             showToast('Dados atualizados com sucesso')
+           
             console.log("dados atualizados com sucesso. Tente novamente.");
             return true;
           })
           .catch((error) => {
             showMessage('Erro ao atualizar dados')
+            setResponse(400)
             console.log("erro ao atualizar dados");
             return false;
           });
       } else {
+        navigation.navigate('Perfil', {reload: 1})
         //METHOD POST
         //console.log('testeeeeeeeeeee')
         console.log(personalData)
-        axiosURL
-          .post(`candidato/cadastrar/experiencia/${1}`, {
-            cargo: personalData.cargo,
-            dataInicio: personalData.dataInicio,
-            dataSaida: personalData.dataFim,
-            atribuicoes: personalData.atribuicoes,
-            nomeEmpresa: personalData.nomeEmpresa,
-          })
-          .then((response) => {
-            showToast('Dados cadastrados com sucesso')
-            console.log("dados cadastrados com sucesso");
-            return true;
-          })
-          .catch((error) => {
-            showMessage('Erro ao cadastrar os dados. Tente novamente.')
-            console.log("erro ao cadastrar dados");
-            return false;
-          });
+        // axiosURL
+        //   .post(`candidato/cadastrar/experiencia/${id}`, {
+        //     cargo: personalData.cargo,
+        //     dataInicio: personalData.dataInicio,
+        //     dataSaida: personalData.dataFim,
+        //     atribuicoes: personalData.atribuicoes,
+        //     nomeEmpresa: personalData.nomeEmpresa,
+        //   })
+        //   .then((response) => {
+        //     showToast('Dados cadastrados com sucesso')
+        //     console.log("dados cadastrados com sucesso");
+        //     return true;
+        //   })
+        //   .catch((error) => {
+        //     showMessage('Erro ao cadastrar os dados. Tente novamente.')
+        
+        //     console.log("erro ao cadastrar dados");
+        //     return false;
+        //   });
       }
     } else {
       showMessage('Preencha algum campo.')
@@ -88,7 +94,7 @@ const ProfissionalExperience = ({ route, refresh }) => {
   useEffect(() => {
     if (edit) {
       axiosURL
-        .get(`candidato/listar/experiencia/${1}`)
+        .get(`candidato/listar/experiencia/${id}`)
         .then((response) => {
           setPersonalData({ ...response.data.content[0]});
           return true;
@@ -103,7 +109,7 @@ const ProfissionalExperience = ({ route, refresh }) => {
   //METHOD DELETE
   const deleteData = () => {
     axiosURL
-      .delete(`candidato/deletar/experiencia/${1}`)
+      .delete(`candidato/deletar/experiencia/${id}`)
       .then((response) => {
         showToast('Dados deletados com sucesso')
         console.log("dados deletados com sucesso");
@@ -161,7 +167,6 @@ const ProfissionalExperience = ({ route, refresh }) => {
               keyObject="dataInicio"
               label="Data de Inicio"
             />
-            {/* <Calendar/> */}
 
             {edit && <ButtonDeleteInformation functionClicked={deleteData} />}
           </View>

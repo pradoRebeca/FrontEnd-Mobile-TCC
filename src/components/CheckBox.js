@@ -6,15 +6,14 @@ const CheckboxComponent = ({
   data,
   type,
   text,
-  object,
-  onChangeObject,
-  keyObject,
+  idCheckbox,
+  stateCheckbox
 }) => {
   const [checkedState, setCheckedState] = useState(
     new Array(data.length).fill(false)
   );
 
-  const [dataCheckbox, setDataCheckbox] = useState(data.map((item) => item.id));
+  const [dataCheckbox, setDataCheckbox] = useState((data.map((item) => item.id)));
   const [idChecked, setIdChecked] = useState([]);
 
   const handleOnChange = (position, id) => {
@@ -22,32 +21,30 @@ const CheckboxComponent = ({
       index === position ? !item : item
     );
     setCheckedState(updatedCheckedState);
+    idCheckbox(dataCheckbox)
+    stateCheckbox(updatedCheckedState)
+  }
 
-    // const totalPrice = updatedCheckedState.map(
-    //   (item, index) => {
-    //     if (currentState === true) {
-    //       return 1 +  dataCheckbox[index];
-    //     }
-    //     return sum;
-    //   },
-    //   0
-    // );
-    // setIdChecked(totalPrice);
-  };
 
-  // useEffect(() => {
+const arrayFinal = () => {
+  for(let i = 0 ; i < checkedState.length ; i++ ){
+    if(checkedState[i]){
+     const result = [...idChecked, dataCheckbox[i]]
+     setIdChecked(result)
+    }
+  }
+}
    
-  // }, [checkedState]);
 
+ 
 
-  useEffect(() => {
-    onChangeObject({ ...object, [keyObject]: idChecked });
-  }, [checkedState]);
+  
 
+  
 
-
-  console.log(idChecked);
-
+  //console.log('valores id: ', new Set(dataCheckbox));
+  
+ // console.log('state : ',checkedState);
 
   let textTitle = text;
 

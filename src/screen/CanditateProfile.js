@@ -8,6 +8,7 @@ import {
   Text,
   SafeAreaView,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import axiosURL from "../API";
 import DisplayInformation from "../components/DisplayInformations";
@@ -43,7 +44,11 @@ const enderecoRua = {
   cep: "",
 };
 
-const CandidateProfile = () => {
+const CandidateProfile = ({route}) => {
+  // const [isReaload, setIsReaload] = useState()
+  const navigation = useNavigation();
+  
+
   const image = "https://www.promoview.com.br/uploads/2017/04/b72a1cfe.png";
   const [personalData, setPersonalData] = useState([]);
   const [personalInformation, setPersonalInformation] = useState([]);
@@ -53,6 +58,13 @@ const CandidateProfile = () => {
   const [deficienciaData, setDeficienciaData] = useState([]);
   const [display, setDisplay] = useState(true);
 
+
+  // useEffect(() => {
+  //   if(route.params){
+  //     const {reload}= route.params
+  //     setIsReaload(reload)
+  //   }
+  // }, [route.params])
 
   useEffect(() => {
     axiosURL
@@ -74,7 +86,7 @@ const CandidateProfile = () => {
         console.warn(error);
         return false;
       });
-  }, []);
+  }, [route.params]);
 
   //Filtro para cada seção
   //useEffect(() => {
@@ -87,6 +99,9 @@ const CandidateProfile = () => {
     <SafeAreaView>
       {/* <SearchBar /> */}
       <ScrollView>
+
+
+      
         <View style={style.conatinerInformations}>
           <View style={style.container}>
             <DisplayInformation

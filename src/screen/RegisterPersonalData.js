@@ -56,8 +56,9 @@ const RegisterPersonalData = ({ route }) => {
   const edit = true;
   const id = route.params.id;
 
-  const [checkBoxDeficiencia, setCheckboxDeficiencia] = useState({});
-  const [deficiencies, setDeficiencies] = useState([]);
+  const [idCheckbox, setIdCheckbox] = useState([]);
+  const [stateCheckbox, setStateCheckbox] = useState([]);
+  const [checkbox, setCheckbox] = useState([]);
   const [personalData, setPersonalData] = useState({
     id: "",
     nome: "",
@@ -71,6 +72,21 @@ const RegisterPersonalData = ({ route }) => {
     telefone: "",
     outroTelefone: "",
   });
+
+  const arrayFinal = () => {
+    let array = []
+    for(let i = 0 ; i < stateCheckbox.length ; i++ ){
+      if(stateCheckbox[i]){
+        console.log(stateCheckbox[i], idCheckbox[i] )
+    
+       let result = array.push(idCheckbox[i]) 
+      
+      
+      }
+    }
+
+    return array;
+  }
 
   //METOGO GET DEFICIENCIAS
   // useEffect(() => {
@@ -103,6 +119,9 @@ const RegisterPersonalData = ({ route }) => {
 
   //METHOD PUT
   const saveData = () => {
+  
+    console.log('valor : ',   arrayFinal())
+
     if (
       emptyField(
         personalData.nome,
@@ -141,6 +160,7 @@ const RegisterPersonalData = ({ route }) => {
   //METHOD GET
   useEffect(() => {
     if (edit) {
+     
       axiosURL
         .get(`candidato/buscar/${1}`)
         .then((response) => {
@@ -182,9 +202,11 @@ const RegisterPersonalData = ({ route }) => {
               data={def}
               type="Deficiencia"
               text="Tipo de Deficiencias"
-              object={personalData}
-              onChangeObject={setPersonalData}
-              keyObject="deficiencia"
+              idCheckbox={setIdCheckbox}
+              stateCheckbox={setStateCheckbox}
+              // object={personalData}
+              // onChangeObject={setPersonalData}
+              // keyObject="deficiencia"
 
             />
 

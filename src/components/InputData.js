@@ -72,6 +72,14 @@ const InputData = ({
   //   console.log('tem asterisco')
   // }
 
+  const isRequired = () => {
+    if (required) {
+      return label + "*";
+    } else {
+      return label;
+    }
+  };
+
   return (
     <View style={style.container} accessible={true}>
       {/* <Text>{label}</Text> */}
@@ -93,11 +101,7 @@ const InputData = ({
         outlineColor="#F5F5F5"
         value={text}
         mode={mode ? "flat" : "outlined"}
-        label={
-          <Text style={required ? { color: "#C14040" } : { color: "#808080" }}>
-            {required ? label + " *" : label}
-          </Text>
-        }
+        label={isRequired()}
         activeOutlineColor="#225E77"
         onChangeText={(formatted, extracted) => setText(extracted)}
         outLineColor="#6D6D6D"

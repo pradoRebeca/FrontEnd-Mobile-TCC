@@ -34,7 +34,7 @@ const StackNavigation = () => {
         headerShown: true,
         title: false,
         gestureEnabled: true,
-       
+        headerTintColor: "#1E7596",
         // back: { color: "white" },
         // gestureDirection: "horizontal",
         // cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
@@ -63,12 +63,22 @@ const StackNavigation = () => {
         component={TabNavigation}
       />
       <Stack.Screen
+        options={{ headerTintColor: "#DCEBF2" }}
         name="RegisterPersonalData"
         component={RegisterPersonalData}
       />
-      <Stack.Screen name="Cadastrar Endereço" component={RegisterAdress} />
-      <Stack.Screen name="Formação Academica" component={AcademicEducation} />
       <Stack.Screen
+        options={{ headerTintColor: "#DCEBF2" }}
+        name="Cadastrar Endereço"
+        component={RegisterAdress}
+      />
+      <Stack.Screen
+        options={{ headerTintColor: "#DCEBF2" }}
+        name="Formação Academica"
+        component={AcademicEducation}
+      />
+      <Stack.Screen
+        options={{ headerTintColor: "#DCEBF2" }}
         name="Experiencia Profissional"
         component={ProfissionalExperience}
       />
