@@ -88,20 +88,19 @@ const CandidateProfile = ({route}) => {
       });
   }, [route.params]);
 
+console.log('refresh: ',route.params)
+
   //Filtro para cada seção
-  //useEffect(() => {
-  //   setExperienceData(personalData.experiencia);
-  //   setCursoData(personalData.curso);
-  //  setPersonalInformation({ ...personalData, experiencia: null, curso: null });
-  // }, [personalData]);
+  useEffect(() => {
+    setExperienceData(personalData.experiencia);
+    setCursoData(personalData.curso);
+   setPersonalInformation({ ...personalData, experiencia: null, curso: null });
+  }, [personalData]);
 
   return (
     <SafeAreaView>
       {/* <SearchBar /> */}
       <ScrollView>
-
-
-      
         <View style={style.conatinerInformations}>
           <View style={style.container}>
             <DisplayInformation

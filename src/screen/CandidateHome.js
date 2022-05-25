@@ -20,6 +20,7 @@ import SearchBar from "../components/SearchBar";
 
 
 const CandidateHome = ({ navigation }) => {
+  console.log('tela CANDIDATEHOME')
   //id usuario
   const {idUser, user} = useContext(AuthContext)
   console.log('nome do usuario: ' , user.email)
@@ -39,7 +40,7 @@ const CandidateHome = ({ navigation }) => {
         setError(true);
       });
   }, []);
-  console.log(error);
+
   return (
     <SafeAreaView>
     {/* <SearchBar/> */}
@@ -60,12 +61,13 @@ const CandidateHome = ({ navigation }) => {
         <ActivityIndicator animating={error ? false : true} color={"#1E7596"} />
 
 
+
         {job && (
           <FlatList
             keyExtractor={(item) => item.id}
             data={job}
             renderItem={(item) => (
-              <CardJobPreview data={item.item} key={item.id} />
+              <CardJobPreview data={item} />
             )}
           />
         )}

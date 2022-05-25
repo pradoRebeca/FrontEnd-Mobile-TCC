@@ -15,7 +15,7 @@ const ProfissionalExperience = ({ route, refresh }) => {
   const navigation = useNavigation();
   const [reponse, setResponse] = useState(0)
   const edit = route.params.edit;
-  const id = route.params.id;
+  const id = 1
 
   const [personalData, setPersonalData] = useState({
     id: "",
@@ -53,34 +53,31 @@ const ProfissionalExperience = ({ route, refresh }) => {
           })
           .catch((error) => {
             showMessage('Erro ao atualizar dados')
-            setResponse(400)
             console.log("erro ao atualizar dados");
             return false;
           });
       } else {
-        navigation.navigate('Perfil', {reload: 1})
-        //METHOD POST
-        //console.log('testeeeeeeeeeee')
-        console.log(personalData)
-        // axiosURL
-        //   .post(`candidato/cadastrar/experiencia/${id}`, {
-        //     cargo: personalData.cargo,
-        //     dataInicio: personalData.dataInicio,
-        //     dataSaida: personalData.dataFim,
-        //     atribuicoes: personalData.atribuicoes,
-        //     nomeEmpresa: personalData.nomeEmpresa,
-        //   })
-        //   .then((response) => {
-        //     showToast('Dados cadastrados com sucesso')
-        //     console.log("dados cadastrados com sucesso");
-        //     return true;
-        //   })
-        //   .catch((error) => {
-        //     showMessage('Erro ao cadastrar os dados. Tente novamente.')
-        
-        //     console.log("erro ao cadastrar dados");
-        //     return false;
-        //   });
+      //  METHOD POST
+        axiosURL
+          .post(`candidato/cadastrar/experiencia/${id}`, {
+            cargo: personalData.cargo,
+            dataInicio: personalData.dataInicio,
+            dataSaida: personalData.dataFim,
+            atribuicoes: personalData.atribuicoes,
+            nomeEmpresa: personalData.nomeEmpresa,
+          })
+          .then((response) => {
+            showToast('Dados cadastrados com sucesso')
+            console.log("dados cadastrados com sucesso");
+            console.log(response.status)
+            // navigation.navigate('Perfil', {reload: 2})
+            return true;
+          })
+          .catch((error) => {
+            showMessage('Erro ao cadastrar os dados. Tente novamente.')
+            console.log("erro ao cadastrar dados");
+            return false;
+          });
       }
     } else {
       showMessage('Preencha algum campo.')

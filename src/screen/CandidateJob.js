@@ -9,6 +9,7 @@ import Icon from "@expo/vector-icons/MaterialIcons";
 import CardJobPreview from "../components/CardJobPreview";
 
 const CandidateJob = () => {
+  console.log('TELA CANDIDATEJOB')
   const [error, setError] = useState(false);
   const [job, setJob] = useState([]);
 
@@ -35,8 +36,7 @@ const carregar = () =>{
       });
   }, []);
 
-  console.log(job)
-
+  // console.log(job)
   return (
     <SafeAreaView>
       {/* <StatusBar backgroundColor="#1E7596" /> */}
@@ -54,15 +54,13 @@ const carregar = () =>{
       >
         {error && <NotFound />}
 
-        <ActivityIndicator animating={error ? false : true} color={"#1E7596"} />
+        {/* <ActivityIndicator animating={error ? false : true} color={"#1E7596"} /> */}
         {job && (
           <FlatList
-      
-            keyExtractor={(item) => item.id}
             data={job}
-            renderItem={(item) => (
-              <CardJobPreview data={item.item} key={item.id} type={'candidatar'} />
-            )}
+            renderItem={(item) => 
+              <CardJobPreview data={item.item} key={item.item.id} type={'candidatar'} />
+            }
           />
         )}
       </View>

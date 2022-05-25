@@ -36,9 +36,8 @@ const CardJobPreview = ({ data, type }) => {
       <View style={style.firstPart}>
         <View style={style.viewJobTitle}>
           <Text style={style.jobTitle}>{dataJob.titulo}...</Text>
-       
-            <Icon color="#b0b0b0" name={icon} size={23} />
-        
+
+          <Icon color="#b0b0b0" name={icon} size={23} />
         </View>
         {dataJob.empresa && (
           <View style={style.infoFirstPart}>
@@ -59,11 +58,10 @@ const CardJobPreview = ({ data, type }) => {
       <View style={style.viewSecondPart}>
         {dataJob.deficiencia && (
           <View style={style.deficiency}>
-            {dataJob.deficiencia.map((type) => (
-              <Text style={style.secondPartText}>
-                Deficiencia {type.tipoDeficiencia}
-              </Text>
-            ))}
+            <Text style={style.secondPartText}>
+              {" "}
+              Deficiencia {dataJob.deficiencia[0].tipoDeficiencia}{" "}
+            </Text>
           </View>
         )}
 
@@ -94,6 +92,15 @@ const style = StyleSheet.create({
     borderRadius: 10,
     display: "flex",
     flexDirection: "column",
+    // shadowColor: "#000",
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 1,
+    // },
+    // shadowOpacity: 0.22,
+    // shadowRadius: 2.22,
+    
+    // elevation: 3,
   },
   firstPart: {
     paddingTop: 10,

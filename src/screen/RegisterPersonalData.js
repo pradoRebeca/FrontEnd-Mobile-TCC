@@ -1,20 +1,11 @@
 import React, { useEffect, useState } from "react";
-import {
-  StyleSheet,
-  View,
-  StatusBar,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, View, StatusBar, ScrollView } from "react-native";
 import { KeyboardAvoidingView } from "react-native";
-import ImagePicker from "react-native-image-picker";
 import axios from "axios";
 
 import ModifyTitle from "../components/ModifyTitle";
-import Select from "../components/Select";
 import InputData from "../components/InputData";
 import Style from "../Style";
-import { Checkbox } from "react-native-paper";
 import CheckboxComponent from "../components/CheckBox";
 import ButtonSave from "../components/ButtonSave";
 import { emptyField, showMessage } from "../Functions";
@@ -63,7 +54,7 @@ const RegisterPersonalData = ({ route }) => {
     id: "",
     nome: "",
     nomeSocial: "",
-    deficiencia: '',
+    deficiencia: "",
     genero: "",
     dataNascimento: null,
     informacoes: "",
@@ -74,21 +65,18 @@ const RegisterPersonalData = ({ route }) => {
   });
 
   const arrayFinal = () => {
-    let array = []
-    for(let i = 0 ; i < stateCheckbox.length ; i++ ){
-      if(stateCheckbox[i]){
-        console.log(stateCheckbox[i], idCheckbox[i] )
-    
-       let result = array.push(idCheckbox[i]) 
-      
-      
+    let array = [];
+    for (let i = 0; i < stateCheckbox.length; i++) {
+      if (stateCheckbox[i]) {
+        console.log(stateCheckbox[i], idCheckbox[i]);
+        let result = array.push(idCheckbox[i]);
       }
     }
 
     return array;
-  }
+  };
 
-  //METOGO GET DEFICIENCIAS
+  //METODO GET DEFICIENCIAS
   // useEffect(() => {
   //   axios
   //     .get(`${baseUrl}deficiencia/listar/tipo`)
@@ -119,9 +107,8 @@ const RegisterPersonalData = ({ route }) => {
 
   //METHOD PUT
   const saveData = () => {
-  
-    console.log('valor : ',   arrayFinal())
-
+    console.log("valor : ", arrayFinal());
+console.log(personalData)
     if (
       emptyField(
         personalData.nome,
@@ -131,13 +118,15 @@ const RegisterPersonalData = ({ route }) => {
       )
     ) {
       axiosURL
-        .put(`candidato/buscar/${1}`, {
-          id: "",
-          nome: "",
-          nomeSocial: "",
-          genero: "",
-          dataNascimento: "",
-          informacoes: "",
+        .put(`candidato/atualizar/${1}`, {
+          id: 1,
+          nome: personalData.nome,
+          nomeSocial: personalData.nomeSocial,
+          genero: "MASCULINO",
+          deficiencia: arrayFinal(),
+          dataNascimento: personalData.dataNascimento,
+          email: [personalData.email, personalData.emailRecuperacao],
+          telefone: [personalData.telefone, personalData.outroTelefone]
         })
         .then((response) => {
           showMessage("Dados atualizados com sucesso.");
@@ -156,18 +145,21 @@ const RegisterPersonalData = ({ route }) => {
     }
   };
 
-  //console.log("registerPersonalData: ", personalData);
   //METHOD GET
   useEffect(() => {
     if (edit) {
-     
       axiosURL
         .get(`candidato/buscar/${1}`)
         .then((response) => {
+          console.log(response.data);
           const email = response.data.email[0].email;
-          let emailRecuperacao = response.data.email[1] ?? "";
-          let telefone = response.data.telefone[0] ?? "";
-          let outroTelefone = response.data.telefone[1] ?? "";
+          let emailRecuperacao = response.data ? response.data.email[1] : "";
+          let telefone = response.data.telefone
+            ? response.data.telefone[0].numero
+            : "";
+          let outroTelefone = response.data.telefone
+            ? response.data.telefone[1].numero
+            : "";
 
           setPersonalData({
             ...response.data,
@@ -182,6 +174,7 @@ const RegisterPersonalData = ({ route }) => {
         })
         .catch((error) => {
           console.log("erro ao pegar dados de finformacoes pessoais");
+          console.log(error);
           return false;
         });
     }
@@ -207,14 +200,7 @@ const RegisterPersonalData = ({ route }) => {
               // object={personalData}
               // onChangeObject={setPersonalData}
               // keyObject="deficiencia"
-
             />
-
-            {/* <CheckboxComponent
-              data={def}
-              type="Deficiencia"
-              text="Deficiencias"
-            /> */}
 
             <InputData
               object={personalData}
@@ -261,6 +247,7 @@ const RegisterPersonalData = ({ route }) => {
             />
             <InputData
               object={personalData}
+              valueDefault={personalData.telefone}
               onChangeObject={setPersonalData}
               keyObject="telefone"
               label="Telefone"
@@ -270,6 +257,7 @@ const RegisterPersonalData = ({ route }) => {
 
             <InputData
               object={personalData}
+              valueDefault={personalData.outroTelefone}
               onChangeObject={setPersonalData}
               keyObject="outroTelefone"
               label="Telefone 2"

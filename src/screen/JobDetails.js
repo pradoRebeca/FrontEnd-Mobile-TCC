@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   ScrollView,
   SafeAreaView,
- 
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
@@ -22,6 +21,7 @@ import { emptyField, showMessage, showToast } from "../Functions";
 //import JobRequirements from "../components/JobRequirements";
 
 const JobDetails = ({ route }) => {
+  console.log("JOBDETAILS");
   const navigation = useNavigation();
   const [stateJob, setStateJob] = useState([]);
   const [dataVaga, setDataVaga] = useState(
@@ -29,6 +29,7 @@ const JobDetails = ({ route }) => {
       deficiencia: [],
       beneficio: [],
       formacaoDesejada: [],
+      rquisitos: "",
     }
   );
   const [buttonsOptions, setButtonsOptions] = useState("");
@@ -57,15 +58,14 @@ const JobDetails = ({ route }) => {
         actionOK = "salva";
         actionCancel = "salvar";
         break;
-      case 1:
+      case 3:
         actionOK = "dispensada";
         actionCancel = "dispensar";
         break;
     }
-   
-    // console.log(dataVaga.id);
+
     // console.log(buttonsOptions);
-    if (buttonsOptions != undefined &&  buttonsOptions != "") {
+    if (buttonsOptions != undefined && buttonsOptions != "") {
       axiosURL
         .post(
           `vaga/candidatar?idVaga=${dataVaga.id}&idStatus=${buttonsOptions}&idCandidato=1`
@@ -78,6 +78,26 @@ const JobDetails = ({ route }) => {
   };
 
   //console.log("opcao", buttonsOptions);
+  console.log("requisitos : ", dataVaga.requisitos);
+
+  if (dataVaga.requisitos != "") {
+    console.log("tem requisito");
+  } else {
+    console.log("teve problema");
+  }
+
+  const returnText = (objText, title) => {
+    if (objText != "" && objText != null) {
+      return (
+        <>
+          <Text style={style.requisitoVaga}>{title}</Text>
+          <Text style={style.descricaoRequisitoVaga}>
+            {dataVaga.requisitos}
+          </Text>
+        </>
+      );
+    }
+  };
 
   return (
     <SafeAreaView>
@@ -127,26 +147,8 @@ const JobDetails = ({ route }) => {
               />
             </View>
             <View style={style.details}>
-              {dataVaga.requisitos && (
-                <>
-                  <View style={style.requisitoVaga}>
-                    <FontAwesome name="file-text-o" size={14} />
-                    <Text
-                      style={{
-                        marginLeft: 10,
-                        fontSize: 15,
-                        fontWeight: "500",
-                      }}
-                    >
-                      Requisitos
-                    </Text>
-                  </View>
+              {returnText(dataVaga.requisitos, "Requisitos")}
 
-                  <Text style={style.descricaoRequisitoVaga}>
-                    {dataVaga.requisitos}
-                  </Text>
-                </>
-              )}
               {dataVaga.salario && (
                 <>
                   <Text style={style.requisitoVaga}>Salario</Text>

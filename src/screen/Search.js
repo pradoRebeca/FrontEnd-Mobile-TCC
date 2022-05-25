@@ -40,7 +40,7 @@ const Search = ({ navigation }) => {
         setError(true);
       });
   }, []);
-  console.log(error);
+  console.log('SEARCH',job);
   return (
     <SafeAreaView>
     <SearchBar  onChangeText={setTextSearch}/>

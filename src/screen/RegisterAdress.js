@@ -15,7 +15,6 @@ import axiosURL from "../API";
 const RegisterAdress = ({ navigation, route }) => {
   var state = listState();
 
-  const [apiResponse, setApiResponse] = useState(0);
   const [clicked, setClick] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [displayButtons, setDisplayButtons] = useState(false);
