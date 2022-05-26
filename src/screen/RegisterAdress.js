@@ -248,7 +248,6 @@ const RegisterAdress = ({ navigation, route }) => {
               object={sigla}
               valueDefault={adressAPI.uf ?? sigla}
               onChangeObject={setSigla}
-            
             />
           </KeyboardAvoidingView>
           <ButtonSave disabled={buttonDisabled} functionClicked={saveData} />

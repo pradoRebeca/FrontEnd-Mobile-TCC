@@ -87,8 +87,8 @@ const StackNavigation = () => {
         options={{ headerShown: true }}
         component={OtherInformation}
       /> */}
-      <Stack.Screen name="Detalhes da Vaga" component={JobDetails} />
-      <Stack.Screen name="Perfil da Empresa" component={CompanyProfile} />
+      <Stack.Screen  options={{ headerTintColor: "#DCEBF2" }} name="Detalhes da Vaga" component={JobDetails} />
+      <Stack.Screen  options={{ headerTintColor: "#DCEBF2" }} name="Perfil da Empresa" component={CompanyProfile} />
       <Stack.Screen name="Filtrar" component={Filter} />
       <Stack.Screen
         options={{ headerTransparent: true }}

@@ -15,7 +15,7 @@ const ProfissionalExperience = ({ route, refresh }) => {
   const navigation = useNavigation();
   const [reponse, setResponse] = useState(0)
   const edit = route.params.edit;
-  const id = 1
+  const id = route.params.id
 
   const [personalData, setPersonalData] = useState({
     id: "",
@@ -47,7 +47,7 @@ const ProfissionalExperience = ({ route, refresh }) => {
           })
           .then((response) => {
             showToast('Dados atualizados com sucesso')
-           
+            navigation.navigate('Perfil', {reload: 1})
             console.log("dados atualizados com sucesso. Tente novamente.");
             return true;
           })
@@ -70,7 +70,7 @@ const ProfissionalExperience = ({ route, refresh }) => {
             showToast('Dados cadastrados com sucesso')
             console.log("dados cadastrados com sucesso");
             console.log(response.status)
-            // navigation.navigate('Perfil', {reload: 2})
+            navigation.navigate('Perfil', {reload: 2})
             return true;
           })
           .catch((error) => {

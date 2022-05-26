@@ -51,7 +51,7 @@ const CandidateJob = () => {
             keyExtractor={(item) => item.id}
             data={job}
             renderItem={(item) => (
-              <CardJobPreview data={item.item} key={item.id} type={'dispensar'} />
+              <CardJobPreview data={item.item} key={item.id} type={"candidatar"} />
             )}
           />
         )}

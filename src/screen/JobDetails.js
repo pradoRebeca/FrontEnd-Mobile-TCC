@@ -34,16 +34,19 @@ const JobDetails = ({ route }) => {
   );
   const [buttonsOptions, setButtonsOptions] = useState("");
 
-  useEffect(() => {
-    axiosURL
-      .put(`vaga/candidatar/${1}?idStatus=${3}`)
-      .then((response) => {
-        return true;
-      })
-      .catch((error) => {
-        return false;
-      });
-  }, [buttonsOptions]);
+  const { type } = route.params;
+  console.log('type : ', type)
+
+  // useEffect(() => {
+  //   axiosURL
+  //     .put(`vaga/candidatar/${1}?idStatus=${3}`)
+  //     .then((response) => {
+  //       return true;
+  //     })
+  //     .catch((error) => {
+  //       return false;
+  //     });
+  // }, [buttonsOptions]);
 
   //METHOD POST -> salvar status da vaga como 'salva, dispensada, e candidata''
   const saveStatus = () => {
@@ -64,27 +67,32 @@ const JobDetails = ({ route }) => {
         break;
     }
 
-    // console.log(buttonsOptions);
     if (buttonsOptions != undefined && buttonsOptions != "") {
-      axiosURL
-        .post(
-          `vaga/candidatar?idVaga=${dataVaga.id}&idStatus=${buttonsOptions}&idCandidato=1`
-        )
-        .then((response) => console.log(`Vaga ${actionOK} com sucesso`))
-        .catch((error) => console.log(`Houve erro ao se ${actionCancel}`));
+
+      if (type) {
+        axiosURL
+          .put(`vaga/candidatar/${1}?idStatus=${3}`)
+          .then((response) => {
+            console.log(`Vaga ${actionOK} com sucesso`)
+          })
+          .catch((error) => {
+            console.log(`Houve erro ao se ${actionCancel}`)
+          });
+      } else {
+        axiosURL
+          .post(
+            `vaga/candidatar?idVaga=${dataVaga.id}&idStatus=${buttonsOptions}&idCandidato=1`
+          )
+          .then((response) => console.log(`Vaga ${actionOK} com sucesso`))
+          .catch((error) => console.log(`Houve erro ao se ${actionCancel}`));
+      }
     } else {
       console.log("nenhuma opcao escolhida");
     }
   };
 
   //console.log("opcao", buttonsOptions);
-  console.log("requisitos : ", dataVaga.requisitos);
 
-  if (dataVaga.requisitos != "") {
-    console.log("tem requisito");
-  } else {
-    console.log("teve problema");
-  }
 
   const returnText = (objText, title) => {
     if (objText != "" && objText != null) {

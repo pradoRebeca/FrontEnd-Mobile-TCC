@@ -20,6 +20,8 @@ import SearchBar from "../components/SearchBar";
 // import { Searchbar } from "react-native-paper";
 
 const Search = ({ navigation }) => {
+  console.log('TELA SEARCH');
+
   //id usuario
   const {idUser, user} = useContext(AuthContext)
   console.log('nome do usuario: ' , user.email)
@@ -28,19 +30,23 @@ const Search = ({ navigation }) => {
   const [error, setError] = useState(false);
   const [job, setJob] = useState([]);
   //const imageWithouJob = "https://sim.marica.rj.gov.br/img/icones/empresa2.pngs";
-//console.log('screen:', textSearch)
+
   useEffect(() => {
     axiosURL
-      .get(`vaga/listar`)
+      .get(`vaga/listar/${1}`)
       .then((response) => {
         setJob(response.data.content.filter((item) => item.status == 1)),
+        console.log('deu certo')
           setError(false);
       })
       .catch((error) => {
+        console.log('erro ao buscar vagas sem relacao com o candidato')
         setError(true);
       });
   }, []);
-  console.log('SEARCH',job);
+
+
+
   return (
     <SafeAreaView>
     <SearchBar  onChangeText={setTextSearch}/>

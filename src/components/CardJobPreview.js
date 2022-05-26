@@ -10,6 +10,7 @@ import Icon from "@expo/vector-icons/MaterialIcons";
 const windowWidth = Dimensions.get("window").width;
 
 const CardJobPreview = ({ data, type }) => {
+  console.log('type: ', type)
   const [dataJob, setDataJob] = useState(data ?? []);
   const navigation = useNavigation();
 
@@ -68,7 +69,7 @@ const CardJobPreview = ({ data, type }) => {
         <TouchableOpacity
           style={style.knowMore}
           onPress={() =>
-            navigation.navigate("Detalhes da Vaga", { dataVaga: dataJob ?? [] })
+            navigation.navigate("Detalhes da Vaga", { dataVaga: dataJob ?? [] , type: type })
           }
         >
           <Text style={{ ...style.secondPartText, fontSize: 16 }}>
