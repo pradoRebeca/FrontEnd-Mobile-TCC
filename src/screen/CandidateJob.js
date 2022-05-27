@@ -1,19 +1,23 @@
-import react, {useState, useEffect} from "react";
+import react, {useState, useEffect, useContext} from "react";
 import { View, StyleSheet, Text, SafeAreaView, FlatList } from "react-native";
-import NotFound from "../components/NotFound";
-import axiosURL from "../API";
 import { ActivityIndicator } from 'react-native-paper';
 import Icon from "@expo/vector-icons/MaterialIcons";
 
-
+import NotFound from "../components/NotFound";
+import axiosURL from "../API";
+import { AuthContext } from "../contexts/AuthContext";
 import CardJobPreview from "../components/CardJobPreview";
 
 const CandidateJob = () => {
+  const {idUser} = useContext(AuthContext)
   console.log('TELA CANDIDATEJOB')
   const [error, setError] = useState(false);
+  const [displayReload, setDisplayReaload] = useState(true);
   const [job, setJob] = useState([]);
 
-  //const imageWithouJob = "https://sim.marica.rj.gov.br/img/icones/empresa2.pngs";
+console.log(idUser)
+
+//const imageWithouJob = "https://sim.marica.rj.gov.br/img/icones/empresa2.pngs";
 
 const carregar = () =>{ 
  if(job.length < 0){
@@ -23,20 +27,28 @@ const carregar = () =>{
     console.log('nao é para carregar')
   }
 }
-
+// console.log('job', job)
   useEffect(() => {
     axiosURL
-      .get(`vaga/listar/vagas/status?idCandidato=${1}&idStatus=${1}`)
+      .get(`vaga/listar/vagas/status?idCandidato=${idUser}&idStatus=${1}`)
       .then((response) => {
         setJob(response.data.content);
-        setError(false);
+        console.log(response.data.content)
+        if(response.data.content.length != 0){
+          setDisplayReaload(false)
+          setError(false);
+        }else{
+          setDisplayReaload(false)
+          setError(true);
+        }
       })
       .catch((error) => {
+        console.log('erro ao pegar vagas candidadatas => ', error.message)
+        setDisplayReaload(false)
         setError(true);     
       });
   }, []);
-
-  // console.log(job)
+console.log(error)
   return (
     <SafeAreaView>
       {/* <StatusBar backgroundColor="#1E7596" /> */}
@@ -54,7 +66,7 @@ const carregar = () =>{
       >
         {error && <NotFound />}
 
-        {/* <ActivityIndicator animating={error ? false : true} color={"#1E7596"} /> */}
+        <ActivityIndicator animating={displayReload} color={"#1E7596"} />
         {job && (
           <FlatList
             data={job}

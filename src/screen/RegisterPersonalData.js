@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { StyleSheet, View, StatusBar, ScrollView } from "react-native";
 import { KeyboardAvoidingView } from "react-native";
 import axios from "axios";
@@ -11,6 +11,7 @@ import ButtonSave from "../components/ButtonSave";
 import { emptyField, showMessage } from "../Functions";
 import InputCalendar from "../components/InputCalendar";
 import axiosURL from "../API";
+import { AuthContext } from "../contexts/AuthContext";
 
 const genero = [
   "Selecione um Genero",
@@ -44,6 +45,7 @@ const def = [
 ];
 
 const RegisterPersonalData = ({ route }) => {
+  const {idUser} = useContext(AuthContext)
   const edit = true;
   const id = route.params.id;
 
@@ -118,7 +120,7 @@ console.log(personalData)
       )
     ) {
       axiosURL
-        .put(`candidato/atualizar/${1}`, {
+        .put(`candidato/atualizar/${idUser}`, {
           id: 1,
           nome: personalData.nome,
           nomeSocial: personalData.nomeSocial,

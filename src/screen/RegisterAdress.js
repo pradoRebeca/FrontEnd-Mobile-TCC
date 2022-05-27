@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { View, StatusBar, ScrollView, Image, Button } from "react-native";
 import { KeyboardAvoidingView } from "react-native";
 import axios from "axios";
 
+import { AuthContext } from "../contexts/AuthContext";
 import InputData from "../components/InputData";
 import ModifyTitle from "../components/ModifyTitle";
 import Style from "../Style";
@@ -13,6 +14,7 @@ import axiosURL from "../API";
 
 //06693590
 const RegisterAdress = ({ navigation, route }) => {
+  const {idUser} = useContext(AuthContext)
   var state = listState();
 
   const [clicked, setClick] = useState(false);
@@ -104,7 +106,7 @@ const RegisterAdress = ({ navigation, route }) => {
       axiosURL
         .get(`candidato/buscar/${1}`)
         .then((response) => {
-          setAdressTyped(response.data.endereco), setDisplayButtons(true);
+          console.log(response.data.endereco), setDisplayButtons(true);
         })
         .catch((error) => {
           console.log("erro ao pegar dados de endereço"),
@@ -118,7 +120,7 @@ const RegisterAdress = ({ navigation, route }) => {
     //METODO PUT
     if (route.params.edit) {
       axiosURL
-        .put(`candidato/atualizar/endereco/1`, {
+        .put(`candidato/atualizar/endereco/${idUser}`, {
           rua: rua.rua,
           numero: numero.numero,
           bairro: bairro.bairro,
@@ -140,7 +142,7 @@ const RegisterAdress = ({ navigation, route }) => {
       if (emptyField(adressTyped.cep)) {
         console.log(adressTyped);
         axiosURL
-          .post(`candidato/cadastrar/endereco/1`, {
+          .post(`candidato/cadastrar/endereco/${idUser}`, {
             rua: rua.rua,
             numero: numero.numero,
             bairro: bairro.bairro,
@@ -164,10 +166,6 @@ const RegisterAdress = ({ navigation, route }) => {
     }
   };
 
- // console.log("endereco ", adressTyped);
-  // console.log( 'via cep', adressAPI)
-
-
   console.log('bairro: ', bairro)
   console.log('cep: ', cep)
   console.log('rua: ', rua)
@@ -175,8 +173,6 @@ const RegisterAdress = ({ navigation, route }) => {
   console.log('estado: ', sigla.estado)
   console.log('numero: ', numero)
   console.log('sigla: ', sigla)
-
-
 
   return (
     <>

@@ -2,30 +2,48 @@ import { NavigationContainer } from "@react-navigation/native";
 import React, { createContext, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
+import axiosURL from "../API";
+import { showMessage } from "../Functions";
+
 export const AuthContext = createContext({});
 
 const AuthProvider = ({ children }) => {
-    const navigation = useNavigation();
-    const [user, setUser] = useState({});
+  const navigation = useNavigation();
+  const [user, setUser] = useState({});
+  console.log("AUTHCONTEXT");
 
+  const auth = (email, password) => {
+    axiosURL
+      .post(`auth/candidato`, {
+        login: email,
+        senha: password,
+      })
+      .then((response) => {
+        setUser({
+          id: response.data.id,
+          name: response.data.nome,
+        });
+        navigation.navigate({ name: "CandidateHome" });
+      })
+      .catch((error) => {
+        showMessage("Não foi possível fazer login, verifique seus dados.");
+        console.log("error login =>", error.message);
+      });
+  };
 
-    const singIn = (email, password) => {
-        if(email !== '' && password !== ''){
-            setUser({
-                email: email,
-                senha: '12'
-            })
-
-            navigation.navigate({ name: "CandidateHome" });
-        }else {
-            console.log('usuario e senha não informados')
-        }
+  const singIn = (email, password) => {
+    if (email !== "" && password !== "") {
+      auth(email, password);
+    } else {
+      showMessage("usuario e senha não informados");
     }
+  };
 
-
-  return <AuthContext.Provider value={{idUser : '20', singIn, user}}>
+  return (
+    <AuthContext.Provider value={{ singIn, user, idUser: user.id }}>
       {children}
-      </AuthContext.Provider>;
+    </AuthContext.Provider>
+  );
 };
 
-export default AuthProvider
+export default AuthProvider;

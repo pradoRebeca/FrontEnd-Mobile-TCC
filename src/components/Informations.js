@@ -65,8 +65,8 @@ const Information = ({ data, nameSreen }) => {
   };
 
   const renderItem = () => {
-    console.log(titleText.length)
-    console.log(titleText)
+    // console.log(titleText.length)
+    // console.log(titleText)
     if(titleText.length >= 0) {
       return titleText.map((item) => renderText(item[0], item[1]));
     }
@@ -91,7 +91,10 @@ const Information = ({ data, nameSreen }) => {
   //   }
   // };
 
+  // console.log('id informations ', data.id)
+ 
 
+//  console.log(idInformation)
   return (
     <View style={style.viewInfo}>
       {renderItem()}
@@ -100,7 +103,7 @@ const Information = ({ data, nameSreen }) => {
           onPress={() =>
             navigation.navigate(nameSreen, {
               edit: true,
-              id: data[id],
+              id: data.id,
             })
           }
         >

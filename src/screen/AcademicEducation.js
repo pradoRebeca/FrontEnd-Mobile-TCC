@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { StyleSheet, View, StatusBar, ScrollView } from "react-native";
 import axios from "axios";
 
+import { AuthContext } from "../contexts/AuthContext";
 import ModifyTitle from "../components/ModifyTitle";
 import Select from "../components/Select";
 import ButtonDeleteInformation from "../components/ButtonDeleteInformayion";
@@ -13,6 +14,7 @@ import axiosURL from "../API";
 
 
 const AcademicEducation = ({ route }) => {
+  const {idUser} = useContext(AuthContext)
   const visible = route.params.edit;
   const id = route.params.id;
 
@@ -61,7 +63,7 @@ const AcademicEducation = ({ route }) => {
     //METHOD POST
     if (!hasId(personalData)) {
       axiosURL
-        .post(`candidato/cadastrar/curso/${1}`, {
+        .post(`candidato/cadastrar/curso/${idUser}`, {
           curso: personalData.curso,
         })
         .then((response) => {
@@ -101,7 +103,6 @@ const AcademicEducation = ({ route }) => {
 
   //METHOD DELETE
   const deleteData = () => {
-    console.log("id do curso", id);
     axiosURL
       .delete(`candidato/deletar/curso/${id}`)
       .then((response) => {

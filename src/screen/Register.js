@@ -43,7 +43,7 @@ const Register = () => {
           email: personalData.email,
           genero: "PREFIRO_NAO_INFORMAR",
         })
-        .then((response) => navigation.navigate({ name: "CandidateHome" }))
+        .then((response) => navigation.navigate({ name: "Login" }))
         .catch(() => showMessage("Erro ao cadastrar, tente novamente."));
     } else {
       showMessage("Preencha todos os campos.");

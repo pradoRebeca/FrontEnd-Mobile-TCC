@@ -2,6 +2,8 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import SaveJob from "../screen/SaveJob";
 import CandidateJob from "../screen/CandidateJob";
 import CandidateHome from "../screen/CandidateHome";
+import DispensadasJob from "../screen/DispensadasJob";
+
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -23,6 +25,7 @@ const TopNavigation = () => {
         // tabBarIndicatorContainerStyle: {
         //   backgroundColor: "#1E7596",
         // },
+        
         tabBarItemStyle: {minWidth: 50,},   
        
       }}
@@ -45,9 +48,8 @@ const TopNavigation = () => {
       />
       <Tab.Screen
         name="Dispensadas"
-        component={SaveJob}
+        component={DispensadasJob}
         options={{ tabBarLabel: "Dispensadas",}}
-
       />
     </Tab.Navigator>
   );

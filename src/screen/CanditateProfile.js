@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   StyleSheet,
   View,
@@ -14,7 +14,7 @@ import axiosURL from "../API";
 import DisplayInformation from "../components/DisplayInformations";
 import Information from "../components/Informations";
 import { ActivityIndicator } from 'react-native-paper';
-
+import { AuthContext } from "../contexts/AuthContext";
 
 const user = [
   {
@@ -45,6 +45,7 @@ const enderecoRua = {
 };
 
 const CandidateProfile = ({route}) => {
+  const {idUser} = useContext(AuthContext)
   // const [isReaload, setIsReaload] = useState()
   const navigation = useNavigation();
   
@@ -66,9 +67,11 @@ const CandidateProfile = ({route}) => {
   //   }
   // }, [route.params])
 
+
+console.log(idUser, 'iduser')
   useEffect(() => {
     axiosURL
-      .get(`candidato/buscar/${1}`)
+      .get(`candidato/buscar/${idUser}`)
       .then((response) => {
         setExperienceData(response.data.experiencia);
         setCursoData(response.data.curso);
@@ -83,12 +86,12 @@ const CandidateProfile = ({route}) => {
         });
       })
       .catch((error) => {
-        console.warn(error);
+        console.log('nao deu para pegar dados do candidato => ', error.message);
         return false;
       });
   }, [route.params]);
 
-console.log('refresh: ',route.params)
+// console.log('refresh: ',route.params)
 
   //Filtro para cada seção
   useEffect(() => {

@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { StyleSheet, View, StatusBar, ScrollView } from "react-native";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 
+import { AuthContext } from "../contexts/AuthContext";
 import ButtonDeleteInformation from "../components/ButtonDeleteInformayion";
 import ModifyTitle from "../components/ModifyTitle";
 import InputData from "../components/InputData";
@@ -12,11 +13,13 @@ import InputCalendar from "../components/InputCalendar";
 import axiosURL from "../API";
 
 const ProfissionalExperience = ({ route, refresh }) => {
+  const {idUser} = useContext(AuthContext)
+console.log('PROFISSIONALEXPERIENCE')
+
   const navigation = useNavigation();
-  const [reponse, setResponse] = useState(0)
   const edit = route.params.edit;
   const id = route.params.id
-
+  console.log('experiencia id', id)
   const [personalData, setPersonalData] = useState({
     id: "",
     cargo: "",
@@ -47,8 +50,8 @@ const ProfissionalExperience = ({ route, refresh }) => {
           })
           .then((response) => {
             showToast('Dados atualizados com sucesso')
-            navigation.navigate('Perfil', {reload: 1})
-            console.log("dados atualizados com sucesso. Tente novamente.");
+            console.log("dados atualizados com sucesso");
+            navigation.navigate('Perfil', {reload: 2})
             return true;
           })
           .catch((error) => {
@@ -59,7 +62,7 @@ const ProfissionalExperience = ({ route, refresh }) => {
       } else {
       //  METHOD POST
         axiosURL
-          .post(`candidato/cadastrar/experiencia/${id}`, {
+          .post(`candidato/cadastrar/experiencia/${idUser}`, {
             cargo: personalData.cargo,
             dataInicio: personalData.dataInicio,
             dataSaida: personalData.dataFim,
@@ -70,7 +73,7 @@ const ProfissionalExperience = ({ route, refresh }) => {
             showToast('Dados cadastrados com sucesso')
             console.log("dados cadastrados com sucesso");
             console.log(response.status)
-            navigation.navigate('Perfil', {reload: 2})
+            navigation.navigate('Perfil', {reload: 1})
             return true;
           })
           .catch((error) => {
@@ -91,9 +94,10 @@ const ProfissionalExperience = ({ route, refresh }) => {
   useEffect(() => {
     if (edit) {
       axiosURL
-        .get(`candidato/listar/experiencia/${id}`)
+        .get(`candidato/listar/experiencia/${idUser}`)
         .then((response) => {
-          setPersonalData({ ...response.data.content[0]});
+          const dataResponse = response.data.content.filter(item => item.id === id)
+          setPersonalData(dataResponse[0]);
           return true;
         })
         .catch((error) => {
@@ -103,6 +107,8 @@ const ProfissionalExperience = ({ route, refresh }) => {
     }
   }, [edit]);
 
+  console.log(personalData)
+
   //METHOD DELETE
   const deleteData = () => {
     axiosURL
@@ -110,6 +116,7 @@ const ProfissionalExperience = ({ route, refresh }) => {
       .then((response) => {
         showToast('Dados deletados com sucesso')
         console.log("dados deletados com sucesso");
+        navigation.navigate('Perfil', {reload: 1})
         return true;
       })
       .catch((error) => {
