@@ -7,21 +7,34 @@ import InputData from "../components/InputData";
 import ButtonHome from "../components/ButtonHome";
 import TitleScreen from "../components/TitleSreen";
 import ButtonCancel from "../components/ButtonCancel";
-import {showToast } from "../Functions";
+import { showMessage, showToast } from "../Functions";
 
-const EmailValidation = () => {
+const EmailValidation = ({route}) => {
   const navigation = useNavigation();
   const [personalData, setPersonalData] = useState({
+    email: route.params.email,
     codigo: "",
-    
   });
 
   const next = () => {
-    navigation.navigate({ name: "Redefinicao de senha" });
+    axiosURL
+      .post(`auth/verificar/codigo/candidato`, { 
+        email: personalData.email,
+        codigo: personalData.codigo
+      })
+      .then((response) => {
+        console.log("reponse AUth", response.content);
+        //navigation.navigate({ name: "Redefinicao de senha" });
+      })
+      .catch((error) => {
+        console.log("error ao enviar codigo para o email => ", error);
+        showMessage("Código incorreto");
+      });
+  //  navigation.navigate({ name: "Redefinicao de senha" });
   };
 
   const sendCode = () => {
-    showToast('Novo código enviado')
+    showToast("Novo código enviado");
   };
 
   return (

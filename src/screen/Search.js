@@ -7,6 +7,7 @@ import {
   Text,
   ScrollView,
   Image,
+  TouchableOpacity
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import axios from "axios";
@@ -28,28 +29,66 @@ const Search = ({ navigation }) => {
 
   const [textSearch, setTextSearch] = useState("")
   const [error, setError] = useState(false);
+  const [displayReload, setDisplayReaload] = useState(true);
   const [job, setJob] = useState([]);
+  const [reloadVagas, setRealoadVagas] = useState(true)
   //const imageWithouJob = "https://sim.marica.rj.gov.br/img/icones/empresa2.pngs";
 
   useEffect(() => {
-    axiosURL
-      .get(`vaga/listar/${1}`)
+    if(reloadVagas){
+      axiosURL
+      .get(`vaga/listar/${idUser}`)
       .then((response) => {
-        setJob(response.data.content.filter((item) => item.status == 1)),
-        console.log('deu certo')
+        if(response.data.content.length != 0){
+          setJob(response.data.content.filter((item) => item.status == 1))
+          console.log('com conteudo')
+          setDisplayReaload(false)
           setError(false);
+        }else{
+          console.log('sem conteudo')
+          setDisplayReaload(false)
+          setError(true);
+        }
       })
       .catch((error) => {
         console.log('erro ao buscar vagas sem relacao com o candidato')
-        setError(true);
+        setDisplayReaload(false)
+        setError(true);     
       });
+    }
   }, []);
+  
+const resultSearch = () => {
+  axiosURL
+  .get(`pesquisa/?palavra=${textSearch}`)
+  .then((response) => {
+    setJob(response.data.content)
+    console.log(response.data.content)
+    if(response.data.content.length != 0){
 
-
+    
+      console.log('com conteudo')
+      setDisplayReaload(false)
+      setRealoadVagas(false)
+      setError(false);
+    }else{
+      console.log('sem conteudo')
+      setRealoadVagas(false)
+      setDisplayReaload(false)
+      setError(true);
+    }
+  })
+  .catch((error) => {
+    console.log('erro ao pegar dados pela pesquisa => ', error)
+    console.log('erro ao buscar vagas sem relacao com o candidato')
+    setDisplayReaload(false)
+    setError(true);     
+  });
+}
 
   return (
     <SafeAreaView>
-    <SearchBar  onChangeText={setTextSearch}/>
+    <SearchBar onChangeText={setTextSearch} functionClicked={resultSearch} />
       <StatusBar backgroundColor="#1E7596"/>
       <View
         style={
@@ -61,8 +100,14 @@ const Search = ({ navigation }) => {
             : { ...style.content }
         }
       >
-        {error && <NotFound />}
-        {/* <ActivityIndicator animating={error ? false : true} color={"#1E7596"} /> */}
+        {error && 
+        <NotFound />
+        }
+
+        {/* {<TouchableOpacity>
+          <Text> Listar todas as vagas</Text>
+          </TouchableOpacity>} */}
+        <ActivityIndicator animating={displayReload} color={"#1E7596"} />
 
 
         {job && (

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { View, StatusBar, ScrollView, Image, Button } from "react-native";
 import { KeyboardAvoidingView } from "react-native";
 import axios from "axios";
+import { useNavigation } from "@react-navigation/native";
 
 import { AuthContext } from "../contexts/AuthContext";
 import InputData from "../components/InputData";
@@ -9,13 +10,15 @@ import ModifyTitle from "../components/ModifyTitle";
 import Style from "../Style";
 import Select from "../components/Select";
 import ButtonSave from "../components/ButtonSave";
-import { listState, emptyField, listCity, showMessage } from "../Functions";
+import { listState, emptyField, listCity, showMessage, showToast } from "../Functions";
 import axiosURL from "../API";
 
 //06693590
-const RegisterAdress = ({ navigation, route }) => {
+const RegisterAdress = ({ route }) => {
   const {idUser} = useContext(AuthContext)
   var state = listState();
+
+  const navigation = useNavigation();
 
   const [clicked, setClick] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(true);
@@ -104,12 +107,12 @@ const RegisterAdress = ({ navigation, route }) => {
     if (route.params.edit) {
       setDisplayButtons(true);
       axiosURL
-        .get(`candidato/buscar/${1}`)
+        .get(`candidato/buscar/${idUser}`)
         .then((response) => {
           console.log(response.data.endereco), setDisplayButtons(true);
         })
         .catch((error) => {
-          console.log("erro ao pegar dados de endereço"),
+            console.log("erro ao pegar dados de endereço"),
             setDisplayButtons(true);
           return false;
         });
@@ -130,17 +133,19 @@ const RegisterAdress = ({ navigation, route }) => {
           cep: cep.cep,
         })
         .then((response) => {
+          showToast('Dados atualizados com sucesso')
+          navigation.navigate('Perfil', {reload: 1})
           console.log("dados  de endereço  atualizados com sucesso");
           return true;
         })
         .catch((error) => {
+          showMessage('Erro ao atualizar dados')
           console.log("erro ao atualizar dados de endereço");
           return false;
         });
     } else {
       //METODO POST
-      if (emptyField(adressTyped.cep)) {
-        console.log(adressTyped);
+      if (emptyField(cep.cep)) {
         axiosURL
           .post(`candidato/cadastrar/endereco/${idUser}`, {
             rua: rua.rua,
@@ -152,11 +157,15 @@ const RegisterAdress = ({ navigation, route }) => {
             cep: cep.cep,
           })
           .then((response) => {
+            showToast('Dados cadastrados com sucesso')
+            navigation.navigate('Perfil', {reload: 1})
             console.log("dados cadastrados com sucesso");
             return true;
           })
           .catch((error) => {
+            showMessage('Erro ao cadastrar os dados. Tente novamente.')
             console.log("erro ao cadastrar dados");
+            console.log(error)
             return false;
           });
       } else {
@@ -166,13 +175,13 @@ const RegisterAdress = ({ navigation, route }) => {
     }
   };
 
-  console.log('bairro: ', bairro)
-  console.log('cep: ', cep)
-  console.log('rua: ', rua)
-  console.log('cidade: ', cidade)
-  console.log('estado: ', sigla.estado)
-  console.log('numero: ', numero)
-  console.log('sigla: ', sigla)
+  // console.log('bairro: ', bairro)
+  // console.log('cep: ', cep)
+  // console.log('rua: ', rua)
+  // console.log('cidade: ', cidade)
+  // console.log('estado: ', sigla.estado)
+  // console.log('numero: ', numero)
+  // console.log('sigla: ', sigla.sigla)
 
   return (
     <>

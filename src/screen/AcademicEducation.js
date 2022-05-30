@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { StyleSheet, View, StatusBar, ScrollView } from "react-native";
 import axios from "axios";
+import { useNavigation } from "@react-navigation/native";
 
 import { AuthContext } from "../contexts/AuthContext";
 import ModifyTitle from "../components/ModifyTitle";
@@ -8,7 +9,7 @@ import Select from "../components/Select";
 import ButtonDeleteInformation from "../components/ButtonDeleteInformayion";
 import Style from "../Style";
 import ButtonSave from "../components/ButtonSave";
-import { emptyField, hasId, showMessage } from "../Functions";
+import { emptyField, hasId, showMessage, showToast } from "../Functions";
 import SelectFormation from "../components/SelectFormation";
 import axiosURL from "../API";
 
@@ -17,6 +18,8 @@ const AcademicEducation = ({ route }) => {
   const {idUser} = useContext(AuthContext)
   const visible = route.params.edit;
   const id = route.params.id;
+
+  const navigation = useNavigation();
 
   const [educationName, setEducationName] = useState([]);
   const [educationLevel, setEducationLevel] = useState([]);
@@ -67,7 +70,8 @@ const AcademicEducation = ({ route }) => {
           curso: personalData.curso,
         })
         .then((response) => {
-          showMessage("Dados cadastrados com sucesso.");
+          showToast("Dados cadastrados com sucesso.");
+          navigation.navigate('Perfil', {reload: 1})
           console.log("dados de formacao academica cadastrados com sucesso");
           return true;
         })
@@ -86,7 +90,7 @@ const AcademicEducation = ({ route }) => {
   useEffect(() => {
     if (visible) {
       axiosURL
-        .get(`candidato/buscar/1`)
+        .get(`candidato/buscar/${idUser}`)
         .then((response) => {
           var responseCurso = response.data.curso;
 
@@ -107,6 +111,7 @@ const AcademicEducation = ({ route }) => {
       .delete(`candidato/deletar/curso/${id}`)
       .then((response) => {
         showMessage("Dados deletados com sucesso.");
+        navigation.navigate('Perfil', {reload: 1})
         console.log("dados deletados com sucesso");
         return true;
       })

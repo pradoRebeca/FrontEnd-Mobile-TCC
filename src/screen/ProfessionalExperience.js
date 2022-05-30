@@ -19,7 +19,6 @@ console.log('PROFISSIONALEXPERIENCE')
   const navigation = useNavigation();
   const edit = route.params.edit;
   const id = route.params.id
-  console.log('experiencia id', id)
   const [personalData, setPersonalData] = useState({
     id: "",
     cargo: "",

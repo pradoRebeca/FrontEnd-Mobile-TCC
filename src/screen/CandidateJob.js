@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, SafeAreaView, FlatList } from "react-native";
 import { ActivityIndicator } from 'react-native-paper';
 import Icon from "@expo/vector-icons/MaterialIcons";
 
+
 import NotFound from "../components/NotFound";
 import axiosURL from "../API";
 import { AuthContext } from "../contexts/AuthContext";
@@ -27,13 +28,12 @@ const carregar = () =>{
     console.log('nao é para carregar')
   }
 }
-// console.log('job', job)
+
   useEffect(() => {
     axiosURL
       .get(`vaga/listar/vagas/status?idCandidato=${idUser}&idStatus=${1}`)
       .then((response) => {
         setJob(response.data.content);
-        console.log(response.data.content)
         if(response.data.content.length != 0){
           setDisplayReaload(false)
           setError(false);

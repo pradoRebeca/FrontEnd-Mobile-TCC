@@ -12,6 +12,13 @@ const SaveJob = () => {
   const [error, setError] = useState(false);
   const [job, setJob] = useState([]);
 
+
+const abc = () => {
+  console.log('passou aqui')
+}
+
+abc()
+
   //const imageWithouJob = "https://sim.marica.rj.gov.br/img/icones/empresa2.pngs";
   useEffect(() => {
     axiosURL

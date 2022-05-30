@@ -3,7 +3,7 @@ import { View, StyleSheet } from "react-native";
 
 import { Searchbar } from "react-native-paper";
 
-const SearchBar = ({ onChangeText }) => {
+const SearchBar = ({ onChangeText, functionClicked }) => {
   const [search, setSearch] = useState("");
   const onChange = (query) => {
     setSearch(query);
@@ -26,6 +26,7 @@ const SearchBar = ({ onChangeText }) => {
         onChangeText={onChange}
         value={search}
         selectionColor={"#225E77"}
+        onIconPress={functionClicked}
         // onKeyPress={keyPress}
 
          />

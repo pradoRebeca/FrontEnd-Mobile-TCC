@@ -8,7 +8,7 @@ import InputData from "../components/InputData";
 import Style from "../Style";
 import CheckboxComponent from "../components/CheckBox";
 import ButtonSave from "../components/ButtonSave";
-import { emptyField, showMessage } from "../Functions";
+import { emptyField, showMessage, showToast } from "../Functions";
 import InputCalendar from "../components/InputCalendar";
 import axiosURL from "../API";
 import { AuthContext } from "../contexts/AuthContext";
@@ -92,20 +92,20 @@ const RegisterPersonalData = ({ route }) => {
   // }, []);
 
   //VALIDAÇÃO DE CAMPO OBRIGATÓRIO
-  useEffect(() => {
-    if (
-      emptyField(
-        personalData.nome,
-        personalData.email,
-        personalData.emailRecuperacao,
-        personalData.telefone
-      )
-    ) {
-      // setButtonDisabled(false);
-    } else {
-      // setButtonDisabled(true);
-    }
-  }, [personalData]);
+  // useEffect(() => {
+  //   if (
+  //     emptyField(
+  //       personalData.nome,
+  //       personalData.email,
+  //       personalData.emailRecuperacao,
+  //       personalData.telefone
+  //     )
+  //   ) {
+  //     // setButtonDisabled(false);
+  //   } else {
+  //     // setButtonDisabled(true);
+  //   }
+  // }, [personalData]);
 
   //METHOD PUT
   const saveData = () => {
@@ -131,7 +131,7 @@ console.log(personalData)
           telefone: [personalData.telefone, personalData.outroTelefone]
         })
         .then((response) => {
-          showMessage("Dados atualizados com sucesso.");
+          showToast("Dados atualizados com sucesso.");
           console.log(
             "registerPersonalData: ",
             "dados ATUALIZADOS com sucesso"

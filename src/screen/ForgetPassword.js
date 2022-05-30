@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { Image, StyleSheet, View, SafeAreaView } from "react-native";
 import { Dimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import axiosURL from "../API";
 
 import InputData from "../components/InputData";
 import ButtonHome from "../components/ButtonHome";
 import TitleScreen from "../components/TitleSreen";
 import ButtonCancel from "../components/ButtonCancel";
+import { showMessage } from "../Functions";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -14,11 +16,24 @@ const windowHeight = Dimensions.get("window").height;
 const ForgetPassword = () => {
   const navigation = useNavigation();
   const [personalData, setPersonalData] = useState({
-    email: "",
+    email: "rebeca.2003.prado@gmail.com",
   });
 
   const next = () => {
-    navigation.navigate({ name: "Validacao email" });
+    console.log('email => ', personalData.email)
+    // axiosURL
+    // .post(`auth/enviar/email`, {email: 'rebeca.2003.prado@gmail.com'})
+    // .then((response) => {
+    //   console.log('reponse AUth', response.content)
+    //   showMessage('Enviamos um email com o código')
+     
+    // })
+    // .catch((error) => {
+    //   console.log('error ao enviar codigo para o email => ', error)
+    //   showMessage('Erro enviar email')
+     
+    // });
+    navigation.navigate({ name: "Validacao email", email: personalData.email});
   };
 
   const back = () => {
