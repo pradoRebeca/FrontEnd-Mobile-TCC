@@ -1,8 +1,5 @@
 import React from "react";
-import {
-  CardStyleInterpolators,
-  createStackNavigator,
-} from "@react-navigation/stack";
+import { createStackNavigator } from "@react-navigation/stack";
 
 import Home from "../screen/Home";
 import Login from "../screen/Login";
@@ -12,17 +9,12 @@ import RegisterPersonalData from "../screen/RegisterPersonalData";
 import RegisterAdress from "../screen/RegisterAdress";
 import AcademicEducation from "../screen/AcademicEducation";
 import ProfissionalExperience from "../screen/ProfessionalExperience";
-import OtherInformation from "../screen/OtherInformation";
 import JobDetails from "../screen/JobDetails";
 import CompanyProfile from "../screen/CompanyProfile";
 import Filter from "../screen/Filter";
 import ForgetPassword from "../screen/ForgetPassword";
-import { backgroundColor } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
-import SaveJob from "../screen/SaveJob";
 import EmailValidation from "../screen/EmailValidation";
 import RedefinePassword from "../screen/RedefinePassword";
-import SearchBar from "../components/SearchBar";
-import Search from "../screen/Search";
 
 const StackNavigation = () => {
   const Stack = createStackNavigator();
@@ -87,9 +79,21 @@ const StackNavigation = () => {
         options={{ headerShown: true }}
         component={OtherInformation}
       /> */}
-      <Stack.Screen  options={{ headerTintColor: "#DCEBF2" }} name="Detalhes da Vaga" component={JobDetails} />
-      <Stack.Screen  options={{ headerTintColor: "#DCEBF2" }} name="Perfil da Empresa" component={CompanyProfile} />
-      <Stack.Screen name="Filtrar" component={Filter} />
+      <Stack.Screen
+        options={{ headerTintColor: "#DCEBF2" }}
+        name="Detalhes da Vaga"
+        component={JobDetails}
+      />
+      <Stack.Screen
+        options={{ headerTintColor: "#DCEBF2" }}
+        name="Perfil da Empresa"
+        component={CompanyProfile}
+      />
+      <Stack.Screen
+        options={{ headerTintColor: "#DCEBF2" }}
+        name="Filtrar"
+        component={Filter}
+      />
       <Stack.Screen
         options={{ headerTransparent: true }}
         name="Esqueci a senha"

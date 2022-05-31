@@ -8,6 +8,7 @@ import NotFound from "../components/NotFound";
 import axiosURL from "../API";
 import { AuthContext } from "../contexts/AuthContext";
 import CardJobPreview from "../components/CardJobPreview";
+import { StatusBar } from "expo-status-bar";
 
 const CandidateJob = ({route}) => {
 // console.log('initial params =>', route.params.reload)
@@ -62,7 +63,8 @@ const carregar = () =>{
 
   return (
     <SafeAreaView>
-      {/* <StatusBar backgroundColor="#1E7596" /> */}
+  
+      <StatusBar backgroundColor="#1E7596" />
       {/* <SearchBar /> */}
       {/* <TopNavigation navigation={navigation} /> */}
       <View

@@ -1,4 +1,3 @@
-import { NavigationContainer } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
 import {
   Image,
@@ -18,6 +17,7 @@ import axios from "axios";
 import CardJobPreview from "../components/CardJobPreview";
 import { ScrollView } from "react-native-gesture-handler";
 import axiosURL from "../API";
+import Filter from "../components/Filter";
 
 const userData = [
   {
@@ -178,18 +178,7 @@ const CompanyProfile = ({ route }) => {
           )}
         </View>
 
-        <TouchableOpacity
-          onPress={() => navigation.navigate("Filtrar")}
-          style={{
-            ...style.contentInformation,
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <Text style={{ fontSize: 16 }}>Filtrar</Text>
-          <AntDesign name="filter" size={25} />
-        </TouchableOpacity>
+        <Filter />
 
         <FlatList
           data={companyJobs}

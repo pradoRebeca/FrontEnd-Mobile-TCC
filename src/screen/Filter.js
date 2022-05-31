@@ -89,7 +89,7 @@ const Filter = ({ route }) => {
               // text="Tipo de Deficiencias"
             />
             <Text  style={style.titleSection}>Região</Text>
-            <Select
+            {/* <Select
               data={state}
               keyObject={"sigla"}
               // object={adressTyped}
@@ -102,25 +102,25 @@ const Filter = ({ route }) => {
               // object={adressTyped}
               // onChangeObject={setAdressTyped}
               // valueAPI={adressAPI.uf}
-            />
+            /> */}
 
             <Text  style={style.titleSection}>Suporte Oferecido</Text>
-            <Select
+            {/* <Select
               data={state}
               keyObject={"sigla"}
               // object={adressTyped}
               // onChangeObject={setAdressTyped}
               // valueAPI={adressAPI.uf}
-            />
+            /> */}
 
             <Text  style={style.titleSection}>Salário</Text>
-            <Select
+            {/* <Select
               data={state}
               keyObject={"sigla"}
               // object={adressTyped}
               // onChangeObject={setAdressTyped}
               // valueAPI={adressAPI.uf}
-            />
+            /> */}
           </KeyboardAvoidingView>
           <ButtonSave disabled={false} mode='filter' functionClicked={functionFilterData} />
         </View>

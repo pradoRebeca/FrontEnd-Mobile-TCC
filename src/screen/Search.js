@@ -7,7 +7,7 @@ import {
   Text,
   ScrollView,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import axios from "axios";
@@ -18,78 +18,77 @@ import { AuthContext } from "../contexts/AuthContext";
 import CardJobPreview from "../components/CardJobPreview";
 import NotFound from "../components/NotFound";
 import SearchBar from "../components/SearchBar";
+import Filter from "../components/Filter";
 // import { Searchbar } from "react-native-paper";
 
 const Search = ({ navigation }) => {
-  console.log('TELA SEARCH');
+  console.log("TELA SEARCH");
 
   //id usuario
-  const {idUser, user} = useContext(AuthContext)
-  console.log('nome do usuario: ' , user.email)
+  const { idUser, user } = useContext(AuthContext);
+  console.log("nome do usuario: ", user.email);
 
-  const [textSearch, setTextSearch] = useState("")
+  const [textSearch, setTextSearch] = useState("");
   const [error, setError] = useState(false);
   const [displayReload, setDisplayReaload] = useState(true);
   const [job, setJob] = useState([]);
-  const [reloadVagas, setRealoadVagas] = useState(true)
+  const [reloadVagas, setRealoadVagas] = useState(true);
   //const imageWithouJob = "https://sim.marica.rj.gov.br/img/icones/empresa2.pngs";
 
   useEffect(() => {
-    if(reloadVagas){
+    if (reloadVagas) {
       axiosURL
-      .get(`vaga/listar/${idUser}`)
+        .get(`vaga/listar/${idUser}`)
+        .then((response) => {
+          if (response.data.content.length != 0) {
+            setJob(response.data.content.filter((item) => item.status == 1));
+            console.log("com conteudo");
+            setDisplayReaload(false);
+            setError(false);
+          } else {
+            console.log("sem conteudo");
+            setDisplayReaload(false);
+            setError(true);
+          }
+        })
+        .catch((error) => {
+          console.log("erro ao buscar vagas sem relacao com o candidato");
+          setDisplayReaload(false);
+          setError(true);
+        });
+    }
+  }, []);
+
+  const resultSearch = () => {
+    axiosURL
+      .get(`pesquisa/?palavra=${textSearch}`)
       .then((response) => {
-        if(response.data.content.length != 0){
-          setJob(response.data.content.filter((item) => item.status == 1))
-          console.log('com conteudo')
-          setDisplayReaload(false)
+        setJob(response.data.content);
+        console.log(response.data.content);
+        if (response.data.content.length != 0) {
+          console.log("com conteudo");
+          setDisplayReaload(false);
+          setRealoadVagas(false);
           setError(false);
-        }else{
-          console.log('sem conteudo')
-          setDisplayReaload(false)
+        } else {
+          console.log("sem conteudo");
+          setRealoadVagas(false);
+          setDisplayReaload(false);
           setError(true);
         }
       })
       .catch((error) => {
-        console.log('erro ao buscar vagas sem relacao com o candidato')
-        setDisplayReaload(false)
-        setError(true);     
+        console.log("erro ao pegar dados pela pesquisa => ", error);
+        console.log("erro ao buscar vagas sem relacao com o candidato");
+        setDisplayReaload(false);
+        setError(true);
       });
-    }
-  }, []);
-  
-const resultSearch = () => {
-  axiosURL
-  .get(`pesquisa/?palavra=${textSearch}`)
-  .then((response) => {
-    setJob(response.data.content)
-    console.log(response.data.content)
-    if(response.data.content.length != 0){
-
-    
-      console.log('com conteudo')
-      setDisplayReaload(false)
-      setRealoadVagas(false)
-      setError(false);
-    }else{
-      console.log('sem conteudo')
-      setRealoadVagas(false)
-      setDisplayReaload(false)
-      setError(true);
-    }
-  })
-  .catch((error) => {
-    console.log('erro ao pegar dados pela pesquisa => ', error)
-    console.log('erro ao buscar vagas sem relacao com o candidato')
-    setDisplayReaload(false)
-    setError(true);     
-  });
-}
+  };
 
   return (
     <SafeAreaView>
-    <SearchBar onChangeText={setTextSearch} functionClicked={resultSearch} />
-      <StatusBar backgroundColor="#1E7596"/>
+      <SearchBar onChangeText={setTextSearch} functionClicked={resultSearch} />
+      <StatusBar backgroundColor="#1E7596" />
       <View
         style={
           error
@@ -100,16 +99,14 @@ const resultSearch = () => {
             : { ...style.content }
         }
       >
-        {error && 
-        <NotFound />
-        }
+        {error && <NotFound />}
 
         {/* {<TouchableOpacity>
           <Text> Listar todas as vagas</Text>
           </TouchableOpacity>} */}
         <ActivityIndicator animating={displayReload} color={"#1E7596"} />
 
-
+        <Filter />
         {job && (
           <FlatList
             keyExtractor={(item) => item.id}
