@@ -8,11 +8,12 @@ import ButtonHome from "../components/ButtonHome";
 import TitleScreen from "../components/TitleSreen";
 import ButtonCancel from "../components/ButtonCancel";
 import { emptyField, showMessage, showToast } from "../Functions";
+import axiosURL from "../API";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-const RedefinePassword = () => {
+const RedefinePassword = ({route}) => {
   const navigation = useNavigation();
   const [personalData, setPersonalData] = useState({
     senha: "",
@@ -20,23 +21,25 @@ const RedefinePassword = () => {
   });
 
   const next = () => {
+    console.log('email => ',route.params.email)
     if (
       emptyField(personalData.senha) &&
       emptyField(personalData.senhaConfirmacao)
     ) {
       if (personalData.senha === personalData.senhaConfirmacao) {
-        // axiosURL
-        //   .post(`URL`, {
-        //     senha: personalData.senha,
-        //   })
-        //   .then((response) => {
-        //      navigation.navigate({ name: "Login" });
-        //   })
-        //   .catch((error) => {
-        //     console.log("error ao redefinir senha => ", error);
-        //     showMessage("Houve algum erro ao redefinir sua senha. Tente novamente.");
-        //   });
-       
+        axiosURL
+          .put(`auth/senha/candidato?email=${route.params.email}`, {
+            senha: personalData.senha,
+          })
+          .then((response) => {
+              console.log('senha')
+              showMessage('Senha redefinda com sucesso')
+              navigation.navigate({ name: "Login" });
+          })
+          .catch((error) => {
+            console.log("error ao redefinir senha => ", error);
+            showMessage("Houve algum erro ao redefinir sua senha. Tente novamente.");
+          });
       } else {
         showMessage("As senhas devem ser iguais");
       }

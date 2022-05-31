@@ -18,33 +18,34 @@ const EmailValidation = ({route}) => {
   });
 
   const next = () => {
-    // axiosURL
-    //   .post(`auth/verificar/codigo/candidato`, { 
-    //     email: personalData.email,
-    //     codigo: personalData.codigo
-    //   })
-    //   .then((response) => {
-    //     console.log("reponse Auth", response.content);
-    //     //navigation.navigate({ name: "Redefinicao de senha" });
-    //   })
-    //   .catch((error) => {
-    //     console.log("error ao enviar codigo para o email => ", error);
-    //     showMessage("Código incorreto");
-    //   });
-   navigation.navigate({ name: "Redefinicao de senha" });
+    console.log(personalData)
+    axiosURL
+      .post(`auth/verificar/codigo/candidato`, { 
+        codigo: personalData.codigo,
+        email: personalData.email
+      })
+      .then((response) => {
+        console.log("reponse Auth", response.content);
+        navigation.navigate( "Redefinicao de senha" , {email: personalData.email});
+      })
+      .catch((error) => {
+        console.log("error ao enviar codigo para o email => ", error);
+        showMessage("Código incorreto");
+      });
+  //  navigation.navigate({ name: "Redefinicao de senha" });
   };
 
   const sendCode = () => {
-     // axiosURL
-    // .post(`auth/enviar/email`, {email: personalData.email})
-    // .then((response) => {
-    //   console.log('reponse AUth', response.content)
-    //   showMessage("Novo código enviado");
-    // })
-    // .catch((error) => {
-    //   console.log('error ao enviar codigo para o email => ', error)
-    //   showMessage('Erro enviar email')
-    // });
+     axiosURL
+    .post(`auth/enviar/email`, {email: personalData.email})
+    .then((response) => {
+      console.log('reponse AUth', response.content)
+      showMessage("Novo código enviado");
+    })
+    .catch((error) => {
+      console.log('error ao enviar codigo para o email => ', error)
+      showMessage('Erro enviar email')
+    });
   };
 
   return (

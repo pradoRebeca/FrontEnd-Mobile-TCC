@@ -20,21 +20,19 @@ const ForgetPassword = () => {
   });
 
   const next = () => {
-    console.log('email => ', personalData.email)
-    // axiosURL
-    // .post(`auth/enviar/email`, {email: personalData.email})
-    // .then((response) => {
-    //   console.log('reponse AUth', response.content)
-    //   showToast('Enviamos um email com o código')
-    // })
-    // .catch((error) => {
-    //   console.log('error ao enviar codigo para o email => ', error)
-    //   showMessage('Erro enviar email')
-    // });
-
-    navigation.navigate( "Validacao email",{ email: personalData.email});
-
-   
+    // console.log('email => ', personalData.email)
+    axiosURL
+    .post(`auth/enviar/email`, {email: personalData.email})
+    .then((response) => {
+      console.log('reponse AUth', response.content)
+      showToast('Enviamos um email com o código')
+      navigation.navigate( "Validacao email",{ email: personalData.email});
+      
+    })
+    .catch((error) => {
+      console.log('error ao enviar codigo para o email => ', error)
+      showMessage('Erro enviar email')
+    });
   };
 
   const back = () => {
