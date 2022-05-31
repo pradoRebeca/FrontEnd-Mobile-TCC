@@ -7,6 +7,7 @@ import InputData from "../components/InputData";
 import ButtonHome from "../components/ButtonHome";
 import TitleScreen from "../components/TitleSreen";
 import ButtonCancel from "../components/ButtonCancel";
+import { emptyField, showMessage, showToast } from "../Functions";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -19,7 +20,29 @@ const RedefinePassword = () => {
   });
 
   const next = () => {
-    navigation.navigate({ name: "CandidateHome" });
+    if (
+      emptyField(personalData.senha) &&
+      emptyField(personalData.senhaConfirmacao)
+    ) {
+      if (personalData.senha === personalData.senhaConfirmacao) {
+        // axiosURL
+        //   .post(`URL`, {
+        //     senha: personalData.senha,
+        //   })
+        //   .then((response) => {
+        //      navigation.navigate({ name: "Login" });
+        //   })
+        //   .catch((error) => {
+        //     console.log("error ao redefinir senha => ", error);
+        //     showMessage("Houve algum erro ao redefinir sua senha. Tente novamente.");
+        //   });
+       
+      } else {
+        showMessage("As senhas devem ser iguais");
+      }
+    } else {
+      showMessage("Preencha todos os campos");
+    }
   };
 
   const back = () => {
@@ -47,7 +70,7 @@ const RedefinePassword = () => {
         <InputData
           object={personalData}
           onChangeObject={setPersonalData}
-          keyObject="senhaConfimarcao"
+          keyObject="senhaConfirmacao"
           label="Digite a senha novamente"
           nameIcon="reload"
           mode={true}

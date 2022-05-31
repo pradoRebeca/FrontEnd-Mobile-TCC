@@ -9,16 +9,27 @@ import axiosURL from "../API";
 import { AuthContext } from "../contexts/AuthContext";
 import CardJobPreview from "../components/CardJobPreview";
 
-const CandidateJob = () => {
+const CandidateJob = ({route}) => {
+// console.log('initial params =>', route.params.reload)
+const [test , setTest] = useState(1)
   const {idUser} = useContext(AuthContext)
   console.log('TELA CANDIDATEJOB')
   const [error, setError] = useState(false);
   const [displayReload, setDisplayReaload] = useState(true);
   const [job, setJob] = useState([]);
 
-console.log(idUser)
+
+useEffect(() => {
+  console.log('REALOAD ACONTECENDO, VALUE =>', route.params.reload)
+}, [route.params.reload])
 
 //const imageWithouJob = "https://sim.marica.rj.gov.br/img/icones/empresa2.pngs";
+
+// const reloadPage = ()=>{
+//   console.log(test)
+// }
+// reloadPage()
+// console.log('resultado do teste => ', test)
 
 const carregar = () =>{ 
  if(job.length < 0){
@@ -48,7 +59,7 @@ const carregar = () =>{
         setError(true);     
       });
   }, []);
-console.log(error)
+
   return (
     <SafeAreaView>
       {/* <StatusBar backgroundColor="#1E7596" /> */}

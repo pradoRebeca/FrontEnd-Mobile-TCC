@@ -13,7 +13,6 @@ import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 
-
 import InputData from "../components/InputData";
 import { emptyField, showMessage } from "../Functions";
 //import { showMessage } from "../alerts/ShowMessage";
@@ -29,22 +28,33 @@ const Register = () => {
   const [personalData, setPersonalData] = useState({
     nome: "",
     senha: "",
+    confirmeSenha: "",
     email: "",
   });
 
   //METHOD POST
   const register = () => {
-    if (emptyField(personalData.nome, personalData.email, personalData.senha)) {
-      console.log("todoss campos preenchidos");
-      axiosURL
-        .post("candidato/cadastrar", {
-          nome: personalData.nome,
-          senha: personalData.senha,
-          email: personalData.email,
-          genero: "PREFIRO_NAO_INFORMAR",
-        })
-        .then((response) => navigation.navigate({ name: "Login" }))
-        .catch(() => showMessage("Erro ao cadastrar, tente novamente."));
+    if (
+      emptyField(
+        personalData.nome,
+        personalData.email,
+        personalData.senha,
+        personalData.confirmeSenha
+      )
+    ) {
+      if (personalData.senha !== personalData.confirmeSenha) {
+        showMessage("As senhas devem ser iguais.");
+      } else {
+        axiosURL
+          .post("candidato/cadastrar", {
+            nome: personalData.nome,
+            senha: personalData.senha,
+            email: personalData.email,
+            genero: "PREFIRO_NAO_INFORMAR",
+          })
+          .then((response) => navigation.navigate({ name: "Login" }))
+          .catch(() => showMessage("Erro ao cadastrar, tente novamente."));
+      }
     } else {
       showMessage("Preencha todos os campos.");
       console.log("preencha TODOS  OS CAMPOS");
@@ -53,10 +63,18 @@ const Register = () => {
 
   return (
     <SafeAreaView style={style.content}>
-      <Image style={style.imageLogo} source={require("../img/logoLogin.png")} />
-     
-      <TitleScreen title='Cadastre-se'/>
-      <View style={{ width: "100%", paddingLeft: "8%", paddingRight: "10%", marginTop: 30 }}>
+
+    <Image style={style.imageLogo} source={require("../img/logoLogin.png")} />
+
+      <TitleScreen title="Cadastre-se" />
+      <View
+        style={{
+          width: "100%",
+          paddingLeft: "8%",
+          paddingRight: "10%",
+          marginTop: 30,
+        }}
+      >
         <InputData
           object={personalData}
           onChangeObject={setPersonalData}
@@ -65,14 +83,7 @@ const Register = () => {
           nameIcon="account"
           mode={true}
         />
-        <InputData
-          object={personalData}
-          onChangeObject={setPersonalData}
-          keyObject="senha"
-          label="Senha"
-          nameIcon="lock"
-          mode={true}
-        />
+
         <InputData
           object={personalData}
           onChangeObject={setPersonalData}
@@ -81,13 +92,35 @@ const Register = () => {
           nameIcon="email"
           mode={true}
         />
+
+        <InputData
+          object={personalData}
+          onChangeObject={setPersonalData}
+          keyObject="senha"
+          label="Senha"
+          nameIcon="lock"
+          mode={true}
+        />
+
+        <InputData
+          object={personalData}
+          onChangeObject={setPersonalData}
+          keyObject="confirmeSenha"
+          label="Confirme a senha"
+          nameIcon="lock"
+          mode={true}
+        />
       </View>
 
-      <ButtonHome
-        text="Cadastrar"
-        functionClicked={register}
-        nameScreen="CandidateHome"
-      />
+      <View style={{marginTop: 10}}>
+        <ButtonHome
+          text="Cadastrar"
+          functionClicked={register}
+          nameScreen="CandidateHome"
+        />
+      </View>
+
+  
 
       {/* cadastrar com o google */}
       {/*  <Text style={style.text}>OU CADASTRE-SE COM</Text>
@@ -122,7 +155,7 @@ const style = StyleSheet.create({
     width: "100%",
   },
   imageWaveInferior: {
-    top: 80,
+  
     height: 80,
     width: "100%",
   },
@@ -133,7 +166,7 @@ const style = StyleSheet.create({
     marginBottom: 40,
   },
   content: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: "white",
     display: "flex",
     flexDirection: "column",

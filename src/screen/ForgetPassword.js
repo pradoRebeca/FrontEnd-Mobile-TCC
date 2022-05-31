@@ -8,7 +8,7 @@ import InputData from "../components/InputData";
 import ButtonHome from "../components/ButtonHome";
 import TitleScreen from "../components/TitleSreen";
 import ButtonCancel from "../components/ButtonCancel";
-import { showMessage } from "../Functions";
+import { showMessage, showToast } from "../Functions";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -16,24 +16,25 @@ const windowHeight = Dimensions.get("window").height;
 const ForgetPassword = () => {
   const navigation = useNavigation();
   const [personalData, setPersonalData] = useState({
-    email: "rebeca.2003.prado@gmail.com",
+    email: "",
   });
 
   const next = () => {
     console.log('email => ', personalData.email)
     // axiosURL
-    // .post(`auth/enviar/email`, {email: 'rebeca.2003.prado@gmail.com'})
+    // .post(`auth/enviar/email`, {email: personalData.email})
     // .then((response) => {
     //   console.log('reponse AUth', response.content)
-    //   showMessage('Enviamos um email com o código')
-     
+    //   showToast('Enviamos um email com o código')
     // })
     // .catch((error) => {
     //   console.log('error ao enviar codigo para o email => ', error)
     //   showMessage('Erro enviar email')
-     
     // });
-    navigation.navigate({ name: "Validacao email", email: personalData.email});
+
+    navigation.navigate( "Validacao email",{ email: personalData.email});
+
+   
   };
 
   const back = () => {
@@ -93,7 +94,7 @@ const style = StyleSheet.create({
   },
  
   imageWaveInferior:{
-      height: 60,
+ 
       width: '100%',
   }
  

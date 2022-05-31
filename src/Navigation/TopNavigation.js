@@ -1,3 +1,4 @@
+import {useState} from 'react'
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import SaveJob from "../screen/SaveJob";
 import CandidateJob from "../screen/CandidateJob";
@@ -8,6 +9,10 @@ import DispensadasJob from "../screen/DispensadasJob";
 const Tab = createMaterialTopTabNavigator();
 
 const TopNavigation = () => {
+
+  const [realodPage, setRealoadPage] = useState()
+
+
   return (
     <Tab.Navigator
       initialRouteName="Inicial"
@@ -38,6 +43,7 @@ const TopNavigation = () => {
       /> */}
       <Tab.Screen
         name="Candidaturas"
+        initialParams={{reload: 1}}
         component={CandidateJob}
         options={{ tabBarLabel: "Candidaturas" }}
       />

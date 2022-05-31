@@ -26,6 +26,7 @@ const InputData = ({
   // console.log('value ', keyObject, ': ', value)
 
   const onChangeText = (element) => {
+    // console.log('texto da input => ',element)
     setText(element);
     onChangeObject({ ...object, [keyObject]: element });
     // console.log('value ', keyObject, ': ', valueDefault)
@@ -94,7 +95,7 @@ const InputData = ({
           )
         }
         editable={editable}
-        onEndEditing={(e) => onChangeText(e.nativeEvent.text)}
+        // onEndEditing={(e) => onChangeText(e.nativeEvent.text)}
         numberOfLines={3}
         multiline={multiline}
         activeUnderlineColor="#225E77"
@@ -103,7 +104,7 @@ const InputData = ({
         mode={mode ? "flat" : "outlined"}
         label={isRequired()}
         activeOutlineColor="#225E77"
-        onChangeText={(formatted, extracted) => setText(extracted)}
+        onChangeText={text => onChangeText(text)}
         outLineColor="#6D6D6D"
         style={
           mode
