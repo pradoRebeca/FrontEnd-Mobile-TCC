@@ -27,23 +27,23 @@ const InputCalendar = ({
 
     switch (mode) {
       case "user":
-        return (dateTimeString =
+        dateTimeString =
           data.getDate() +
           "/" +
           (data.getMonth() + 1) +
           "/" +
           data.getFullYear() +
-          " ");
+          " ";
         break;
 
       case "database":
-        return (dateTimeString =
+       dateTimeString =
           data.getFullYear() +
           "-" +
           (data.getMonth() + 1) +
           "-" +
           data.getDate() +
-          " ");
+          " ";
         break;
     }
   };
@@ -53,14 +53,11 @@ const InputCalendar = ({
   };
 
   const hideDatePicker = () => {
-  
     setText(label);
     setDatePickerVisibility(false);
-  
   };
 
   const handleConfirm = (date) => {
- 
     hideDatePicker();
     const formatUser = formatDate(date, "user");
     const formatDatabase = formatDate(date, "database");

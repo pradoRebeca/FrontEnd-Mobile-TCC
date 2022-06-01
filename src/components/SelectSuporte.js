@@ -1,64 +1,44 @@
 import React, { useState, useEffect } from "react";
 import { View, Picker, StyleSheet } from "react-native";
 
-const SelectFormation = (props) => {
+const SelectSuporte = ({ data, nameKey, onChange}) => {
   const [selectedValue, setSelectedValue] = useState();
 
-  var data = props.data ?? [];
-  var labelInicial;
-  var label;
-  var value = 'id'
+  console.log(data);
 
-  switch (props.type) {
-    case "curso":
-      labelInicial = 'Selecione um Curso'
-      label = "curso";
-   
+  let selectDefault;
+
+  switch (nameKey) {
+    case "nome":
+      selectDefault = "Selecione um Estado";
       break;
 
-    case "nivel":
-      labelInicial = 'Selecione um Nível Academico'
-      label = "nivel";
+    case "tipo":
+      selectDefault = "Selecione uma Deficencia";
       break;
 
-    case "areaAtuacao":
-      labelInicial = 'Selecione uma Área de Atuação'
-      label = "areaAtuacao";
-      break;
-
-    case "estado":
-      labelInicial = 'Selecione um Estado'
-      label = "estado";
+      case "deficiencia":
+      selectDefault = "Selecione uma deficiencia"
       break;
   }
 
-
-  const onChangeText = (element) => {
-    setSelectedValue(element);
-    props.onChangeObject({ ...props.object, [props.keyObject]: element });
-  };
-
-  const functionSelected = () => {
-    if (props.edit) {
-      return data
-        .filter((item) => item.id === props.valueDefult)
-        .map((item) => <Picker.Item  color='black' label={item[label]} value={item[value]} />);
-    } else {
-      return <Picker.Item color="#7C7C7C" label={labelInicial} value={undefined}/>
-    }
-  };
-  
   return (
     <View style={style.content}>
       <Picker
         mode="dropdown"
         selectedValue={selectedValue}
-        style={{height: 40}}
-        onValueChange={(itemValue, itemIndex) => onChangeText(itemValue)}
+        style={{ height: 40 }}
+        onValueChange={(itemValue, itemIndex) => onChange(itemValue)}
       >
-        {functionSelected()}
+        <Picker.Item color="black" label={selectDefault} value={undefined} />
+
         {data.map((item) => (
-          <Picker.Item color='black' key={item[value]} label={item[label]} value={item[value]} />
+          <Picker.Item
+            color="black"
+            key={item.id}
+            label={item[nameKey]}
+            value={item.id}
+          />
         ))}
       </Picker>
     </View>
@@ -67,10 +47,10 @@ const SelectFormation = (props) => {
 
 const style = StyleSheet.create({
   content: {
-    width: '100%',
+    width: "100%",
     marginBottom: 10,
     backgroundColor: "#F5F5F5",
   },
 });
 
-export default SelectFormation;
+export default SelectSuporte;

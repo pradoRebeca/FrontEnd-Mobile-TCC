@@ -138,6 +138,7 @@ const style = StyleSheet.create({
     // alignItens: "center",
   },
   viewButton: {
+   
     height: 50,
     width: 300,
     backgroundColor: "#225E77",
@@ -210,6 +211,8 @@ const style = StyleSheet.create({
     color: "#DCEBF2",
   },
   buttonContent: {
+    paddingLeft: '8%',
+    paddingRight: '8%',
     width: "100%",
     display: "flex",
     alignItems: "center",

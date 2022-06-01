@@ -192,11 +192,7 @@ const RegisterPersonalData = ({ route }) => {
       <ModifyTitle title="Informações Pessoais" />
       <ScrollView>
         <View style={Style.screenSpace}>
-          <KeyboardAvoidingView
-            contentContainerStyle={Style.registerCandidateData}
-            behavior="position"
-            enabled
-          >
+          <View style={Style.registerCandidateData}>
             <ImageView functionImage={setImageProfile}/>
 {/* 
             <CheckboxComponent
@@ -293,7 +289,8 @@ const RegisterPersonalData = ({ route }) => {
               label="curriculo"
               massageError="Email"
             />
-          </KeyboardAvoidingView>
+       
+          </View>
           <ButtonSave functionClicked={saveData} />
         </View>
       </ScrollView>

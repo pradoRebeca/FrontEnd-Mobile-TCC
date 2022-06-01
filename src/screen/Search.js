@@ -80,15 +80,17 @@ const Search = ({ navigation }) => {
       .catch((error) => {
         console.log("erro ao pegar dados pela pesquisa => ", error);
         console.log("erro ao buscar vagas sem relacao com o candidato");
+        setJob([])
         setDisplayReaload(false);
         setError(true);
       });
   };
 
   return (
-    <SafeAreaView>
-      <SearchBar onChangeText={setTextSearch} functionClicked={resultSearch} />
+    <SafeAreaView >
       <StatusBar backgroundColor="#1E7596" />
+      <SearchBar onChangeText={setTextSearch} functionClicked={resultSearch} />
+      
       <View
         style={
           error
@@ -124,17 +126,13 @@ export default Search;
 
 const style = StyleSheet.create({
   content: {
-    marginTop: 10,
+    paddingBottom: 170,
     width: "100%",
     paddingLeft: 10,
     paddingRight: 10,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    justifyContent: "space-between",
   },
-  imageNotFound: {
-    width: 300,
-    minHeight: 300,
-  },
+ 
 });

@@ -24,7 +24,7 @@ export default ButtonHome;
 const style = StyleSheet.create({
   viewButton: {
     height: 40,
-    width: 300,
+    width: '100%',
     backgroundColor: "#225E77",
     display: "flex",
     alignItems: "center",

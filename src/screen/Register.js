@@ -63,64 +63,67 @@ const Register = () => {
 
   return (
     <SafeAreaView style={style.content}>
-
-    <Image style={style.imageLogo} source={require("../img/logoLogin.png")} />
-
-      <TitleScreen title="Cadastre-se" />
-      <View
-        style={{
-          width: "100%",
-          paddingLeft: "8%",
-          paddingRight: "10%",
-          marginTop: 30,
-        }}
-      >
-        <InputData
-          object={personalData}
-          onChangeObject={setPersonalData}
-          keyObject="nome"
-          label="Nome"
-          nameIcon="account"
-          mode={true}
+      <ScrollView>
+        <Image
+          style={style.imageLogo}
+          source={require("../img/logoLogin.png")}
         />
 
-        <InputData
-          object={personalData}
-          onChangeObject={setPersonalData}
-          keyObject="email"
-          label="Email"
-          nameIcon="email"
-          mode={true}
-        />
+        <TitleScreen title="Cadastre-se" />
+        <View
+          style={{
+            width: "100%",
+            paddingLeft: "8%",
+            paddingRight: "10%",
+            marginTop: 30,
+          }}
+        >
+          <InputData
+            object={personalData}
+            onChangeObject={setPersonalData}
+            keyObject="nome"
+            label="Nome"
+            nameIcon="account"
+            mode={true}
+          />
 
-        <InputData
-          object={personalData}
-          onChangeObject={setPersonalData}
-          keyObject="senha"
-          label="Senha"
-          nameIcon="lock"
-          mode={true}
-        />
+          <InputData
+            object={personalData}
+            onChangeObject={setPersonalData}
+            keyObject="email"
+            label="Email"
+            nameIcon="email"
+            mode={true}
+          />
 
-        <InputData
-          object={personalData}
-          onChangeObject={setPersonalData}
-          keyObject="confirmeSenha"
-          label="Confirme a senha"
-          nameIcon="lock"
-          mode={true}
-        />
-      </View>
+          <InputData
+            object={personalData}
+            onChangeObject={setPersonalData}
+            keyObject="senha"
+            label="Senha"
+            nameIcon="lock"
+            mode={true}
+          />
 
-      <View style={{marginTop: 10}}>
-        <ButtonHome
-          text="Cadastrar"
-          functionClicked={register}
-          nameScreen="CandidateHome"
-        />
-      </View>
+          <InputData
+            object={personalData}
+            onChangeObject={setPersonalData}
+            keyObject="confirmeSenha"
+            label="Confirme a senha"
+            nameIcon="lock"
+            mode={true}
+          />
+          
+        </View>
 
-  
+        <View style={style.buttonContent}>
+          <ButtonHome
+            text="Cadastrar"
+            functionClicked={register}
+            nameScreen="CandidateHome"
+          />
+        </View>
+      </ScrollView>
 
       {/* cadastrar com o google */}
       {/*  <Text style={style.text}>OU CADASTRE-SE COM</Text>
@@ -155,7 +158,8 @@ const style = StyleSheet.create({
     width: "100%",
   },
   imageWaveInferior: {
-  
+    top: 0,
+    bottom: 0,
     height: 80,
     width: "100%",
   },
@@ -166,7 +170,7 @@ const style = StyleSheet.create({
     marginBottom: 40,
   },
   content: {
-    // flex: 1,
+    flex: 1,
     backgroundColor: "white",
     display: "flex",
     flexDirection: "column",
@@ -209,5 +213,15 @@ const style = StyleSheet.create({
     marginLeft: 15,
     color: "#225E77",
     fontSize: 13,
+  },
+  buttonContent: {
+    marginTop: 15,
+    paddingLeft: "8%",
+    paddingRight: "8%",
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
   },
 });

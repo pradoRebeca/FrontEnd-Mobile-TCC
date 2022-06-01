@@ -13,6 +13,8 @@ import ButtonSave from "../components/ButtonSave";
 
 import axiosURL from "../API";
 import { listState, emptyField } from "../Functions";
+import Deficiencias from "./Deficiencias";
+import SelectSuporte from "../components/SelectSuporte";
 
 // const genero = [
 //   "Selecione um Genero",
@@ -46,79 +48,91 @@ const def = [
 ];
 
 const Filter = ({ route }) => {
-  const edit = true;
+  const [estado, setEstado] = useState([]);
+  const [suporte, setSuporte] = useState([]);
+  const [tipoDeficiencia, setTipoDeficiencia] = useState([]);
+  const [deficiencia, setDeficiencia] = useState([]);
 
-  const state = listState();
-  const [adressAPI, setAdressAPI] = useState([]);
-  const [adressTyped, setAdressTyped] = useState({
-    rua: "",
-    estado: "",
-    cidade: "",
-    suporte: "",
-    salario: "",
-  });
-
-  const [checkBoxDeficiencia, setCheckboxDeficiencia] = useState({});
-  const [buttonDisabled, setButtonDisabled] = useState(true);
-  const [deficiencies, setDeficiencies] = useState([]);
   const [filterData, setPersonalData] = useState({});
 
+
+const [idTipoDeficiencia, setIdTipoDeficiencia] = useState(0)
+
   useEffect(() => {
+    //GET ESTADOS
+    axiosURL
+      .get(`pesquisa/estado`)
+      .then((response) => {
+        setEstado(response.data.content);
+        console.log(response.data.content);
+      })
+      .catch((error) => {
+        console.log("erro ao pegar dados de estado => ", error);
+      });
 
-  }, [filterData]);
+    //GET SUPORTE
+    axiosURL
+      .get(`vaga/listar/suporte`)
+      .then((response) => {
+        setSuporte(response.data.content);
+        console.log(response.data.content);
+      })
+      .catch((error) => {
+        console.log("erro ao pegar dados de suporte=> ", error);
+      });
 
+    //GET TIPO DEFICIENCIA
+    axiosURL
+      .get(`deficiencia/listar/tipo`)
+      .then((response) => {
+        setTipoDeficiencia(response.data.content);
+        console.log(response.data.content);
+      })
+      .catch((error) => {
+        console.log("erro ao pegar dados de suporte=> ", error);
+      });
+  }, []);
 
-  const functionFilterData = () => {
+  useEffect(() => {
+    axiosURL
+      .get(`deficiencia/listar/${idTipoDeficiencia}`)
+      .then((response) => {
+        setDeficiencia(response.data.content);
+        console.log(response.data.content);
+      })
+      .catch((error) => {
+        console.log("erro ao pegar dados de suporte=> ", error);
+      });
+  }, [tipoDeficiencia]);
 
-  };
+  const functionFilterData = () => {};
 
+  console.log(idTipoDeficiencia)
   return (
     <>
       <StatusBar backgroundColor="#1E7596" />
       <ScrollView>
         <View style={Style.screenSpace}>
-          <KeyboardAvoidingView
-            contentContainerStyle={Style.registerCandidateData}
-            behavior="position"
-            enabled
-          >
+          <View style={Style.registerCandidateData}>
             <Text style={style.titleSection}>Tipos de Deficiência</Text>
-            {/* <CheckboxComponent
-              data={def}
-              type="Deficiencia"
-              // text="Tipo de Deficiencias"
-            /> */}
-            <Text  style={style.titleSection}>Região</Text>
+            <SelectSuporte data={tipoDeficiencia} onChange={setTipoDeficiencia} nameKey="tipo" />
 
+            <Text style={style.titleSection}>Deficiência</Text>
+            <SelectSuporte data={deficiencia} onChange={setIdTipoDeficiencia} nameKey="deficiencia" />
 
-            {/* <Select
-              data={state}
-              keyObject={"sigla"}
-              // object={adressTyped}
-              // onChangeObject={setAdressTyped}
-              // valueAPI={adressAPI.uf}
-            />
-              <Select
-              data={state}
-              keyObject={"sigla"}
-              // object={adressTyped}
-              // onChangeObject={setAdressTyped}
-              // valueAPI={adressAPI.uf}
-            /> */}
+            <Text style={style.titleSection}>Região</Text>
+            {/* <SelectSuporte data={cidade} nameKey="nome" /> */}
 
-            <Text  style={style.titleSection}>Suporte Oferecido</Text>
-            
+            <Text style={style.titleSection}>Suporte Oferecido</Text>
+            <SelectSuporte data={suporte} nameKey="nome" />
 
-            <Text  style={style.titleSection}>Salário</Text>
-            {/* <Select
-              data={state}
-              keyObject={"sigla"}
-              // object={adressTyped}
-              // onChangeObject={setAdressTyped}
-              // valueAPI={adressAPI.uf}
-            /> */}
-          </KeyboardAvoidingView>
-          <ButtonSave disabled={false} mode='filter' functionClicked={functionFilterData} />
+            <Text style={style.titleSection}>Salário</Text>
+          </View>
+          <ButtonSave
+            disabled={false}
+            mode="filter"
+            functionClicked={functionFilterData}
+          />
         </View>
       </ScrollView>
     </>
