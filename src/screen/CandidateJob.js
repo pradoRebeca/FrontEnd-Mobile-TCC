@@ -13,33 +13,11 @@ import { StatusBar } from "expo-status-bar";
 const CandidateJob = ({route}) => {
 // console.log('initial params =>', route.params.reload)
 const [test , setTest] = useState(1)
-  const {idUser} = useContext(AuthContext)
+  const {idUser, reloadPage, putReloadPage} = useContext(AuthContext)
   console.log('TELA CANDIDATEJOB')
   const [error, setError] = useState(false);
   const [displayReload, setDisplayReaload] = useState(true);
   const [job, setJob] = useState([]);
-
-
-useEffect(() => {
-  console.log('REALOAD ACONTECENDO, VALUE =>', route.params.reload)
-}, [route.params.reload])
-
-//const imageWithouJob = "https://sim.marica.rj.gov.br/img/icones/empresa2.pngs";
-
-// const reloadPage = ()=>{
-//   console.log(test)
-// }
-// reloadPage()
-// console.log('resultado do teste => ', test)
-
-const carregar = () =>{ 
- if(job.length < 0){
-    console.log('é para carregar')
-    return <ActivityIndicator animating={true} color={'red'} />
-  } else{
-    console.log('nao é para carregar')
-  }
-}
 
   useEffect(() => {
     axiosURL
@@ -59,7 +37,7 @@ const carregar = () =>{
         setDisplayReaload(false)
         setError(true);     
       });
-  }, []);
+  }, [reloadPage || putReloadPage]);
 
   return (
     <SafeAreaView>
@@ -79,7 +57,7 @@ const carregar = () =>{
       >
         {error && <NotFound />}
 
-        <ActivityIndicator animating={displayReload} color={"#1E7596"} />
+        {/* <ActivityIndicator animating={displayReload} color={"#1E7596"} /> */}
         {job && (
           <FlatList
             data={job}

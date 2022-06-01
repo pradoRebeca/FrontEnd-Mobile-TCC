@@ -60,21 +60,19 @@ const CandidateProfile = ({ route }) => {
   const [display, setDisplay] = useState(true);
 
   useEffect(() => {
-    LogBox.ignoreLogs(["VirtualizedLists should never be nested"])
-  }, [])
+    LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
+  }, []);
 
-  // useEffect(() => {
-  //   if(route.params){
-  //     const {reload}= route.params
-  //     setIsReaload(reload)
-  //   }
-  // }, [route.params])
+  useEffect(() => {
+    console.log("teve reload");
+  }, [route.params]);
 
   console.log(idUser, "iduser");
   useEffect(() => {
     axiosURL
       .get(`candidato/buscar/${idUser}`)
       .then((response) => {
+        console.log("put do candidato");
         setExperienceData(response.data.experiencia);
         setCursoData(response.data.curso);
         setDeficienciaData(response.data.deficiencia);
@@ -96,16 +94,14 @@ const CandidateProfile = ({ route }) => {
   // console.log('refresh: ',route.params)
 
   //Filtro para cada seção
-  useEffect(() => {
-    setExperienceData(personalData.experiencia);
-    setCursoData(personalData.curso);
-    setPersonalInformation({ ...personalData, experiencia: null, curso: null });
-  }, [personalData]);
+  // useEffect(() => {
+  //   setExperienceData(personalData.experiencia);
+  //   setCursoData(personalData.curso);
+  //   setPersonalInformation({ ...personalData, experiencia: null, curso: null });
+  // }, [personalData]);
 
   return (
     <SafeAreaView>
-      {/* <SearchBar /> */}
-
       <ScrollView>
         <View style={style.conatinerInformations}>
           <View style={style.container}>
@@ -119,7 +115,7 @@ const CandidateProfile = ({ route }) => {
           <View style={style.container}>
             <DisplayInformation
               titleSection="Cadastrar Endereço"
-              data={[personalData.endereco]}
+              data={[endereco]}
               nameSreen="Cadastrar Endereço"
             />
           </View>

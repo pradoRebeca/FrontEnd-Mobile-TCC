@@ -50,7 +50,7 @@ console.log('PROFISSIONALEXPERIENCE')
           .then((response) => {
             showToast('Dados atualizados com sucesso')
             console.log("dados atualizados com sucesso");
-            navigation.navigate('Perfil', {reload: 2})
+            navigation.navigate('Perfil', {reloadEdit: 1})
             return true;
           })
           .catch((error) => {
@@ -72,7 +72,7 @@ console.log('PROFISSIONALEXPERIENCE')
             showToast('Dados cadastrados com sucesso')
             console.log("dados cadastrados com sucesso");
             console.log(response.status)
-            navigation.navigate('Perfil', {reload: 1})
+            navigation.navigate('Perfil', {reloadPut: 1})
             return true;
           })
           .catch((error) => {
@@ -106,7 +106,7 @@ console.log('PROFISSIONALEXPERIENCE')
     }
   }, [edit]);
 
-  console.log(personalData)
+  // console.log(personalData)
 
   //METHOD DELETE
   const deleteData = () => {

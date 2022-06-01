@@ -12,7 +12,7 @@ import ItemSeparator from "./ItemSeparator";
 const Information = ({ data, nameSreen }) => {
   const navigation = useNavigation();
   const [titleText, setTitleText] = useState([]);
-console.log('INFORMAYIONS DADOS => ', data)
+// console.log('INFORMAYIONS DADOS => ', data)
   let id;
   let action = "Editar";
 
@@ -103,7 +103,7 @@ console.log('INFORMAYIONS DADOS => ', data)
           onPress={() =>
             navigation.navigate(nameSreen, {
               edit: true,
-              id: data.id,
+              id: data['id'],
             })
           }
         >

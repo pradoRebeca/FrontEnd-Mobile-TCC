@@ -8,7 +8,7 @@ import { AuthContext } from "../contexts/AuthContext";
 import CardJobPreview from "../components/CardJobPreview";
 
 const SaveJob = () => {
-  const {idUser} = useContext(AuthContext)
+  const {idUser, reloadPage} = useContext(AuthContext)
   const [error, setError] = useState(false);
   const [job, setJob] = useState([]);
 
@@ -37,7 +37,7 @@ abc()
         setError(true);
         return false;
       });
-  }, []);
+  }, [reloadPage]);
 
   return (
     <SafeAreaView>
@@ -56,7 +56,7 @@ abc()
       >
         {error && <NotFound />}
 
-        <ActivityIndicator animating={error ? false : true} color={"#1E7596"} />
+        {/* <ActivityIndicator animating={error ? false : true} color={"#1E7596"} /> */}
 
         {job && (
           <FlatList

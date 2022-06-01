@@ -1,5 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
-import { View, StatusBar, ScrollView, Image, Button } from "react-native";
+import {
+  View,
+  StatusBar,
+  ScrollView,
+  Image,
+  Button,
+  TouchableOpacity,
+  Text,
+} from "react-native";
 import { KeyboardAvoidingView } from "react-native";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
@@ -10,12 +18,18 @@ import ModifyTitle from "../components/ModifyTitle";
 import Style from "../Style";
 import Select from "../components/Select";
 import ButtonSave from "../components/ButtonSave";
-import { listState, emptyField, listCity, showMessage, showToast } from "../Functions";
+import {
+  listState,
+  emptyField,
+  listCity,
+  showMessage,
+  showToast,
+} from "../Functions";
 import axiosURL from "../API";
 
 //06693590
 const RegisterAdress = ({ route }) => {
-  const {idUser} = useContext(AuthContext)
+  const { idUser } = useContext(AuthContext);
   var state = listState();
 
   const navigation = useNavigation();
@@ -23,6 +37,7 @@ const RegisterAdress = ({ route }) => {
   const [clicked, setClick] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [displayButtons, setDisplayButtons] = useState(false);
+  const [displayInformations, setDisplayInformations] = useState(false);
 
   const [adressAPI, setAdressAPI] = useState({});
   // const [adressTyped, setAdressTyped] = useState({
@@ -35,13 +50,12 @@ const RegisterAdress = ({ route }) => {
   //   estado: "",
   // });
 
-  const [cep, setCep] = useState({cep: ''});
-  const [rua, setRua] = useState({rua : ''});
-  const [bairro, setBairro] = useState({bairro: ''});
-  const [cidade, setCidade] = useState({cidade: ''});
-  const [sigla, setSigla] = useState({sigla: '', estado: ''});
-  const [numero, setNumero] = useState({numero: ''});
-
+  const [cep, setCep] = useState({ cep: "" });
+  const [rua, setRua] = useState({ rua: "" });
+  const [bairro, setBairro] = useState({ bairro: "" });
+  const [cidade, setCidade] = useState({ cidade: "" });
+  const [sigla, setSigla] = useState({ sigla: "", estado: "" });
+  const [numero, setNumero] = useState({ numero: "" });
 
   const [error, setError] = useState({
     message: "",
@@ -76,29 +90,55 @@ const RegisterAdress = ({ route }) => {
   //   searchCEP()
   // }, [adressTyped.cep])
 
-  useEffect(() => {
-  //  console.log("passo");
-    // setAdressAPI('abcjs')
-    // console.log(adressAPI)
+  // useEffect(() => {
+  // //  console.log("passo");
+  //   // setAdressAPI('abcjs')
+  //   // console.log(adressAPI)
+  //   if (cep.cep != "") {
+  //     if (validate(cep.cep)) {
+  //       //console.log(validate(adressTyped.cep))
+  //       axios
+  //         .get(`https://viacep.com.br/ws/${cep.cep}/json/`)
+  //         .then((response) => setAdressAPI(response.data))
+  //         .catch(() => {
+  //           setButtonDisabled(false),
+  //             setButtonDisabled(false),
+  //             showMessage("CEP não encontrado");
+  //         });
+  //     } else {
+  //       // console.log("nao deu certo texto");
+  //       //setButtonDisabled(true);
+  //     }
+  //   } else {
+  //     // setButtonDisabled(true);
+  //   }
+  // }, [cep.cep]);
+
+  const pesquisarCep = () => {
     if (cep.cep != "") {
       if (validate(cep.cep)) {
         //console.log(validate(adressTyped.cep))
         axios
           .get(`https://viacep.com.br/ws/${cep.cep}/json/`)
-          .then((response) => setAdressAPI(response.data))
+          .then((response) => {
+            setDisplayInformations(true);
+            setAdressAPI(response.data);
+          })
           .catch(() => {
-            setButtonDisabled(false),
-              setButtonDisabled(false),
-              showMessage("CEP não encontrado");
+            setButtonDisabled(false), setDisplayInformations(false);
+            showMessage("CEP não encontrado");
           });
       } else {
+        setDisplayInformations(false);
+        showMessage("CEP invalido");
         // console.log("nao deu certo texto");
         //setButtonDisabled(true);
       }
     } else {
-      // setButtonDisabled(true);
+      setDisplayInformations(false);
+      showMessage("Insira um CEP para buscar o seu endereço");
     }
-  }, [cep.cep]);
+  };
 
   // console.log("adressAPI: ", adressAPI);
 
@@ -112,7 +152,7 @@ const RegisterAdress = ({ route }) => {
           console.log(response.data.endereco), setDisplayButtons(true);
         })
         .catch((error) => {
-            console.log("erro ao pegar dados de endereço"),
+          console.log("erro ao pegar dados de endereço"),
             setDisplayButtons(true);
           return false;
         });
@@ -133,13 +173,13 @@ const RegisterAdress = ({ route }) => {
           cep: cep.cep,
         })
         .then((response) => {
-          showToast('Dados atualizados com sucesso')
-          navigation.navigate('Perfil', {reload: 1})
+          showToast("Dados atualizados com sucesso");
+          navigation.navigate("Perfil", { reload: 1 });
           console.log("dados  de endereço  atualizados com sucesso");
           return true;
         })
         .catch((error) => {
-          showMessage('Erro ao atualizar dados')
+          showMessage("Erro ao atualizar dados");
           console.log("erro ao atualizar dados de endereço");
           return false;
         });
@@ -157,15 +197,15 @@ const RegisterAdress = ({ route }) => {
             cep: cep.cep,
           })
           .then((response) => {
-            showToast('Dados cadastrados com sucesso')
-            navigation.navigate('Perfil', {reload: 1})
+            showToast("Dados cadastrados com sucesso");
+            navigation.navigate("Perfil", { reload: 1 });
             console.log("dados cadastrados com sucesso");
             return true;
           })
           .catch((error) => {
-            showMessage('Erro ao cadastrar os dados. Tente novamente.')
+            showMessage("Erro ao cadastrar os dados. Tente novamente.");
             console.log("erro ao cadastrar dados");
-            console.log(error)
+            console.log(error);
             return false;
           });
       } else {
@@ -202,58 +242,68 @@ const RegisterAdress = ({ route }) => {
               object={cep}
               valueDefault={adressAPI.cep ?? cep.cep}
               onChangeObject={setCep}
-              type='adress'
+              type="adress"
               // mask={'cep'}
             />
 
-            <InputData
-              key="rua"
-              label="Logradouro"
-              keyObject="rua"
-              object={rua}
-              onChangeObject={setRua}
-              valueDefault={adressAPI.logradouro ?? rua.rua}
-              type='adress'
-            
-            />
-            <InputData
-              key="numero"
-              label="Número"
-              keyObject="numero"
-              object={numero}
-              valueDefault={numero.numero}
-              onChangeObject={setNumero}
-              type='adress'
-            />
-            
-            <InputData
-              key="cicade"
-              label="Cidade"
-              keyObject="cidade"
-              object={cidade}
-              valueDefault={adressAPI.localidade ?? cidade.cidade}
-              onChangeObject={setCidade}
-              type='adress'
-            />
+            {!displayInformations && (
+              <TouchableOpacity onPress={pesquisarCep}>
+                <Text>Pesquisar CEP</Text>
+              </TouchableOpacity>
+            )}
 
-            <InputData
-              key="bairro"
-              label="Bairro"
-              keyObject="bairro"
-              object={bairro}
-              onChangeObject={setBairro}
-              valueDefault={adressAPI.bairro ?? bairro.bairro}
-              type='adress'
-            />
+            {displayInformations && (
+              <>
+                <InputData
+                  key="rua"
+                  label="Logradouro"
+                  keyObject="rua"
+                  object={rua}
+                  onChangeObject={setRua}
+                  valueDefault={adressAPI.logradouro ?? rua.rua}
+                  type="adress"
+                />
 
-            <Select
-              label={"Selecione um estado"}
-              data={state}
-              keyObject="sigla"
-              object={sigla}
-              valueDefault={adressAPI.uf ?? sigla}
-              onChangeObject={setSigla}
-            />
+                <InputData
+                  key="numero"
+                  label="Número"
+                  keyObject="numero"
+                  object={numero}
+                  valueDefault={numero.numero}
+                  onChangeObject={setNumero}
+                  type="adress"
+                />
+
+                <InputData
+                  key="cicade"
+                  label="Cidade"
+                  keyObject="cidade"
+                  object={cidade}
+                  valueDefault={adressAPI.localidade ?? cidade.cidade}
+                  onChangeObject={setCidade}
+                  type="adress"
+                />
+
+                <InputData
+                  key="bairro"
+                  label="Bairro"
+                  keyObject="bairro"
+                  object={bairro}
+                  onChangeObject={setBairro}
+                  valueDefault={adressAPI.bairro ?? bairro.bairro}
+                  type="adress"
+                />
+
+                <Select
+                  label={"Selecione um estado"}
+                  data={state}
+                  keyObject="sigla"
+                  object={sigla}
+                  valueDefault={adressAPI.uf ?? sigla}
+                  onChangeObject={setSigla}
+                />
+              </>
+            )}
           </KeyboardAvoidingView>
           <ButtonSave disabled={buttonDisabled} functionClicked={saveData} />
           {/* <Button title="Pesquisar CEP" onPress={searchCEP} /> */}

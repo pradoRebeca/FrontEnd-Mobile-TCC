@@ -8,7 +8,7 @@ import { AuthContext } from "../contexts/AuthContext";
 import CardJobPreview from "../components/CardJobPreview";
 
 const DispensadasJob = () => {
-  const {idUser} = useContext(AuthContext)
+  const {idUser, reloadPage} = useContext(AuthContext)
   const [error, setError] = useState(false);
   const [job, setJob] = useState([]);
 console.log(idUser, 'iduser')
@@ -33,9 +33,9 @@ console.log(idUser, 'iduser')
         setError(true);
         return false;
       });
-  }, []);
+  }, [reloadPage]);
 
-  console.log("dispensar ", job);
+  // console.log("dispensar ", job);
 
   return (
     <SafeAreaView>
@@ -54,13 +54,13 @@ console.log(idUser, 'iduser')
       >
         {error && <NotFound />}
 
-       <ActivityIndicator animating={error ? false : true} color={"#1E7596"} />
+       {/* <ActivityIndicator animating={error ? false : true} color={"#1E7596"} /> */}
         {job && (
           <FlatList
             keyExtractor={(item) => item.id}
             data={job}
             renderItem={(item) => (
-              <CardJobPreview data={item.item} key={item.id} type={"candidatar"} />
+              <CardJobPreview data={item.item} key={item.id} type={"dispensar"} />
             )}
           />
         )}
@@ -73,7 +73,7 @@ export default DispensadasJob;
 
 const style = StyleSheet.create({
   content: {
-    marginTop: 10,
+    paddingTop: 10,
     width: "100%",
     paddingLeft: 10,
     paddingRight: 10,

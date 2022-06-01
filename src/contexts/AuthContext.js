@@ -8,9 +8,12 @@ import { showMessage } from "../Functions";
 export const AuthContext = createContext({});
 
 const AuthProvider = ({ children }) => {
+  const [reloadPage, setRealoadPage] = useState()
+  const [putReloadPage, setPutReloadPage] = useState()
+
   const navigation = useNavigation();
   const [user, setUser] = useState({});
-  console.log("AUTHCONTEXT");
+
 
   const auth = (email, password) => {
     axiosURL
@@ -40,7 +43,7 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ singIn, user, idUser: user.id }}>
+    <AuthContext.Provider value={{ singIn, user, idUser: user.id, setRealoadPage, reloadPage}}>
       {children}
     </AuthContext.Provider>
   );

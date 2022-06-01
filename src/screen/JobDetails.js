@@ -1,5 +1,5 @@
 import { NavigationContainer } from "@react-navigation/native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Image,
   StyleSheet,
@@ -17,11 +17,13 @@ import ButtonOptionsJob from "../components/ButtonOptionsJob";
 import JobRequirements from "../components/JobRequirements";
 import axiosURL from "../API";
 import { emptyField, showMessage, showToast } from "../Functions";
+import { AuthContext } from "../contexts/AuthContext";
 
 //import JobRequirements from "../components/JobRequirements";
 
 const JobDetails = ({ route }) => {
-  console.log("JOBDETAILS");
+  const { setRealoadPage, putReloadPage, idUser } = useContext(AuthContext);
+  // console.log("JOBDETAILS");
   const navigation = useNavigation();
   const [stateJob, setStateJob] = useState([]);
   const [dataVaga, setDataVaga] = useState(
@@ -32,24 +34,12 @@ const JobDetails = ({ route }) => {
       rquisitos: "",
     }
   );
-  const [buttonsOptions, setButtonsOptions] = useState("");
+  const [buttonsOptions, setButtonsOptions] = useState(0);
 
   const { type } = route.params;
-  console.log('type : ', type)
 
-  // useEffect(() => {
-  //   axiosURL
-  //     .put(`vaga/candidatar/${1}?idStatus=${3}`)
-  //     .then((response) => {
-  //       return true;
-  //     })
-  //     .catch((error) => {
-  //       return false;
-  //     });
-  // }, [buttonsOptions]);
+  useEffect(() => {
 
-  //METHOD POST -> salvar status da vaga como 'salva, dispensada, e candidata''
-  const saveStatus = () => {
     let actionOK;
     let actionCancel;
     switch (buttonsOptions) {
@@ -67,24 +57,105 @@ const JobDetails = ({ route }) => {
         break;
     }
 
-    if (buttonsOptions != undefined && buttonsOptions != "") {
+    if (
+      buttonsOptions != undefined &&
+      buttonsOptions != "" &&
+      buttonsOptions != 0
+    ) {
+      console.log("button value =>", buttonsOptions);
+
+      if (type) {
+        axiosURL
+          .put(`vaga/candidatar/${1}?idStatus=${buttonsOptions}`)
+          .then((response) => {
+            putReloadPage(buttonsOptions)
+            showMessage(`Vaga ${actionOK} com sucesso`);
+            console.log(`Vaga ${actionOK} com sucesso`);
+          })
+          .catch((error) => {
+            showMessage(`Houve erro ao se ${actionCancel}`);
+            console.log(`Houve erro ao se ${actionCancel} => `,error);
+          });
+      } else {
+        axiosURL
+          .post(
+            `vaga/candidatar?idVaga=${dataVaga.id}&idStatus=${buttonsOptions}&idCandidato=${idUser}`
+          )
+          .then((response) => {
+            setRealoadPage(buttonsOptions)
+            showMessage(`Vaga ${actionOK} com sucesso`);
+            console.log(`Vaga ${actionOK} com sucesso`);
+          })
+          .catch((error) => {
+            showMessage(`Houve erro ao se ${actionCancel}`);
+            console.log(`Houve erro ao se ${actionCancel}`);
+          });
+      }
+    } else {
+      console.log("nenhuma opcao escolhida");
+    }
+  }, [buttonsOptions]);
+
+  // useEffect(() => {
+  //   axiosURL
+  //     .put(`vaga/candidatar/${1}?idStatus=${3}`)
+  //     .then((response) => {
+  //       return true;
+  //     })
+  //     .catch((error) => {
+  //       return false;
+  //     });
+  // }, [buttonsOptions]);
+
+  //METHOD POST -> salvar status da vaga como 'salva, dispensada, e candidata''
+  const saveStatus = () => {
+    setRealoadPage(buttonsOptions);
+    let actionOK;
+    let actionCancel;
+    switch (buttonsOptions) {
+      case 1:
+        actionOK = "candidatada";
+        actionCancel = "candidatar";
+        break;
+      case 2:
+        actionOK = "salva";
+        actionCancel = "salvar";
+        break;
+      case 3:
+        actionOK = "dispensada";
+        actionCancel = "dispensar";
+        break;
+    }
+
+    if (
+      buttonsOptions != undefined &&
+      buttonsOptions != "" &&
+      buttonsOptions != 0
+    ) {
+      console.log("button value =>", buttonsOptions);
 
       if (type) {
         axiosURL
           .put(`vaga/candidatar/${1}?idStatus=${3}`)
           .then((response) => {
-            console.log(`Vaga ${actionOK} com sucesso`)
+            console.log(`Vaga ${actionOK} com sucesso`);
           })
           .catch((error) => {
-            console.log(`Houve erro ao se ${actionCancel}`)
+            console.log(`Houve erro ao se ${actionCancel}`);
           });
       } else {
         axiosURL
           .post(
             `vaga/candidatar?idVaga=${dataVaga.id}&idStatus=${buttonsOptions}&idCandidato=1`
           )
-          .then((response) => console.log(`Vaga ${actionOK} com sucesso`))
-          .catch((error) => console.log(`Houve erro ao se ${actionCancel}`));
+          .then((response) => {
+            showMessage(`Vaga ${actionOK} com sucesso`);
+            console.log(`Vaga ${actionOK} com sucesso`);
+          })
+          .catch((error) => {
+            showMessage(`Houve erro ao se ${actionCancel}`);
+            console.log(`Houve erro ao se ${actionCancel}`);
+          });
       }
     } else {
       console.log("nenhuma opcao escolhida");
@@ -92,7 +163,6 @@ const JobDetails = ({ route }) => {
   };
 
   //console.log("opcao", buttonsOptions);
-
 
   const returnText = (objText, title) => {
     if (objText != "" && objText != null) {
@@ -137,21 +207,21 @@ const JobDetails = ({ route }) => {
                 icon="check-circle-outline"
                 stateButton={setButtonsOptions}
                 id={1}
-                functionClicked={saveStatus}
+                // functionClicked={saveStatus}
               />
               <ButtonOptionsJob
                 label="Salvar"
                 icon="bookmark-border"
                 stateButton={setButtonsOptions}
                 id={2}
-                functionClicked={saveStatus}
+                // functionClicked={saveStatus}
               />
               <ButtonOptionsJob
                 label="Dispensar"
                 icon="block"
                 stateButton={setButtonsOptions}
                 id={3}
-                functionClicked={saveStatus}
+                // functionClicked={saveStatus}
               />
             </View>
             <View style={style.details}>

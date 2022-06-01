@@ -1,26 +1,20 @@
-import {useState} from 'react'
+import { useState, useEffect } from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import SaveJob from "../screen/SaveJob";
 import CandidateJob from "../screen/CandidateJob";
 import CandidateHome from "../screen/CandidateHome";
 import DispensadasJob from "../screen/DispensadasJob";
 
-
 const Tab = createMaterialTopTabNavigator();
 
-const TopNavigation = () => {
-
-  const [realodPage, setRealoadPage] = useState()
-
-
+const TopNavigation = ({ route }) => {
   return (
     <Tab.Navigator
       initialRouteName="Inicial"
-
       screenOptions={{
-        tabBarLabelStyle: { fontSize: 15, textTransform: "capitalize"},
+        tabBarLabelStyle: { fontSize: 15, textTransform: "capitalize" },
         headerShown: true,
-      
+
         // tabBarStyle: { backgroundColor: 'powderblue' },
         tabBarActiveTintColor: "#1E7596",
         // tabBarInactiveTintColor: "red",
@@ -30,11 +24,9 @@ const TopNavigation = () => {
         // tabBarIndicatorContainerStyle: {
         //   backgroundColor: "#1E7596",
         // },
-        
-        tabBarItemStyle: {minWidth: 50,},   
-       
-      }}
 
+        tabBarItemStyle: { minWidth: 50 },
+      }}
     >
       {/* <Tab.Screen
         name="Incial"
@@ -43,7 +35,6 @@ const TopNavigation = () => {
       /> */}
       <Tab.Screen
         name="Candidaturas"
-        initialParams={{reload: 1}}
         component={CandidateJob}
         options={{ tabBarLabel: "Candidaturas" }}
       />
@@ -55,7 +46,7 @@ const TopNavigation = () => {
       <Tab.Screen
         name="Dispensadas"
         component={DispensadasJob}
-        options={{ tabBarLabel: "Dispensadas",}}
+        options={{ tabBarLabel: "Dispensadas" }}
       />
     </Tab.Navigator>
   );

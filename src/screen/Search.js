@@ -25,7 +25,7 @@ const Search = ({ navigation }) => {
   console.log("TELA SEARCH");
 
   //id usuario
-  const { idUser, user } = useContext(AuthContext);
+  const { idUser, user, reloadPage } = useContext(AuthContext);
   console.log("nome do usuario: ", user.email);
 
   const [textSearch, setTextSearch] = useState("");
@@ -57,7 +57,7 @@ const Search = ({ navigation }) => {
           setError(true);
         });
     }
-  }, []);
+  }, [reloadPage]);
 
   const resultSearch = () => {
     axiosURL

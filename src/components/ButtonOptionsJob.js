@@ -3,21 +3,20 @@ import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "@expo/vector-icons/MaterialIcons";
 
-const ButtonOptionsJob = ({ label, type, icon, stateButton, functionClicked, id}) => {
-  const [buttonsOptions, setButtonsOptions] = useState(false);
+const ButtonOptionsJob = ({ label, type, icon, stateButton,  id}) => {
+  const [buttonsOptions, setButtonsOptions] = useState(0);
   const navigation = useNavigation();
 
 
   const onClick = () => {
-    // setButtonsOptions(!buttonsOptions)
     stateButton(id)
-    functionClicked()
+  
   };
 
   return (
     <>
       <TouchableOpacity
-        onPress={() => onClick()}
+        onPress={onClick}
         accessible={true}
         accessibilityHint="Salvar informações"
         accessibilityLabel="Salvar"
