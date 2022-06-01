@@ -73,9 +73,11 @@ const InputData = ({
   //   console.log('tem asterisco')
   // }
 
+  const viewLabel = () => {};
+
   const isRequired = () => {
     if (required) {
-      return label + "*";
+      return label + '*';
     } else {
       return label;
     }
@@ -104,7 +106,7 @@ const InputData = ({
         mode={mode ? "flat" : "outlined"}
         label={isRequired()}
         activeOutlineColor="#225E77"
-        onChangeText={text => onChangeText(text)}
+        onChangeText={(text) => onChangeText(text)}
         outLineColor="#6D6D6D"
         style={
           mode

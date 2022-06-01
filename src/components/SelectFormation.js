@@ -51,11 +51,11 @@ const SelectFormation = (props) => {
   };
   
   return (
-    <View style={{ backgroundColor: "#F5F5F5", marginBottom: 10 }}>
+    <View style={style.content}>
       <Picker
         mode="dropdown"
         selectedValue={selectedValue}
-        style={style.container}
+        style={{height: 40}}
         onValueChange={(itemValue, itemIndex) => onChangeText(itemValue)}
       >
         {functionSelected()}
@@ -68,9 +68,9 @@ const SelectFormation = (props) => {
 };
 
 const style = StyleSheet.create({
-  container: {
-    height: 40,
-    width: "100%",
+  content: {
+    width: '100%',
+    marginBottom: 10,
     backgroundColor: "#F5F5F5",
   },
 });

@@ -12,7 +12,7 @@ import ItemSeparator from "./ItemSeparator";
 const Information = ({ data, nameSreen }) => {
   const navigation = useNavigation();
   const [titleText, setTitleText] = useState([]);
-
+console.log('INFORMAYIONS DADOS => ', data)
   let id;
   let action = "Editar";
 
@@ -140,7 +140,7 @@ const style = StyleSheet.create({
     borderRadius: 5,
     borderColor: "#1E7596",
     width: 80,
-    height: 30,
+    height: 35,
     borderRadius: 5,
     color: "white",
     display: "flex",

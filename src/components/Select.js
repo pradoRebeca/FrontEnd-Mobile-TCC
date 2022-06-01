@@ -3,7 +3,7 @@ import { View, StyleSheet } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 
 const Select = (props) => {
-console.log('default:',props.valueDefault)
+  console.log("default:", props.valueDefault);
 
   const [selectedValue, setSelectedValue] = useState();
 
@@ -19,7 +19,7 @@ console.log('default:',props.valueDefault)
   };
 
   const functionSelected = () => {
-    if ( props.valueDefault.sigla != "") {
+    if (props.valueDefault.sigla != "") {
       return props.data
         .filter((item) => item.sigla === props.valueDefault)
         .map((item) => (
@@ -41,11 +41,11 @@ console.log('default:',props.valueDefault)
       );
     }
   };
- 
+
   return (
-    <View style={{ backgroundColor: "#F5F5F5", marginBottom: 10, }}>
+    <View style={style.content}>
       <Picker
-        style={style.container}
+        style={{height: 50}}
         mode="dropdown"
         selectedValue={selectedValue}
         onValueChange={(text) => onChange(text)}
@@ -67,8 +67,8 @@ console.log('default:',props.valueDefault)
 export default Select;
 
 const style = StyleSheet.create({
-  container: {
-    // width: "100%",
-    // backgroundColor: "#F5F5F5",
+  content: {
+    backgroundColor: "#F5F5F5",
+    marginBottom: 10,
   },
 });

@@ -203,7 +203,7 @@ const RegisterAdress = ({ route }) => {
               valueDefault={adressAPI.cep ?? cep.cep}
               onChangeObject={setCep}
               type='adress'
-              mask={'cep'}
+              // mask={'cep'}
             />
 
             <InputData

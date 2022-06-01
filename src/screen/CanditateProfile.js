@@ -116,7 +116,7 @@ console.log(idUser, 'iduser')
           <View style={style.container}>
             <DisplayInformation
               titleSection="Cadastrar Endereço"
-             // data={[enderecoRua]}
+             data={[personalData.endereco]}
               nameSreen="Cadastrar Endereço"
             />
           </View>

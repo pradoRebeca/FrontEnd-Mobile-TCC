@@ -12,6 +12,8 @@ import { emptyField, showMessage, showToast } from "../Functions";
 import InputCalendar from "../components/InputCalendar";
 import axiosURL from "../API";
 import { AuthContext } from "../contexts/AuthContext";
+import ImageView from "../components/ImageView";
+import SelectGenero from "../components/SelectGenero";
 
 const genero = [
   "Selecione um Genero",
@@ -45,10 +47,11 @@ const def = [
 ];
 
 const RegisterPersonalData = ({ route }) => {
-  const {idUser} = useContext(AuthContext)
+  const { idUser } = useContext(AuthContext);
   const edit = true;
   const id = route.params.id;
 
+  const [imageProfile, setImageProfile] = useState('')
   const [idCheckbox, setIdCheckbox] = useState([]);
   const [stateCheckbox, setStateCheckbox] = useState([]);
   const [checkbox, setCheckbox] = useState([]);
@@ -110,7 +113,7 @@ const RegisterPersonalData = ({ route }) => {
   //METHOD PUT
   const saveData = () => {
     console.log("valor : ", arrayFinal());
-console.log(personalData)
+    console.log(personalData);
     if (
       emptyField(
         personalData.nome,
@@ -128,7 +131,7 @@ console.log(personalData)
           deficiencia: arrayFinal(),
           dataNascimento: personalData.dataNascimento,
           email: [personalData.email, personalData.emailRecuperacao],
-          telefone: [personalData.telefone, personalData.outroTelefone]
+          telefone: [personalData.telefone, personalData.outroTelefone],
         })
         .then((response) => {
           showToast("Dados atualizados com sucesso.");
@@ -193,6 +196,8 @@ console.log(personalData)
             behavior="position"
             enabled
           >
+            <ImageView functionImage={setImageProfile}/>
+
             <CheckboxComponent
               data={def}
               type="Deficiencia"
@@ -247,12 +252,14 @@ console.log(personalData)
               keyObject="dataNascimento"
               label="Data de Nascimento"
             />
+
+            <SelectGenero/>
             <InputData
               object={personalData}
               valueDefault={personalData.telefone}
               onChangeObject={setPersonalData}
               keyObject="telefone"
-              label="Telefone"
+              label="Primeiro telefone"
               massageError="Email"
               required={true}
             />
@@ -262,7 +269,7 @@ console.log(personalData)
               valueDefault={personalData.outroTelefone}
               onChangeObject={setPersonalData}
               keyObject="outroTelefone"
-              label="Telefone 2"
+              label="Segundo telefone"
               massageError="Email"
             />
 

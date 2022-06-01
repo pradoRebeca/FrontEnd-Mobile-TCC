@@ -32,6 +32,11 @@ const StackNavigation = () => {
         // cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}
     >
+        {/* <Stack.Screen
+        name="Exemplo Imagem"
+        component={ImageView}
+        // options={{ headerShown: false }}
+      /> */}
       <Stack.Screen
         name="Home"
         component={Home}
