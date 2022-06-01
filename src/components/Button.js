@@ -21,19 +21,19 @@ const Button = (props) => {
 //teesste
 const style = StyleSheet.create({
     view: {
-        height: 50,
+        height: 45,
         width: 300,
         backgroundColor: "#225E77",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         borderRadius: 5,
-        marginBottom: 20,
+        marginBottom: 16,
     },
     text: {
         color: "white",
-        fontSize: 24,
-        letterSpacing: 2,
+        fontSize: 20,
+        // letterSpacing: 2,
         fontWeight: "500",
     },
 });

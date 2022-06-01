@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
 
 import { Searchbar } from "react-native-paper";
+import Filter from "./Filter";
 
 const SearchBar = ({ onChangeText, functionClicked }) => {
   const [search, setSearch] = useState("");
@@ -20,16 +21,19 @@ const SearchBar = ({ onChangeText, functionClicked }) => {
 
   return (
     <View style={style.content}>
-      <Searchbar
-        style={style.search}
-        placeholder="Pesquisar..."
-        onChangeText={onChange}
-        value={search}
-        selectionColor={"#225E77"}
-        onIconPress={functionClicked}
-        // onKeyPress={keyPress}
-
-         />
+      <View style={style.contentView}>
+        <Searchbar
+          style={style.search}
+          placeholder="Pesquisar..."
+          onChangeText={onChange}
+          value={search}
+          selectionColor={"#225E77"}
+          onIconPress={functionClicked}
+          // onKeyPress={keyPress}
+        />
+        <View style={style.divisor}></View>
+        <Filter />
+      </View>
     </View>
   );
 };
@@ -43,14 +47,33 @@ const style = StyleSheet.create({
     height: 60,
     backgroundColor: "#1E7596",
     // backgroundColor: 'blue',
-    display: "flex",
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
   },
-  search: {
-    borderRadius: 30,
+
+  contentView: {
+    paddingRight: 10,
+    borderRadius: 10,
+    height: 40,
     width: "90%",
-    height: 35,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "white",
   },
+  search: {
+    borderRadius: 20,
+    borderColor: "white",
+    elevation: 0,
+    width: "86%",
+    height: 40,
+  },
+  divisor:{
+    marginRight: 5,
+    height: 25,
+    width: 1.5,
+    backgroundColor: '#225E77',
+  }
 });

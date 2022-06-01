@@ -129,7 +129,7 @@ console.log('PROFISSIONALEXPERIENCE')
   return (
     <>
       <StatusBar backgroundColor="#1E7596" />
-      <ModifyTitle title="Experiencia Profissional" />
+      <ModifyTitle title="Experiência Profissional" />
       <ScrollView>
         <View style={style.container}>
           <View style={style.candidateData}>

@@ -7,13 +7,14 @@ import {
   Image,
   Text,
   SafeAreaView,
+  LogBox,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import axiosURL from "../API";
 import DisplayInformation from "../components/DisplayInformations";
 import Information from "../components/Informations";
-import { ActivityIndicator } from 'react-native-paper';
+import { ActivityIndicator } from "react-native-paper";
 import { AuthContext } from "../contexts/AuthContext";
 
 const user = [
@@ -44,11 +45,10 @@ const enderecoRua = {
   cep: "",
 };
 
-const CandidateProfile = ({route}) => {
-  const {idUser} = useContext(AuthContext)
+const CandidateProfile = ({ route }) => {
+  const { idUser } = useContext(AuthContext);
   // const [isReaload, setIsReaload] = useState()
   const navigation = useNavigation();
-  
 
   const image = "https://www.promoview.com.br/uploads/2017/04/b72a1cfe.png";
   const [personalData, setPersonalData] = useState([]);
@@ -59,6 +59,9 @@ const CandidateProfile = ({route}) => {
   const [deficienciaData, setDeficienciaData] = useState([]);
   const [display, setDisplay] = useState(true);
 
+  useEffect(() => {
+    LogBox.ignoreLogs(["VirtualizedLists should never be nested"])
+  }, [])
 
   // useEffect(() => {
   //   if(route.params){
@@ -67,8 +70,7 @@ const CandidateProfile = ({route}) => {
   //   }
   // }, [route.params])
 
-
-console.log(idUser, 'iduser')
+  console.log(idUser, "iduser");
   useEffect(() => {
     axiosURL
       .get(`candidato/buscar/${idUser}`)
@@ -86,23 +88,24 @@ console.log(idUser, 'iduser')
         });
       })
       .catch((error) => {
-        console.log('nao deu para pegar dados do candidato => ', error.message);
+        console.log("nao deu para pegar dados do candidato => ", error.message);
         return false;
       });
   }, [route.params]);
 
-// console.log('refresh: ',route.params)
+  // console.log('refresh: ',route.params)
 
   //Filtro para cada seção
   useEffect(() => {
     setExperienceData(personalData.experiencia);
     setCursoData(personalData.curso);
-   setPersonalInformation({ ...personalData, experiencia: null, curso: null });
+    setPersonalInformation({ ...personalData, experiencia: null, curso: null });
   }, [personalData]);
 
   return (
     <SafeAreaView>
       {/* <SearchBar /> */}
+
       <ScrollView>
         <View style={style.conatinerInformations}>
           <View style={style.container}>
@@ -116,13 +119,13 @@ console.log(idUser, 'iduser')
           <View style={style.container}>
             <DisplayInformation
               titleSection="Cadastrar Endereço"
-             data={[personalData.endereco]}
+              data={[personalData.endereco]}
               nameSreen="Cadastrar Endereço"
             />
           </View>
           <View style={style.container}>
             <DisplayInformation
-              titleSection="Formações Academicas"
+              titleSection="Formações Acadêmicas"
               data={cursoData}
               nameSreen="Formação Academica"
               addInformation={true}
@@ -130,7 +133,7 @@ console.log(idUser, 'iduser')
           </View>
           <View style={style.container}>
             <DisplayInformation
-              titleSection="Experiencia Profissional"
+              titleSection="Experiência Profissional"
               data={experienceData}
               nameSreen="Experiencia Profissional"
               addInformation={true}

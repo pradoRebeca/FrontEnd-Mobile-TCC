@@ -14,13 +14,13 @@ import ButtonSave from "../components/ButtonSave";
 import axiosURL from "../API";
 import { listState, emptyField } from "../Functions";
 
-const genero = [
-  "Selecione um Genero",
-  "Prefiro nao Informar",
-  "Masculino",
-  "Feminino",
-  "Binario",
-];
+// const genero = [
+//   "Selecione um Genero",
+//   "Prefiro nao Informar",
+//   "Masculino",
+//   "Feminino",
+//   "Binario",
+// ];
 
 const def = [
   {
@@ -67,7 +67,7 @@ const Filter = ({ route }) => {
 
   }, [filterData]);
 
-  //METHOD PUT
+
   const functionFilterData = () => {
 
   };
@@ -82,13 +82,15 @@ const Filter = ({ route }) => {
             behavior="position"
             enabled
           >
-            <Text style={style.titleSection}>Deficiencia</Text>
-            <CheckboxComponent
+            <Text style={style.titleSection}>Tipos de Deficiência</Text>
+            {/* <CheckboxComponent
               data={def}
               type="Deficiencia"
               // text="Tipo de Deficiencias"
-            />
+            /> */}
             <Text  style={style.titleSection}>Região</Text>
+
+
             {/* <Select
               data={state}
               keyObject={"sigla"}
@@ -105,13 +107,7 @@ const Filter = ({ route }) => {
             /> */}
 
             <Text  style={style.titleSection}>Suporte Oferecido</Text>
-            {/* <Select
-              data={state}
-              keyObject={"sigla"}
-              // object={adressTyped}
-              // onChangeObject={setAdressTyped}
-              // valueAPI={adressAPI.uf}
-            /> */}
+            
 
             <Text  style={style.titleSection}>Salário</Text>
             {/* <Select

@@ -1,15 +1,11 @@
 import React from "react";
-import {
-  createBottomTabNavigator,
-  CardStyleInterpolators,
-} from "@react-navigation/bottom-tabs";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontAwesome } from "@expo/vector-icons";
 import { Foundation } from "@expo/vector-icons";
 import { Fontisto } from "@expo/vector-icons";
 
 import CandidateProfile from "../screen/CanditateProfile";
 import TopNavigation from "./TopNavigation";
-import { useEffect } from "react";
 import { BackHandler } from "react-native";
 
 import SearchBar from "../components/SearchBar";
@@ -29,7 +25,7 @@ const TabNavigation = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarHideOnKeyboard:"true",
+        tabBarHideOnKeyboard: "true",
         tabBarStyle: { backgroundColor: "#1E7596" },
         headerStyle: {
           backgroundColor: "#1E7596",
@@ -44,20 +40,17 @@ const TabNavigation = () => {
       <Tab.Screen
         options={{
           headerShown: true,
-          headerTitle: () => (
-           <HeaderSearch/>
-          ),
+          headerTitle: () => <HeaderSearch />,
           tabBarIcon: ({ color }) => (
             <Foundation name="shopping-bag" color={color} size={26} />
           ),
         }}
-        name="Vagas"
+        name="Minhas Vagas"
         component={TopNavigation}
       />
 
       <Tab.Screen
         options={{
-         
           headerShown: false,
           tabBarIcon: ({ color }) => (
             <Fontisto name="search" color={color} size={26} />

@@ -125,7 +125,7 @@ const AcademicEducation = ({ route }) => {
   return (
     <View style={Style.container}>
       <StatusBar backgroundColor="#1E7596" />
-      <ModifyTitle title="Formaçao Academica" />
+      <ModifyTitle title="Formaçao Acadêmica" />
       <ScrollView>
         <View style={Style.screenSpace}>
           <View style={Style.registerCandidateData}>

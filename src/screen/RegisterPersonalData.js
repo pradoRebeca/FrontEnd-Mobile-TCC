@@ -14,6 +14,7 @@ import axiosURL from "../API";
 import { AuthContext } from "../contexts/AuthContext";
 import ImageView from "../components/ImageView";
 import SelectGenero from "../components/SelectGenero";
+import Deficiencias from "./Deficiencias";
 
 const genero = [
   "Selecione um Genero",
@@ -197,7 +198,7 @@ const RegisterPersonalData = ({ route }) => {
             enabled
           >
             <ImageView functionImage={setImageProfile}/>
-
+{/* 
             <CheckboxComponent
               data={def}
               type="Deficiencia"
@@ -207,7 +208,11 @@ const RegisterPersonalData = ({ route }) => {
               // object={personalData}
               // onChangeObject={setPersonalData}
               // keyObject="deficiencia"
-            />
+            /> */}
+
+            
+
+            <Deficiencias/>
 
             <InputData
               object={personalData}

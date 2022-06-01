@@ -1,35 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { View, Picker, StyleSheet, LogBox } from "react-native";
+import { View, Picker, StyleSheet } from "react-native";
 
 const SelectFormation = (props) => {
   const [selectedValue, setSelectedValue] = useState();
 
-  useEffect(() => {
-    LogBox.ignoreLogs(["Picker has been extracted from react-native"])
-  }, [])
-
   var data = props.data ?? [];
   var labelInicial;
   var label;
-  var value;
+  var value = 'id'
 
   switch (props.type) {
     case "curso":
       labelInicial = 'Selecione um Curso'
       label = "curso";
-      value = "id";
+   
       break;
 
     case "nivel":
       labelInicial = 'Selecione um Nível Academico'
       label = "nivel";
-      value = "id";
       break;
 
     case "areaAtuacao":
       labelInicial = 'Selecione uma Área de Atuação'
       label = "areaAtuacao";
-      value = "id";
       break;
 
     case "estado":

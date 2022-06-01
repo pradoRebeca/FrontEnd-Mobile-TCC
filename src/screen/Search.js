@@ -106,7 +106,6 @@ const Search = ({ navigation }) => {
           </TouchableOpacity>} */}
         <ActivityIndicator animating={displayReload} color={"#1E7596"} />
 
-        <Filter />
         {job && (
           <FlatList
             keyExtractor={(item) => item.id}

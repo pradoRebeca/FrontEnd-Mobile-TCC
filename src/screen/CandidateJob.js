@@ -64,7 +64,7 @@ const carregar = () =>{
   return (
     <SafeAreaView>
   
-      <StatusBar backgroundColor="#1E7596" />
+      {/* <StatusBar backgroundColor="#1E7596" /> */}
       {/* <SearchBar /> */}
       {/* <TopNavigation navigation={navigation} /> */}
       <View

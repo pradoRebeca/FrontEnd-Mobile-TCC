@@ -178,7 +178,7 @@ const CompanyProfile = ({ route }) => {
           )}
         </View>
 
-        <Filter />
+        <Filter mode='company'/>
 
         <FlatList
           data={companyJobs}

@@ -44,7 +44,7 @@ const CandidateHome = ({ navigation }) => {
   return (
     <SafeAreaView>
     {/* <SearchBar/> */}
-      <StatusBar backgroundColor="#1E7596" />
+      {/* <StatusBar backgroundColor="#1E7596" /> */}
 
       {/* <TopNavigation navigation={navigation} /> */}
       <View

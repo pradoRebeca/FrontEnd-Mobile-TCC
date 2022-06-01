@@ -3,6 +3,7 @@ import { StyleSheet, TouchableOpacity, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 import { backgroundColor } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
+import { View } from "react-native-web";
 
 const Filter = ({mode}) => {
   const navigation = useNavigation();
@@ -25,7 +26,7 @@ const Filter = ({mode}) => {
     >
     {modeView()}
       {/* <Text style={{ fontSize: 16 }}>Filtrar</Text> */}
-      <AntDesign name="filter" size={25} />
+      <AntDesign name="filter" size={25} color={'#7C7C7C'}/>
     </TouchableOpacity>
   );
 };
@@ -47,6 +48,6 @@ const style = StyleSheet.create({
     alignItems: "center",
   },
   contentModeIcon:{
-    backgroundColor: '#1E7596'
+    backgroundColor: '#fff'
   }
 });
