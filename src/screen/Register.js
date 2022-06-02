@@ -113,7 +113,6 @@ const Register = () => {
             nameIcon="lock"
             mode={true}
           />
-          
         </View>
 
         <View style={style.buttonContent}>
@@ -123,6 +122,11 @@ const Register = () => {
             nameScreen="CandidateHome"
           />
         </View>
+
+        <Image
+          style={style.imageWaveInferior}
+          source={require("../img/waveInferior.png")}
+        />
       </ScrollView>
 
       {/* cadastrar com o google */}
@@ -141,11 +145,6 @@ const Register = () => {
             </View>
           </TouchableOpacity>
  */}
-
-      <Image
-        style={style.imageWaveInferior}
-        source={require("../img/waveInferior.png")}
-      />
     </SafeAreaView>
   );
 };
@@ -159,7 +158,7 @@ const style = StyleSheet.create({
   },
   imageWaveInferior: {
     top: 0,
-    bottom: 0,
+    bottom: 80,
     height: 80,
     width: "100%",
   },

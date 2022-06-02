@@ -2,55 +2,31 @@ import React, { useEffect, useState } from "react";
 import { Checkbox } from "react-native-paper";
 import { StyleSheet, View, Text } from "react-native";
 
-const CheckboxComponent = ({
-  data,
-  type,
-  text,
-  idCheckbox,
-  stateCheckbox
-}) => {
+const CheckboxComponent = ({ data, type, text, idSelecionados }) => {
   const [checkedState, setCheckedState] = useState(
-    new Array(data.length).fill(false)
+    data.map((item) => ({ ...item, status: false }))
   );
 
-  const [dataCheckbox, setDataCheckbox] = useState((data.map((item) => item.id)));
-  const [idChecked, setIdChecked] = useState([]);
-
-  const handleOnChange = (position, id) => {
-    const updatedCheckedState = checkedState.map((item, index) =>
-      index === position ? !item : item
+  const handleOnChange = (position, status) => {
+    const updatedCheckedState = checkedState.map((item) =>
+      item.id == position ? { ...item, status: !status } : { ...item }
     );
+
     setCheckedState(updatedCheckedState);
-    idCheckbox(dataCheckbox)
-    stateCheckbox(updatedCheckedState)
-  }
+  };
 
-
-const arrayFinal = () => {
-  for(let i = 0 ; i < checkedState.length ; i++ ){
-    if(checkedState[i]){
-     const result = [...idChecked, dataCheckbox[i]]
-     setIdChecked(result)
-    }
-  }
-}
-   
-
- 
-
-  
-
-  
-
-  //console.log('valores id: ', new Set(dataCheckbox));
-  
- // console.log('state : ',checkedState);
+  useEffect(() => {
+    const checked = checkedState
+      .filter((item) => item.status == true)
+      .map((item) => item.id);
+    idSelecionados(checked);
+  }, [checkedState]);
 
   let textTitle = text;
 
   const render = () => {
     if (type == "Deficiencia") {
-      return data.map(({ id, tipo }, index) => {
+      return checkedState.map(({ id, tipo, status }) => {
         return (
           <Checkbox.Item
             key={id}
@@ -59,9 +35,9 @@ const arrayFinal = () => {
             color="#1E7596"
             label={tipo}
             value={id}
-            status={checkedState[index] ? "checked" : "unchecked"}
+            status={status ? "checked" : "unchecked"}
             onPress={() => {
-              handleOnChange(index);
+              handleOnChange(id, status);
             }}
           />
         );

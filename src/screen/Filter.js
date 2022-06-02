@@ -12,7 +12,7 @@ import CheckboxComponent from "../components/CheckBox";
 import ButtonSave from "../components/ButtonSave";
 
 import axiosURL from "../API";
-import { listState, emptyField } from "../Functions";
+import { listState, emptyField, showMessage } from "../Functions";
 import Deficiencias from "./Deficiencias";
 import SelectSuporte from "../components/SelectSuporte";
 
@@ -24,26 +24,30 @@ import SelectSuporte from "../components/SelectSuporte";
 //   "Binario",
 // ];
 
-const def = [
+const salario = [
   {
     id: 1,
-    tipo: "AUDITIVA",
+    valor: "Indiferente",
   },
   {
     id: 2,
-    tipo: "VISUAL",
+    valor: "Acima de R$ 1.000,00",
   },
   {
     id: 3,
-    tipo: "MOTORA",
+    valor: "Acima de R$ 2.000,00",
   },
   {
     id: 4,
-    tipo: "INTELECTUAL",
+    valor: "Acima de R$ 3.000,00",
   },
   {
     id: 5,
-    tipo: "INTELECTUAL",
+    valor: "Acima de R$ 4.000,00",
+  },
+  {
+    id: 6,
+    valor: "Acima de R$ 5.000,00",
   },
 ];
 
@@ -52,11 +56,17 @@ const Filter = ({ route }) => {
   const [suporte, setSuporte] = useState([]);
   const [tipoDeficiencia, setTipoDeficiencia] = useState([]);
   const [deficiencia, setDeficiencia] = useState([]);
+  const [cidade, setCidade] = useState([]);
 
-  const [filterData, setPersonalData] = useState({});
+  //ID'S FILTRO
+  const [idSalario, setIdSalario] = useState();
+  const [idTipoDeficiencia, setIdTipoDeficiencia] = useState();
+  const [idDeficiencia, setIdDeficiencia] = useState();
+  const [idEstado, setIdEstado] = useState();
+  const [idCidade, setIdCidade] = useState();
+  const [idSuporte, setIdSuporte] = useState();
 
-
-const [idTipoDeficiencia, setIdTipoDeficiencia] = useState(0)
+  const [vagasComFiltro, setVagasComFiltro] = useState([]);
 
   useEffect(() => {
     //GET ESTADOS
@@ -93,6 +103,7 @@ const [idTipoDeficiencia, setIdTipoDeficiencia] = useState(0)
       });
   }, []);
 
+  //GET DEFICIENCIAS
   useEffect(() => {
     axiosURL
       .get(`deficiencia/listar/${idTipoDeficiencia}`)
@@ -101,13 +112,60 @@ const [idTipoDeficiencia, setIdTipoDeficiencia] = useState(0)
         console.log(response.data.content);
       })
       .catch((error) => {
-        console.log("erro ao pegar dados de suporte=> ", error);
+        console.log("erro ao pegar dados de deficiencia => ", error);
       });
-  }, [tipoDeficiencia]);
+  }, [idTipoDeficiencia]);
 
-  const functionFilterData = () => {};
+  //GET CIDADE
+  useEffect(() => {
+    axiosURL
+      .get(`pesquisa/cidade/${idEstado}`)
+      .then((response) => {
+        setCidade(response.data.content);
+        console.log(response.data.content);
+      })
+      .catch((error) => {
+        console.log("erro ao pegar dados de cidade=> ", error);
+      });
+  }, [idEstado]);
 
-  console.log(idTipoDeficiencia)
+  const verificarItens = () => {
+    let urlBaseFiltragem = "vaga/listar?";
+
+    if (idEstado) {
+      urlBaseFiltragem = urlBaseFiltragem + `&idEstado=${idEstado}`;
+      if (idSuporte) {
+        urlBaseFiltragem = urlBaseFiltragem + `&idSuporte=${idSuporte}`;
+        if (idDeficiencia) {
+          urlBaseFiltragem =
+            urlBaseFiltragem + `&idDeficiencia=${idDeficiencia}`;
+          if (idSuporte) {
+            urlBaseFiltragem = urlBaseFiltragem + `&idSuporte=${idSuporte}`;
+            if (idCidade) {
+              urlBaseFiltragem = urlBaseFiltragem + `&idCidade=${idCidade}`;
+            }
+          }
+        }
+      }
+    }
+
+    return urlBaseFiltragem;
+  };
+
+  const functionFilterData = () => {
+    const url = verificarItens();
+    axiosURL
+      .get(`${url}`)
+      .then((response) => {
+        setVagasComFiltro(response.data.content);
+        console.log(response.data.content);
+      })
+      .catch((error) => {
+        showMessage('Houve algum erro ao filtrar as vagas. Tente novamente.')
+        console.log("erro ao pegar dados do filtro=> ", error);
+      });
+  };
+
   return (
     <>
       <StatusBar backgroundColor="#1E7596" />
@@ -115,18 +173,47 @@ const [idTipoDeficiencia, setIdTipoDeficiencia] = useState(0)
         <View style={Style.screenSpace}>
           <View style={Style.registerCandidateData}>
             <Text style={style.titleSection}>Tipos de Deficiência</Text>
-            <SelectSuporte data={tipoDeficiencia} onChange={setTipoDeficiencia} nameKey="tipo" />
+            <SelectSuporte
+              data={tipoDeficiencia}
+              onChange={setIdTipoDeficiencia}
+              nameKey="tipo"
+            />
 
             <Text style={style.titleSection}>Deficiência</Text>
-            <SelectSuporte data={deficiencia} onChange={setIdTipoDeficiencia} nameKey="deficiencia" />
+            <SelectSuporte
+              data={deficiencia}
+              onChange={setIdDeficiencia}
+              nameKey="deficiencia"
+              // disabled={idTipoDeficiencia? false : true}
+            />
 
-            <Text style={style.titleSection}>Região</Text>
-            {/* <SelectSuporte data={cidade} nameKey="nome" /> */}
+            <Text style={style.titleSection}>Estado</Text>
+            <SelectSuporte
+              data={estado}
+              nameKey="sigla"
+              onChange={setIdEstado}
+            />
+
+            <Text style={style.titleSection}>Cidade</Text>
+            <SelectSuporte
+              data={suporte}
+              nameKey="cidade"
+              onChange={setIdCidade}
+            />
 
             <Text style={style.titleSection}>Suporte Oferecido</Text>
-            <SelectSuporte data={suporte} nameKey="nome" />
+            <SelectSuporte
+              data={suporte}
+              nameKey="nome"
+              onChange={setIdSuporte}
+            />
 
             <Text style={style.titleSection}>Salário</Text>
+            <SelectSuporte
+              data={salario}
+              nameKey="valor"
+              onChange={setIdSalario}
+            />
           </View>
           <ButtonSave
             disabled={false}

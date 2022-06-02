@@ -80,17 +80,16 @@ const Search = ({ navigation }) => {
       .catch((error) => {
         console.log("erro ao pegar dados pela pesquisa => ", error);
         console.log("erro ao buscar vagas sem relacao com o candidato");
-        setJob([])
+        setJob([]);
         setDisplayReaload(false);
         setError(true);
       });
   };
 
   return (
-    <SafeAreaView >
+    <SafeAreaView>
       <StatusBar backgroundColor="#1E7596" />
       <SearchBar onChangeText={setTextSearch} functionClicked={resultSearch} />
-      
       <View
         style={
           error
@@ -134,5 +133,4 @@ const style = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
   },
- 
 });

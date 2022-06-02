@@ -33,8 +33,8 @@ const Login = () => {
   
   const logon = () => {
    //console.log('dados login: ' ,personalData.email, personalData.senha)
-    singIn(personalData.email, personalData.senha)
-    // navigation.navigate({ name: "CandidateHome" });
+    // singIn(personalData.email, personalData.senha)
+    navigation.navigate({ name: "CandidateHome" });
   };
 
   return (
