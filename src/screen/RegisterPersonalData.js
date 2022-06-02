@@ -53,9 +53,9 @@ const RegisterPersonalData = ({ route }) => {
   const id = route.params.id;
 
   const [imageProfile, setImageProfile] = useState("");
-  const [idCheckbox, setIdCheckbox] = useState([]);
+
   const [idTipoDeficiencia, setIdTipoDeficiencia] = useState([]);
-  const [checkbox, setCheckbox] = useState([]);
+
   const [personalData, setPersonalData] = useState({
     id: "",
     nome: "",
@@ -115,7 +115,7 @@ const RegisterPersonalData = ({ route }) => {
   //METHOD PUT
   const saveData = () => {
     // console.log("valor : ", arrayFinal());
-    console.log(personalData);
+    // console.log(personalData);
     if (
       emptyField(
         personalData.nome,
@@ -196,15 +196,14 @@ const RegisterPersonalData = ({ route }) => {
           <View style={Style.registerCandidateData}>
             <ImageView functionImage={setImageProfile} />
 
-            <CheckboxComponent
+            {/* <CheckboxComponent
               data={def}
               type="Deficiencia"
               text="Tipo de Deficiencias"
               idSelecionados={setIdTipoDeficiencia}
-            />
+            /> */}
 
-            {/* 
-            <Deficiencias/> */}
+            <Deficiencias idSelecionados={setIdTipoDeficiencia} />
 
             <InputData
               object={personalData}

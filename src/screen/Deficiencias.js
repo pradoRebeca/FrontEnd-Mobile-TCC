@@ -1,4 +1,4 @@
-import react, { useState } from "react";
+import react, { useState, useEffect } from "react";
 import { View } from "react-native";
 import CheckboxComponent from "../components/CheckBox";
 
@@ -25,21 +25,68 @@ const def = [
   },
 ];
 
-const Deficiencias = () => {
-  const [idCheckbox, setIdCheckbox] = useState([]);
-  const [stateCheckbox, setStateCheckbox] = useState([]);
+const type = [
+  {
+    id: 1,
+    deficiencia: "ABC",
+  },
+  {
+    id: 2,
+    deficiencia: "ABCD",
+  },
+  {
+    id: 3,
+    deficiencia: "ABCDE",
+  },
+  {
+    id: 4,
+    deficiencia: "ABCDF",
+  },
+  {
+    id: 5,
+    deficiencia: "ABCG",
+  },
+];
 
+const typeDef = [
+  {
+    id: 1,
+    deficiencia: "1123",
+  },
+  {
+    id: 2,
+    deficiencia: "123",
+  },
+  {
+    id: 3,
+    deficiencia: "123",
+  },
+  {
+    id: 4,
+    deficiencia: "123",
+  },
+  {
+    id: 5,
+    deficiencia: "1233",
+  },
+];
 
-  const arrayFinal = () => {
-    let array = [];
-    for (let i = 0; i < stateCheckbox.length; i++) {
-      if (stateCheckbox[i]) {
-        console.log(stateCheckbox[i], idCheckbox[i]);
-        let result = array.push(idCheckbox[i]);
-      }
+const Deficiencias = ({ idSelecionados }) => {
+  const [arrayId, setArrayId] = useState();
+  const [array, setArray] = useState(type);
+
+  useEffect(() => {
+    idSelecionados(arrayId);
+  }, [arrayId]);
+
+  useEffect(() => {
+    let merged;
+    for (let i = 0; i < typeDef.length; i++) {
+      merged = { ...array[i], ...typeDef[i] };
     }
-    return array;
-  };
+
+    setArray([merged]);
+  }, [arrayId]);
 
   return (
     <View>
@@ -47,16 +94,14 @@ const Deficiencias = () => {
         data={def}
         type="Deficiencia"
         text="Tipo de Deficiencias"
-        idCheckbox={setIdCheckbox}
-        stateCheckbox={setStateCheckbox}
+        idSelecionados={setArrayId}
       />
 
       <CheckboxComponent
-        data={def}
+        data={array}
         type="Deficiencia"
         text="Tipo de Deficiencias"
-        idCheckbox={setIdCheckbox}
-        stateCheckbox={setStateCheckbox}
+        idSelecionados={setArrayId}
       />
     </View>
   );

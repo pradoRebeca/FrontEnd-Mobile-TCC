@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Checkbox } from "react-native-paper";
 import { StyleSheet, View, Text } from "react-native";
+import Deficiencias from "../screen/Deficiencias";
 
 const CheckboxComponent = ({ data, type, text, idSelecionados }) => {
   const [checkedState, setCheckedState] = useState(
@@ -26,18 +27,18 @@ const CheckboxComponent = ({ data, type, text, idSelecionados }) => {
 
   const render = () => {
     if (type == "Deficiencia") {
-      return checkedState.map(({ id, tipo, status }) => {
+      return checkedState.map((item) => {
         return (
           <Checkbox.Item
-            key={id}
+            key={item.id}
             labelStyle={style.item}
             style={style.item}
             color="#1E7596"
-            label={tipo}
-            value={id}
-            status={status ? "checked" : "unchecked"}
+            label={item.tipo ?? item.deficiencia}
+            value={item.id}
+            status={item.status ? "checked" : "unchecked"}
             onPress={() => {
-              handleOnChange(id, status);
+              handleOnChange(item.id, item.status);
             }}
           />
         );
