@@ -11,10 +11,8 @@ import { emptyField, showMessage, showToast } from "../Functions";
 import InputCalendar from "../components/InputCalendar";
 import axiosURL from "../API";
 
-const ProfissionalExperience = ({ route, refresh }) => {
+const ProfissionalExperience = ({ route }) => {
   const { idUser } = useContext(AuthContext);
-  console.log("PROFISSIONALEXPERIENCE");
-
   const navigation = useNavigation();
   const edit = route.params.edit;
   const id = route.params.id;
@@ -71,7 +69,7 @@ const ProfissionalExperience = ({ route, refresh }) => {
             showToast("Dados cadastrados com sucesso");
             console.log("dados cadastrados com sucesso");
             console.log(response.status);
-            navigation.navigate("Perfil", { reloadPut: 1 });
+            navigation.navigate("Perfil", { reloadPost: 1 });
             return true;
           })
           .catch((error) => {

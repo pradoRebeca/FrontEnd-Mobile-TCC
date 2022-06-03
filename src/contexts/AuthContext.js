@@ -8,9 +8,9 @@ import { showMessage } from "../Functions";
 export const AuthContext = createContext({});
 
 const AuthProvider = ({ children }) => {
-  const [reloadPage, setRealoadPage] = useState()
-  const [putReloadPage, setPutReloadPage] = useState()
-
+  const [reloadPage, setRealoadPage] = useState();
+  const [putReloadPage, setPutReloadPage] = useState();
+  const [putInfo, setPutInfo] = useState();
   const navigation = useNavigation();
   const [user, setUser] = useState({});
 
@@ -42,7 +42,19 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ singIn, user, idUser: user.id, setRealoadPage, setPutReloadPage, putReloadPage, reloadPage}}>
+    <AuthContext.Provider
+      value={{
+        singIn,
+        user,
+        idUser: user.id,
+        setRealoadPage,
+        setPutReloadPage,
+        putReloadPage,
+        reloadPage,
+        setPutInfo,
+        putInfo
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
