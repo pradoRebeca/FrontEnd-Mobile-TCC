@@ -15,6 +15,7 @@ import Filter from "../screen/Filter";
 import ForgetPassword from "../screen/ForgetPassword";
 import EmailValidation from "../screen/EmailValidation";
 import RedefinePassword from "../screen/RedefinePassword";
+import { Ionicons } from "react-native-vector-icons";
 
 const StackNavigation = () => {
   const Stack = createStackNavigator();
@@ -25,6 +26,10 @@ const StackNavigation = () => {
         headerStyle: { backgroundColor: "#1E7596" },
         headerShown: true,
         title: false,
+        // headerLeft: (navigation) => (
+        //   <Ionicons onPress={() => navigation.goBack()} name={"chevron-back"} />
+        // ),
+
         gestureEnabled: true,
         headerTintColor: "#1E7596",
         // back: { color: "white" },
@@ -32,7 +37,7 @@ const StackNavigation = () => {
         // cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}
     >
-        {/* <Stack.Screen
+      {/* <Stack.Screen
         name="Exemplo Imagem"
         component={ImageView}
         // options={{ headerShown: false }}

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontAwesome } from "@expo/vector-icons";
 import { Foundation } from "@expo/vector-icons";
-import { Fontisto } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 
 import CandidateProfile from "../screen/CanditateProfile";
 import TopNavigation from "./TopNavigation";
@@ -12,6 +12,7 @@ import SearchBar from "../components/SearchBar";
 import Photo from "../components/Photo";
 import HeaderSearch from "../components/HeaderSearch";
 import Search from "../screen/Search";
+import CandidateHome from "../screen/CandidateHome";
 
 const TabNavigation = () => {
   // useEffect(() => {
@@ -40,7 +41,7 @@ const TabNavigation = () => {
       <Tab.Screen
         options={{
           headerShown: true,
-          headerTitle: () => <HeaderSearch />,
+          headerTitle: () => <Photo />,
           tabBarIcon: ({ color }) => (
             <Foundation name="shopping-bag" color={color} size={26} />
           ),
@@ -52,11 +53,12 @@ const TabNavigation = () => {
       <Tab.Screen
         options={{
           headerShown: false,
+          // headerTitle: () => <Photo />,
           tabBarIcon: ({ color }) => (
-            <Fontisto name="search" color={color} size={26} />
+            <Entypo name="home" color={color} size={26} />
           ),
         }}
-        name="Pesquisar"
+        name="Vagas"
         component={Search}
       />
       {/* <Tab.Screen

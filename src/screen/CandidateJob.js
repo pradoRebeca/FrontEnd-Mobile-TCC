@@ -18,6 +18,7 @@ const [test , setTest] = useState(1)
   const [error, setError] = useState(false);
   const [displayReload, setDisplayReaload] = useState(true);
   const [job, setJob] = useState([]);
+  // StatusBar.addListener('translucent', () => {})
 
   useEffect(() => {
     axiosURL
@@ -42,7 +43,7 @@ const [test , setTest] = useState(1)
   return (
     <SafeAreaView>
   
-      {/* <StatusBar backgroundColor="#1E7596" /> */}
+      <StatusBar backgroundColor="#1E7596" />
       {/* <SearchBar /> */}
       {/* <TopNavigation navigation={navigation} /> */}
       <View

@@ -23,6 +23,7 @@ const SearchBar = ({ onChangeText, functionClicked }) => {
     <View style={style.content}>
       <View style={style.contentView}>
         <Searchbar
+          // enablesReturnKeyAutomatically
           style={style.search}
           placeholder="Pesquisar..."
           onChangeText={onChange}
@@ -53,9 +54,10 @@ const style = StyleSheet.create({
   },
 
   contentView: {
+    elevation: 2,
     paddingRight: 10,
     borderRadius: 10,
-    height: 40,
+    height: 35,
     width: "90%",
     display: "flex",
     flexDirection: "row",
@@ -68,12 +70,12 @@ const style = StyleSheet.create({
     borderColor: "white",
     elevation: 0,
     width: "86%",
-    height: 40,
+    height: 35,
   },
-  divisor:{
-    marginRight: 5,
-    height: 25,
-    width: 1.5,
-    backgroundColor: '#225E77',
-  }
+  // divisor: {
+  //   marginRight: 5,
+  //   height: 25,
+  //   width: 1.5,
+  //   backgroundColor: "#225E77",
+  // },
 });

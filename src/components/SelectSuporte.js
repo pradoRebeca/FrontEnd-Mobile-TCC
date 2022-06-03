@@ -1,45 +1,60 @@
 import React, { useState, useEffect } from "react";
 import { View, Picker, StyleSheet } from "react-native";
 
-const SelectSuporte = ({ data, nameKey, onChange}) => {
+const SelectSuporte = ({ data, nameKey, onChange, disabled }) => {
   const [selectedValue, setSelectedValue] = useState();
+  const [enable, setEnable] = useState(disabled);
 
   console.log(data);
 
   let selectDefault;
 
   switch (nameKey) {
-    case "nome":
-      selectDefault = "Selecione um Estado";
+    case "sigla":
+      selectDefault = "Selecione o Estado";
       break;
 
     case "tipo":
-      selectDefault = "Selecione uma Deficencia";
+      selectDefault = "Selecione a Deficencia";
       break;
 
-      case "deficiencia":
-      selectDefault = "Selecione uma deficiencia"
+    case "deficiencia":
+      selectDefault = "Selecione a deficiencia";
+      break;
+
+    case "valor":
+      selectDefault = "Selecione o Salário";
+      break;
+
+    case "cidade":
+      selectDefault = "Selecione a Cidade";
+      break;
+
+    case "nome":
+      selectDefault = "Selecione o tipo de Suporte";
       break;
   }
 
   return (
     <View style={style.content}>
       <Picker
+        enabled={enable}
         mode="dropdown"
         selectedValue={selectedValue}
         style={{ height: 40 }}
         onValueChange={(itemValue, itemIndex) => onChange(itemValue)}
       >
-        <Picker.Item color="black" label={selectDefault} value={undefined} />
+        <Picker.Item color="#7C7C7C" label={selectDefault} value={undefined} />
+        <Picker.Item color="#7C7C7C" label={"teste"} value={1} />
 
-        {data.map((item) => (
+        {/* {data.map((item) => (
           <Picker.Item
             color="black"
             key={item.id}
             label={item[nameKey]}
             value={item.id}
           />
-        ))}
+        ))} */}
       </Picker>
     </View>
   );

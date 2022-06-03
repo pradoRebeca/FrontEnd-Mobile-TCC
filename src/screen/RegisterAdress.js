@@ -7,6 +7,7 @@ import {
   Button,
   TouchableOpacity,
   Text,
+  StyleSheet,
 } from "react-native";
 import { KeyboardAvoidingView } from "react-native";
 import axios from "axios";
@@ -229,10 +230,7 @@ const RegisterAdress = ({ route }) => {
       <ModifyTitle title="Endereço" />
       <ScrollView>
         <View style={Style.screenSpace}>
-          <KeyboardAvoidingView
-            contentContainerStyle={Style.registerCandidateData}
-            behavior="position"
-          >
+          <View style={Style.registerCandidateData}>
             <InputData
               length={9}
               label="Cep"
@@ -245,12 +243,6 @@ const RegisterAdress = ({ route }) => {
               type="adress"
               // mask={'cep'}
             />
-
-            {!displayInformations && (
-              <TouchableOpacity onPress={pesquisarCep}>
-                <Text>Pesquisar CEP</Text>
-              </TouchableOpacity>
-            )}
 
             {displayInformations && (
               <>
@@ -304,7 +296,11 @@ const RegisterAdress = ({ route }) => {
                 />
               </>
             )}
-          </KeyboardAvoidingView>
+
+            <TouchableOpacity onPress={pesquisarCep} style={style.button}>
+              <Text style={{ color: "#1E7596" }}>Pesquisar CEP</Text>
+            </TouchableOpacity>
+          </View>
           <ButtonSave disabled={buttonDisabled} functionClicked={saveData} />
           {/* <Button title="Pesquisar CEP" onPress={searchCEP} /> */}
         </View>
@@ -314,3 +310,20 @@ const RegisterAdress = ({ route }) => {
 };
 
 export default RegisterAdress;
+
+const style = StyleSheet.create({
+  button: {
+    marginTop: 5,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: "#1E7596",
+    width: 120,
+    height: 35,
+    borderRadius: 5,
+    color: "white",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});

@@ -52,10 +52,10 @@ const RegisterPersonalData = ({ route }) => {
   const edit = true;
   const id = route.params.id;
 
-  const [imageProfile, setImageProfile] = useState('')
-  const [idCheckbox, setIdCheckbox] = useState([]);
-  const [stateCheckbox, setStateCheckbox] = useState([]);
-  const [checkbox, setCheckbox] = useState([]);
+  const [imageProfile, setImageProfile] = useState("");
+
+  const [idTipoDeficiencia, setIdTipoDeficiencia] = useState([]);
+
   const [personalData, setPersonalData] = useState({
     id: "",
     nome: "",
@@ -70,17 +70,18 @@ const RegisterPersonalData = ({ route }) => {
     outroTelefone: "",
   });
 
-  const arrayFinal = () => {
-    let array = [];
-    for (let i = 0; i < stateCheckbox.length; i++) {
-      if (stateCheckbox[i]) {
-        console.log(stateCheckbox[i], idCheckbox[i]);
-        let result = array.push(idCheckbox[i]);
-      }
-    }
+  console.log(idTipoDeficiencia);
+  // const arrayFinal = () => {
+  //   let array = [];
+  //   for (let i = 0; i < stateCheckbox.length; i++) {
+  //     if (stateCheckbox[i]) {
+  //       console.log(stateCheckbox[i], idCheckbox[i]);
+  //       let result = array.push(idCheckbox[i]);
+  //     }
+  //   }
 
-    return array;
-  };
+  //   return array;
+  // };
 
   //METODO GET DEFICIENCIAS
   // useEffect(() => {
@@ -113,8 +114,8 @@ const RegisterPersonalData = ({ route }) => {
 
   //METHOD PUT
   const saveData = () => {
-    console.log("valor : ", arrayFinal());
-    console.log(personalData);
+    // console.log("valor : ", arrayFinal());
+    // console.log(personalData);
     if (
       emptyField(
         personalData.nome,
@@ -129,7 +130,7 @@ const RegisterPersonalData = ({ route }) => {
           nome: personalData.nome,
           nomeSocial: personalData.nomeSocial,
           genero: "MASCULINO",
-          deficiencia: arrayFinal(),
+          deficiencia: idTipoDeficiencia,
           dataNascimento: personalData.dataNascimento,
           email: [personalData.email, personalData.emailRecuperacao],
           telefone: [personalData.telefone, personalData.outroTelefone],
@@ -193,22 +194,16 @@ const RegisterPersonalData = ({ route }) => {
       <ScrollView>
         <View style={Style.screenSpace}>
           <View style={Style.registerCandidateData}>
-            <ImageView functionImage={setImageProfile}/>
-{/* 
-            <CheckboxComponent
+            <ImageView functionImage={setImageProfile} />
+
+            {/* <CheckboxComponent
               data={def}
               type="Deficiencia"
               text="Tipo de Deficiencias"
-              idCheckbox={setIdCheckbox}
-              stateCheckbox={setStateCheckbox}
-              // object={personalData}
-              // onChangeObject={setPersonalData}
-              // keyObject="deficiencia"
+              idSelecionados={setIdTipoDeficiencia}
             /> */}
 
-            
-
-            <Deficiencias/>
+            <Deficiencias idSelecionados={setIdTipoDeficiencia} />
 
             <InputData
               object={personalData}
@@ -254,7 +249,7 @@ const RegisterPersonalData = ({ route }) => {
               label="Data de Nascimento"
             />
 
-            <SelectGenero/>
+            <SelectGenero />
             <InputData
               object={personalData}
               valueDefault={personalData.telefone}
@@ -289,7 +284,6 @@ const RegisterPersonalData = ({ route }) => {
               label="curriculo"
               massageError="Email"
             />
-       
           </View>
           <ButtonSave functionClicked={saveData} />
         </View>

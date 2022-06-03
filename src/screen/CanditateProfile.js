@@ -16,6 +16,7 @@ import DisplayInformation from "../components/DisplayInformations";
 import Information from "../components/Informations";
 import { ActivityIndicator } from "react-native-paper";
 import { AuthContext } from "../contexts/AuthContext";
+import ImageView from "../components/ImageView";
 
 const user = [
   {
@@ -102,7 +103,11 @@ const CandidateProfile = ({ route }) => {
 
   return (
     <SafeAreaView>
+      <StatusBar backgroundColor="#1E7596" />
       <ScrollView>
+        {/* <View style={style.conatinerImage}>
+          <ImageView />
+        </View> */}
         <View style={style.conatinerInformations}>
           <View style={style.container}>
             <DisplayInformation
@@ -215,6 +220,26 @@ const style = StyleSheet.create({
     minHeight: 100,
     padding: 15,
     marginBottom: 15,
+    //  elevation: 3,
+    // shadowOpacity: 0.55,
+    // shadowRadius: 14.78,
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 3,
+    // },
+  },
+  conatinerImage: {
+    paddingTop: 15,
+    width: "100%",
+    // backgroundColor: "#fff",
+    minHeight: 50,
+    // elevation: 8,
+    // shadowOpacity: 0.55,
+    // shadowRadius: 14.78,
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 3,
+    // },
   },
 });
 

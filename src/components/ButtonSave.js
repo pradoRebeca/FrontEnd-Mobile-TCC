@@ -16,9 +16,9 @@ const ButtonSave = ({ disabled, functionClicked, mode }) => {
 
   switch (mode) {
     case "filter":
-      label = "Filtar";
-      accessibilityLabel = "Filtrar";
-      accessibilityHint = "Pesquisar por filtro";
+      label = "Aplicar Filtro";
+      accessibilityLabel = "Aplicar Filtro";
+      accessibilityHint = "Pesquisar vagas de acordo com o filtro";
       break;
   }
 
