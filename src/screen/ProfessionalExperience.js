@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import { StyleSheet, View, StatusBar, ScrollView } from "react-native";
-import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 
 import { AuthContext } from "../contexts/AuthContext";
@@ -13,12 +12,12 @@ import InputCalendar from "../components/InputCalendar";
 import axiosURL from "../API";
 
 const ProfissionalExperience = ({ route, refresh }) => {
-  const {idUser} = useContext(AuthContext)
-console.log('PROFISSIONALEXPERIENCE')
+  const { idUser } = useContext(AuthContext);
+  console.log("PROFISSIONALEXPERIENCE");
 
   const navigation = useNavigation();
   const edit = route.params.edit;
-  const id = route.params.id
+  const id = route.params.id;
   const [personalData, setPersonalData] = useState({
     id: "",
     cargo: "",
@@ -45,44 +44,44 @@ console.log('PROFISSIONALEXPERIENCE')
             dataInicio: personalData.dataInicio,
             dataSaida: personalData.dataSaida,
             atribuicoes: personalData.atribuicoes,
-            nomeEmpresa: personalData.nomeEmpresa,
+            nomeEmpresa: personalData.nomeEmpresa
           })
           .then((response) => {
-            showToast('Dados atualizados com sucesso')
+            showToast("Dados atualizados com sucesso");
             console.log("dados atualizados com sucesso");
-            navigation.navigate('Perfil', {reloadEdit: 1})
+            navigation.navigate("Perfil", { reloadEdit: 1 });
             return true;
           })
           .catch((error) => {
-            showMessage('Erro ao atualizar dados')
+            showMessage("Erro ao atualizar dados");
             console.log("erro ao atualizar dados");
             return false;
           });
       } else {
-      //  METHOD POST
+        //  METHOD POST
         axiosURL
           .post(`candidato/cadastrar/experiencia/${idUser}`, {
             cargo: personalData.cargo,
             dataInicio: personalData.dataInicio,
-            dataSaida: personalData.dataFim,
+            dataSaida: personalData.dataSaida,
             atribuicoes: personalData.atribuicoes,
-            nomeEmpresa: personalData.nomeEmpresa,
+            nomeEmpresa: personalData.nomeEmpresa
           })
           .then((response) => {
-            showToast('Dados cadastrados com sucesso')
+            showToast("Dados cadastrados com sucesso");
             console.log("dados cadastrados com sucesso");
-            console.log(response.status)
-            navigation.navigate('Perfil', {reloadPut: 1})
+            console.log(response.status);
+            navigation.navigate("Perfil", { reloadPut: 1 });
             return true;
           })
           .catch((error) => {
-            showMessage('Erro ao cadastrar os dados. Tente novamente.')
+            showMessage("Erro ao cadastrar os dados. Tente novamente.");
             console.log("erro ao cadastrar dados");
             return false;
           });
       }
     } else {
-      showMessage('Preencha algum campo.')
+      showMessage("Preencha algum campo.");
       console.log("preencha algum campo");
       return false;
     }
@@ -95,7 +94,9 @@ console.log('PROFISSIONALEXPERIENCE')
       axiosURL
         .get(`candidato/listar/experiencia/${idUser}`)
         .then((response) => {
-          const dataResponse = response.data.content.filter(item => item.id === id)
+          const dataResponse = response.data.content.filter(
+            (item) => item.id === id
+          );
           setPersonalData(dataResponse[0]);
           return true;
         })
@@ -113,19 +114,18 @@ console.log('PROFISSIONALEXPERIENCE')
     axiosURL
       .delete(`candidato/deletar/experiencia/${id}`)
       .then((response) => {
-        showToast('Dados deletados com sucesso')
+        showToast("Dados deletados com sucesso");
         console.log("dados deletados com sucesso");
-        navigation.navigate('Perfil', {reload: 1})
+        navigation.navigate("Perfil", { reload: 1 });
         return true;
       })
       .catch((error) => {
-        showMessage('Erro ao deletar os dados. Tente novamente.')
+        showMessage("Erro ao deletar os dados. Tente novamente.");
         console.log("erro ao deletar dados");
         return false;
       });
   };
 
-  console.log("professionalExperience: ", personalData);
   return (
     <>
       <StatusBar backgroundColor="#1E7596" />
@@ -159,18 +159,18 @@ console.log('PROFISSIONALEXPERIENCE')
             <InputCalendar
               object={personalData}
               onChangeObject={setPersonalData}
+              valueDefault={personalData.dataInicio}
+              keyObject="dataInicio"
+              label="Data de Início"
+            />
+
+            <InputCalendar
+              object={personalData}
+              onChangeObject={setPersonalData}
               valueDefault={personalData.dataSaida}
               keyObject="dataSaida"
               label="Data de Saída"
             />
-            <InputCalendar
-              object={personalData}
-              onChangeObject={setPersonalData}
-              valueDefault={personalData.dataInicio}
-              keyObject="dataInicio"
-              label="Data de Inicio"
-            />
-
             {edit && <ButtonDeleteInformation functionClicked={deleteData} />}
           </View>
           <ButtonSave functionClicked={saveData} />
@@ -187,8 +187,8 @@ const style = StyleSheet.create({
     // flex: 1,
     // backgroundColor: 'blue',
     // height: "100%",
-    display: 'flex',
-    justifyContent: 'space-between',
+    display: "flex",
+    justifyContent: "space-between",
     padding: 10,
   },
   candidateData: {

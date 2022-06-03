@@ -10,6 +10,7 @@ const def = [
   {
     id: 2,
     tipo: "VISUAL",
+  
   },
   {
     id: 3,
@@ -25,68 +26,26 @@ const def = [
   },
 ];
 
-const type = [
-  {
-    id: 1,
-    deficiencia: "ABC",
-  },
-  {
-    id: 2,
-    deficiencia: "ABCD",
-  },
-  {
-    id: 3,
-    deficiencia: "ABCDE",
-  },
-  {
-    id: 4,
-    deficiencia: "ABCDF",
-  },
-  {
-    id: 5,
-    deficiencia: "ABCG",
-  },
-];
 
-const typeDef = [
-  {
-    id: 1,
-    deficiencia: "1123",
-  },
-  {
-    id: 2,
-    deficiencia: "123",
-  },
-  {
-    id: 3,
-    deficiencia: "123",
-  },
-  {
-    id: 4,
-    deficiencia: "123",
-  },
-  {
-    id: 5,
-    deficiencia: "1233",
-  },
-];
+
+
 
 const Deficiencias = ({ idSelecionados }) => {
-  const [arrayId, setArrayId] = useState();
-  const [array, setArray] = useState(type);
+  const [arrayId, setArrayId] = useState([]);
+  const [array, setArray] = useState();
 
   useEffect(() => {
     idSelecionados(arrayId);
   }, [arrayId]);
 
-  useEffect(() => {
-    let merged;
-    for (let i = 0; i < typeDef.length; i++) {
-      merged = { ...array[i], ...typeDef[i] };
-    }
+  // useEffect(() => {
+  //   let merged;
+  //   for (let i = 0; i < typeDef.length; i++) {
+  //     merged = { ...array[i], ...typeDef[i] };
+  //   }
 
-    setArray([merged]);
-  }, [arrayId]);
+  //   setArray([merged]);
+  // }, [arrayId]);
 
   return (
     <View>
@@ -97,12 +56,12 @@ const Deficiencias = ({ idSelecionados }) => {
         idSelecionados={setArrayId}
       />
 
-      <CheckboxComponent
+      {/* <CheckboxComponent
         data={array}
         type="Deficiencia"
         text="Tipo de Deficiencias"
         idSelecionados={setArrayId}
-      />
+      /> */}
     </View>
   );
 };

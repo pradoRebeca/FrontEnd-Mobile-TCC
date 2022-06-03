@@ -22,10 +22,9 @@ import { AuthContext } from "../contexts/AuthContext";
 //import JobRequirements from "../components/JobRequirements";
 
 const JobDetails = ({ route }) => {
-  const { setRealoadPage, putReloadPage, idUser } = useContext(AuthContext);
-  // console.log("JOBDETAILS");
+  const { setRealoadPage, setPutReloadPage, putReloadPage, idUser, reloadPage } = useContext(AuthContext);
+
   const navigation = useNavigation();
-  const [stateJob, setStateJob] = useState([]);
   const [dataVaga, setDataVaga] = useState(
     route.params.dataVaga ?? {
       deficiencia: [],
@@ -38,8 +37,10 @@ const JobDetails = ({ route }) => {
 
   const { type } = route.params;
 
-  useEffect(() => {
+  console.log('PUT RELOAD', putReloadPage)
+  console.log('POST RELOAD', reloadPage)
 
+  useEffect(() => {
     let actionOK;
     let actionCancel;
     switch (buttonsOptions) {
@@ -62,19 +63,17 @@ const JobDetails = ({ route }) => {
       buttonsOptions != "" &&
       buttonsOptions != 0
     ) {
-      console.log("button value =>", buttonsOptions);
-
       if (type) {
         axiosURL
-          .put(`vaga/candidatar/${1}?idStatus=${buttonsOptions}`)
+          .put(`vaga/candidatar?idVaga=${dataVaga.id}&idStatus=${buttonsOptions}&idCandidato=${idUser}`)
           .then((response) => {
-            putReloadPage(buttonsOptions)
+            setPutReloadPage(buttonsOptions);
             showMessage(`Vaga ${actionOK} com sucesso`);
             console.log(`Vaga ${actionOK} com sucesso`);
           })
           .catch((error) => {
             showMessage(`Houve erro ao se ${actionCancel}`);
-            console.log(`Houve erro ao se ${actionCancel} => `,error);
+            console.log(`Houve erro ao se ${actionCancel} => `, error);
           });
       } else {
         axiosURL
@@ -82,7 +81,7 @@ const JobDetails = ({ route }) => {
             `vaga/candidatar?idVaga=${dataVaga.id}&idStatus=${buttonsOptions}&idCandidato=${idUser}`
           )
           .then((response) => {
-            setRealoadPage(buttonsOptions)
+            setRealoadPage(buttonsOptions);
             showMessage(`Vaga ${actionOK} com sucesso`);
             console.log(`Vaga ${actionOK} com sucesso`);
           })

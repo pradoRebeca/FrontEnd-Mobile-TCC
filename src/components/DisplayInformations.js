@@ -17,6 +17,7 @@ const DisplayInformation = ({
   data,
   titleSection,
   mode,
+  endereco,
 }) => {
   const navigation = useNavigation();
   const [itens, setItens] = useState(data ?? []);
@@ -71,17 +72,22 @@ const DisplayInformation = ({
   //       return <Text>sem conteudo</Text>
   //    }
   // };
-
-  const arrayOrObject = () => {
-    if (Array.isArray(data)) {
-      return data;
-    } else {
-      return [data];
+  
+const enderecoExiste = () => {
+  if(endereco){
+    if(data[0].cep){
+      return true
+    }else{
+      return null
     }
-  };
+  }
+}
+
 
   const buttonAdd = () => {
-    if (addInformation == true || data == undefined) {
+    const exibirEndereco = enderecoExiste()
+    console.log(exibirEndereco)
+    if (addInformation == true || data == undefined || exibirEndereco == null) {
       return (
         <TouchableOpacity
           style={{ ...style.buttonAdd }}
@@ -93,21 +99,19 @@ const DisplayInformation = ({
     }
   };
 
+  
+
   return (
     <>
       <Text style={style.title}>{titleSection}</Text>
       <FlatList
         data={data}
         renderItem={(item) => (
-          <Information data={item.item} mode={mode} nameSreen={nameSreen} />
+          <Information data={item.item} mode={mode} nameSreen={nameSreen} endereco={enderecoExiste} />
         )}
         keyExtractor={(item) => item}
         ItemSeparatorComponent={ItemSeparator}
       />
-      {/* {[data].map((item) => (
-        <Information data={item} mode={mode} nameSreen={nameSreen} />
-      ))} */}
-
       {buttonAdd()}
     </>
   );

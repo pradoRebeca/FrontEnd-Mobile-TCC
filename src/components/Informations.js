@@ -4,15 +4,14 @@ import {
   View,
   Text,
   TouchableOpacity,
-  FlatList,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import ItemSeparator from "./ItemSeparator";
 
-const Information = ({ data, nameSreen }) => {
+const Information = ({ data, nameSreen, endereco}) => {
   const navigation = useNavigation();
   const [titleText, setTitleText] = useState([]);
-// console.log('INFORMAYIONS DADOS => ', data)
+
+  // console.log('INFORMAYIONS DADOS => ', data)
   let id;
   let action = "Editar";
 
@@ -20,11 +19,6 @@ const Information = ({ data, nameSreen }) => {
     case "Formação Academica":
       id = "idCursoCandidato";
       action = "Vizualizar";
-      break;
-
-    case "Cadastrar Endereço":
-      //titleSection = 'Email de Recuperação'
-      id = "aa";
       break;
   }
 
@@ -36,41 +30,39 @@ const Information = ({ data, nameSreen }) => {
     if (!title.startsWith("id")) {
       if (des != "" && des != null) {
         if (Array.isArray(des)) {
-          if(title == "email" || title == "telefone"){
-            const array =  des.map(item =>(item.email ?? item.numero))
+          if (title == "email" || title == "telefone") {
+            const array = des.map((item) => item.email ?? item.numero);
             return array.map((item) => (
               <View>
-               <Text style={style.infoTitle}>{title}</Text>
-               <Text style={style.infoDescretion}>{item}</Text>
-             </View>
+                <Text style={style.infoTitle}>{title}</Text>
+                <Text style={style.infoDescretion}>{item}</Text>
+              </View>
             ));
           } else {
             return des.map((item) => (
               <View>
-               <Text style={style.infoTitle}>{title}</Text>
-               <Text style={style.infoDescretion}>{item}</Text>
-             </View>
+                <Text style={style.infoTitle}>{title}</Text>
+                <Text style={style.infoDescretion}>{item}</Text>
+              </View>
             ));
           }
         } else {
           return (
-           <View>
+            <View>
               <Text style={style.infoTitle}>{title}</Text>
               <Text style={style.infoDescretion}>{des}</Text>
             </View>
           );
         }
       }
-    } 
+    }
   };
 
   const renderItem = () => {
-    // console.log(titleText.length)
-    // console.log(titleText)
-    if(titleText.length >= 0) {
+    const enderecoExiste = endereco()
+    if (titleText.length >= 0 ) {
       return titleText.map((item) => renderText(item[0], item[1]));
     }
-    
   };
 
   // const existItem = () => {
@@ -92,23 +84,22 @@ const Information = ({ data, nameSreen }) => {
   // };
 
   // console.log('id informations ', data.id)
- 
 
-//  console.log(idInformation)
+  //  console.log(idInformation)
   return (
     <View style={style.viewInfo}>
       {renderItem()}
       <TouchableOpacity
-          style={style.button}
-          onPress={() =>
-            navigation.navigate(nameSreen, {
-              edit: true,
-              id: data['id'],
-            })
-          }
-        >
-          <Text style={{ color: "#1E7596" }}>{action}</Text>
-        </TouchableOpacity>
+        style={style.button}
+        onPress={() =>
+          navigation.navigate(nameSreen, {
+            edit: true,
+            id: data["id"],
+          })
+        }
+      >
+        <Text style={{ color: "#1E7596" }}>{action}</Text>
+      </TouchableOpacity>
     </View>
   );
 };

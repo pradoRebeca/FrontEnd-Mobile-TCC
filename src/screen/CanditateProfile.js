@@ -4,8 +4,6 @@ import {
   View,
   StatusBar,
   ScrollView,
-  Image,
-  Text,
   SafeAreaView,
   LogBox,
 } from "react-native";
@@ -13,10 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 
 import axiosURL from "../API";
 import DisplayInformation from "../components/DisplayInformations";
-import Information from "../components/Informations";
-import { ActivityIndicator } from "react-native-paper";
 import { AuthContext } from "../contexts/AuthContext";
-import ImageView from "../components/ImageView";
 
 const user = [
   {
@@ -52,7 +47,6 @@ const CandidateProfile = ({ route }) => {
   const navigation = useNavigation();
 
   const image = "https://www.promoview.com.br/uploads/2017/04/b72a1cfe.png";
-  const [personalData, setPersonalData] = useState([]);
   const [personalInformation, setPersonalInformation] = useState([]);
   const [experienceData, setExperienceData] = useState([]);
   const [cursoData, setCursoData] = useState([]);
@@ -92,22 +86,10 @@ const CandidateProfile = ({ route }) => {
       });
   }, [route.params]);
 
-  // console.log('refresh: ',route.params)
-
-  //Filtro para cada seção
-  // useEffect(() => {
-  //   setExperienceData(personalData.experiencia);
-  //   setCursoData(personalData.curso);
-  //   setPersonalInformation({ ...personalData, experiencia: null, curso: null });
-  // }, [personalData]);
-
   return (
     <SafeAreaView>
       <StatusBar backgroundColor="#1E7596" />
       <ScrollView>
-        {/* <View style={style.conatinerImage}>
-          <ImageView />
-        </View> */}
         <View style={style.conatinerInformations}>
           <View style={style.container}>
             <DisplayInformation
@@ -122,6 +104,7 @@ const CandidateProfile = ({ route }) => {
               titleSection="Cadastrar Endereço"
               data={[endereco]}
               nameSreen="Cadastrar Endereço"
+              endereco={true}
             />
           </View>
           <View style={style.container}>
@@ -141,14 +124,6 @@ const CandidateProfile = ({ route }) => {
               mode={"profissionalExperience"}
             />
           </View>
-          {/* <View style={style.container}>
-            <DisplayInformation
-              // data={}
-              titleSection="Informacoes Adicionais"
-              nameSreen="Informacoes Adicionais"
-              addInformation={true}
-            />
-          </View> */}
         </View>
       </ScrollView>
     </SafeAreaView>

@@ -16,14 +16,6 @@ import { listState, emptyField, showMessage } from "../Functions";
 import Deficiencias from "./Deficiencias";
 import SelectSuporte from "../components/SelectSuporte";
 
-// const genero = [
-//   "Selecione um Genero",
-//   "Prefiro nao Informar",
-//   "Masculino",
-//   "Feminino",
-//   "Binario",
-// ];
-
 const salario = [
   {
     id: 1,
@@ -51,7 +43,7 @@ const salario = [
   },
 ];
 
-const Filter = ({ route }) => {
+const Filter = ({ route, navigation }) => {
   const [estado, setEstado] = useState([]);
   const [suporte, setSuporte] = useState([]);
   const [tipoDeficiencia, setTipoDeficiencia] = useState([]);
@@ -74,7 +66,6 @@ const Filter = ({ route }) => {
       .get(`pesquisa/estado`)
       .then((response) => {
         setEstado(response.data.content);
-        console.log(response.data.content);
       })
       .catch((error) => {
         console.log("erro ao pegar dados de estado => ", error);
@@ -85,7 +76,6 @@ const Filter = ({ route }) => {
       .get(`vaga/listar/suporte`)
       .then((response) => {
         setSuporte(response.data.content);
-        console.log(response.data.content);
       })
       .catch((error) => {
         console.log("erro ao pegar dados de suporte=> ", error);
@@ -96,7 +86,6 @@ const Filter = ({ route }) => {
       .get(`deficiencia/listar/tipo`)
       .then((response) => {
         setTipoDeficiencia(response.data.content);
-        console.log(response.data.content);
       })
       .catch((error) => {
         console.log("erro ao pegar dados de suporte=> ", error);
@@ -111,9 +100,7 @@ const Filter = ({ route }) => {
         setDeficiencia(response.data.content);
         console.log(response.data.content);
       })
-      .catch((error) => {
-        console.log("erro ao pegar dados de deficiencia => ", error);
-      });
+      .catch((error) => {});
   }, [idTipoDeficiencia]);
 
   //GET CIDADE
@@ -122,7 +109,6 @@ const Filter = ({ route }) => {
       .get(`pesquisa/cidade/${idEstado}`)
       .then((response) => {
         setCidade(response.data.content);
-        console.log(response.data.content);
       })
       .catch((error) => {
         console.log("erro ao pegar dados de cidade=> ", error);
@@ -161,7 +147,7 @@ const Filter = ({ route }) => {
         console.log(response.data.content);
       })
       .catch((error) => {
-        showMessage('Houve algum erro ao filtrar as vagas. Tente novamente.')
+        showMessage("Houve algum erro ao filtrar as vagas. Tente novamente.");
         console.log("erro ao pegar dados do filtro=> ", error);
       });
   };
@@ -169,6 +155,7 @@ const Filter = ({ route }) => {
   return (
     <>
       <StatusBar backgroundColor="#1E7596" />
+      <ModifyTitle title="Filtro de Vagas" />
       <ScrollView>
         <View style={Style.screenSpace}>
           <View style={Style.registerCandidateData}>
@@ -196,7 +183,7 @@ const Filter = ({ route }) => {
 
             <Text style={style.titleSection}>Cidade</Text>
             <SelectSuporte
-              data={suporte}
+              data={cidade}
               nameKey="cidade"
               onChange={setIdCidade}
             />

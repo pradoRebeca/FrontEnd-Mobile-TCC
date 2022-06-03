@@ -8,16 +8,9 @@ import { AuthContext } from "../contexts/AuthContext";
 import CardJobPreview from "../components/CardJobPreview";
 
 const SaveJob = () => {
-  const {idUser, reloadPage} = useContext(AuthContext)
+  const {idUser, reloadPage, putReloadPage} = useContext(AuthContext)
   const [error, setError] = useState(false);
   const [job, setJob] = useState([]);
-
-
-const abc = () => {
-  console.log('passou aqui')
-}
-
-abc()
 
   //const imageWithouJob = "https://sim.marica.rj.gov.br/img/icones/empresa2.pngs";
   useEffect(() => {
@@ -37,7 +30,7 @@ abc()
         setError(true);
         return false;
       });
-  }, [reloadPage]);
+  }, [reloadPage || putReloadPage]);
 
   return (
     <SafeAreaView>

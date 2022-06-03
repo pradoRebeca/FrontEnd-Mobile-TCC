@@ -59,7 +59,7 @@ const TabNavigation = () => {
           ),
         }}
         name="Vagas"
-        component={Search}
+        component={CandidateHome}
       />
       {/* <Tab.Screen
         options={{

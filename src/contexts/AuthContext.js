@@ -14,7 +14,6 @@ const AuthProvider = ({ children }) => {
   const navigation = useNavigation();
   const [user, setUser] = useState({});
 
-
   const auth = (email, password) => {
     axiosURL
       .post(`auth/candidato`, {
@@ -43,7 +42,7 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ singIn, user, idUser: user.id, setRealoadPage, reloadPage}}>
+    <AuthContext.Provider value={{ singIn, user, idUser: user.id, setRealoadPage, setPutReloadPage, putReloadPage, reloadPage}}>
       {children}
     </AuthContext.Provider>
   );

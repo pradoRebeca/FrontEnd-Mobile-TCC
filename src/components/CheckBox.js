@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Checkbox } from "react-native-paper";
 import { StyleSheet, View, Text } from "react-native";
-import Deficiencias from "../screen/Deficiencias";
 
 const CheckboxComponent = ({ data, type, text, idSelecionados }) => {
   const [checkedState, setCheckedState] = useState(

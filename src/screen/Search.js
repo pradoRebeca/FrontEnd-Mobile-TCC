@@ -22,11 +22,9 @@ import Filter from "../components/Filter";
 // import { Searchbar } from "react-native-paper";
 
 const Search = ({ navigation }) => {
-  console.log("TELA SEARCH");
-
   //id usuario
   const { idUser, user, reloadPage } = useContext(AuthContext);
-  console.log("nome do usuario: ", user.email);
+  console.log("nome do usuario: ", reloadPage);
 
   const [textSearch, setTextSearch] = useState("");
   const [error, setError] = useState(false);
@@ -36,7 +34,7 @@ const Search = ({ navigation }) => {
   //const imageWithouJob = "https://sim.marica.rj.gov.br/img/icones/empresa2.pngs";
 
   useEffect(() => {
-    if (reloadVagas) {
+    // if (reloadVagas) {
       axiosURL
         .get(`vaga/listar/${idUser}`)
         .then((response) => {
@@ -56,7 +54,7 @@ const Search = ({ navigation }) => {
           setDisplayReaload(false);
           setError(true);
         });
-    }
+    // }
   }, [reloadPage]);
 
   const resultSearch = () => {
@@ -101,10 +99,6 @@ const Search = ({ navigation }) => {
         }
       >
         {error && <NotFound />}
-
-        {/* {<TouchableOpacity>
-          <Text> Listar todas as vagas</Text>
-          </TouchableOpacity>} */}
         <ActivityIndicator animating={displayReload} color={"#1E7596"} />
 
         {job && (

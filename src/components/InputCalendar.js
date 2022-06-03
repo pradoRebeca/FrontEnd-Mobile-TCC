@@ -15,7 +15,7 @@ const InputCalendar = ({
   const [text, setText] = useState(label);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
-// console
+  // console
   useEffect(() => {
     if (valueDefault) {
       setText(valueDefault);
@@ -32,20 +32,20 @@ const InputCalendar = ({
           "/" +
           (data.getMonth() + 1) +
           "/" +
-          data.getFullYear() +
-          " ";
+          data.getFullYear();
         break;
 
       case "database":
-       dateTimeString =
+        dateTimeString =
           data.getFullYear() +
           "-" +
           (data.getMonth() + 1) +
           "-" +
-          data.getDate() +
-          " ";
+          data.getDate();
         break;
     }
+
+    return dateTimeString;
   };
 
   const showDatePicker = () => {
@@ -61,13 +61,21 @@ const InputCalendar = ({
     hideDatePicker();
     const formatUser = formatDate(date, "user");
     const formatDatabase = formatDate(date, "database");
-    onChangeObject({ ...object, [keyObject]: formatDatabase });
+    onChangeObject({ ...object, [keyObject]: formatUser });
     setText(formatUser);
   };
 
   return (
     <TouchableOpacity onPress={() => showDatePicker()} style={style.container}>
-      <Text style={text.includes('Data') ? style.inputText :  {...style.inputText, color:'#000'}}>{text}</Text>
+      <Text
+        style={
+          text.includes("Data")
+            ? style.inputText
+            : { ...style.inputText, color: "#000" }
+        }
+      >
+        {text}
+      </Text>
       <Icon name="calendar" color="#1E7596" size={30} />
       {isDatePickerVisible && (
         <DateTimePickerModal

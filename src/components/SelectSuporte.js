@@ -45,16 +45,15 @@ const SelectSuporte = ({ data, nameKey, onChange, disabled }) => {
         onValueChange={(itemValue, itemIndex) => onChange(itemValue)}
       >
         <Picker.Item color="#7C7C7C" label={selectDefault} value={undefined} />
-        <Picker.Item color="#7C7C7C" label={"teste"} value={1} />
 
-        {/* {data.map((item) => (
+        {data.map((item) => (
           <Picker.Item
             color="black"
             key={item.id}
             label={item[nameKey]}
             value={item.id}
           />
-        ))} */}
+        ))}
       </Picker>
     </View>
   );
