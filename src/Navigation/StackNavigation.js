@@ -16,6 +16,7 @@ import ForgetPassword from "../screen/ForgetPassword";
 import EmailValidation from "../screen/EmailValidation";
 import RedefinePassword from "../screen/RedefinePassword";
 import { Ionicons } from "react-native-vector-icons";
+import Search from "../screen/Search";
 
 const StackNavigation = () => {
   const Stack = createStackNavigator();
@@ -119,6 +120,11 @@ const StackNavigation = () => {
         name="Redefinicao de senha"
         component={RedefinePassword}
       />
+      {/*<Stack.Screen
+        options={{ headerShown: false }}
+        name="Pesquisar"
+        component={Search}
+      /> */}
       {/* <Stack.Screen
        options={{ headerShow: false }}
         // options={({ navigation }) => ({

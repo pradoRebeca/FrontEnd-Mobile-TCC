@@ -21,41 +21,60 @@ import SearchBar from "../components/SearchBar";
 import Filter from "../components/Filter";
 // import { Searchbar } from "react-native-paper";
 
-const Search = ({ navigation }) => {
-  //id usuario
+const Search = ({route}) => {
   const { idUser, user, reloadPage } = useContext(AuthContext);
-  console.log("nome do usuario: ", reloadPage);
 
   const [textSearch, setTextSearch] = useState("");
   const [error, setError] = useState(false);
   const [displayReload, setDisplayReaload] = useState(true);
   const [job, setJob] = useState([]);
   const [reloadVagas, setRealoadVagas] = useState(true);
+
+  const {vagasFiltro} = route.params ?? []
+
   //const imageWithouJob = "https://sim.marica.rj.gov.br/img/icones/empresa2.pngs";
 
-  useEffect(() => {
-    // if (reloadVagas) {
-      axiosURL
-        .get(`vaga/listar/${idUser}`)
-        .then((response) => {
-          if (response.data.content.length != 0) {
-            setJob(response.data.content.filter((item) => item.status == 1));
-            console.log("com conteudo");
-            setDisplayReaload(false);
-            setError(false);
-          } else {
-            console.log("sem conteudo");
-            setDisplayReaload(false);
-            setError(true);
-          }
-        })
-        .catch((error) => {
-          console.log("erro ao buscar vagas sem relacao com o candidato");
-          setDisplayReaload(false);
-          setError(true);
-        });
+  //useEffect(() => {
+  //  // if (reloadVagas) {
+  //   axiosURL
+  //      .get(`vaga/listar/${idUser}`)
+  //      .then((response) => {
+  //        if (response.data.content.length != 0) {
+  //          setJob(response.data.content.filter((item) => item.status == 1));
+  //          console.log("com conteudo");
+  //          setDisplayReaload(false);
+  //          setError(false);
+  //        } else {
+  //          console.log("sem conteudo");
+  //          setDisplayReaload(false);
+  //          setError(true);
+  //        }
+  //      })
+  //      .catch((error) => {
+  //       console.log("erro ao buscar vagas sem relacao com o candidato");
+  //        setDisplayReaload(false);
+  //        setError(true);
+  //      });
     // }
-  }, [reloadPage]);
+  // }, [reloadPage]);
+
+
+  useEffect(() => {
+    if(vagasFiltro){
+      if (vagasFiltro.length != 0) {
+        setJob(vagasFiltro);
+        console.log("com conteudo");
+        setDisplayReaload(false);
+        setRealoadVagas(false);
+        setError(false);
+      } else {
+        console.log("sem conteudo");
+        setRealoadVagas(false);
+        setDisplayReaload(false);
+        setError(true);
+      }
+    }
+  }, [vagasFiltro])
 
   const resultSearch = () => {
     axiosURL
@@ -64,6 +83,7 @@ const Search = ({ navigation }) => {
         setJob(response.data.content);
         console.log(response.data.content);
         if (response.data.content.length != 0) {
+          setJob(response.data.content);
           console.log("com conteudo");
           setDisplayReaload(false);
           setRealoadVagas(false);

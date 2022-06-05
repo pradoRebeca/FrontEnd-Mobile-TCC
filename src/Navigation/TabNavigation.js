@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontAwesome } from "@expo/vector-icons";
 import { Foundation } from "@expo/vector-icons";
-import { Entypo } from "@expo/vector-icons";
+import { Entypo, Feather } from "@expo/vector-icons";
 
 import CandidateProfile from "../screen/CanditateProfile";
 import TopNavigation from "./TopNavigation";
@@ -25,7 +25,9 @@ const TabNavigation = () => {
 
   return (
     <Tab.Navigator
+    initialRouteName="Vagas"
       screenOptions={{
+      
         tabBarHideOnKeyboard: "true",
         tabBarStyle: { backgroundColor: "#1E7596" },
         headerStyle: {
@@ -60,6 +62,17 @@ const TabNavigation = () => {
         }}
         name="Vagas"
         component={CandidateHome}
+      />
+
+      <Tab.Screen
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color }) => (
+            <Feather name="search" color={color} size={26} />
+          ),
+        }}
+        name="Pesquisar"
+        component={Search}
       />
       {/* <Tab.Screen
         options={{
