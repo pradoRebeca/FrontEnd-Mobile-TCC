@@ -136,6 +136,7 @@ const RegisterPersonalData = ({ route }) => {
           telefone: [personalData.telefone, personalData.outroTelefone],
         })
         .then((response) => {
+          navigation.navigate("Perfil", { reloadPost: 1 });
           showToast("Dados atualizados com sucesso.");
           console.log(
             "registerPersonalData: ",
@@ -156,7 +157,7 @@ const RegisterPersonalData = ({ route }) => {
   useEffect(() => {
     if (edit) {
       axiosURL
-        .get(`candidato/buscar/${1}`)
+        .get(`candidato/buscar/${idUser}`)
         .then((response) => {
           console.log(response.data);
           const email = response.data.email[0].email;

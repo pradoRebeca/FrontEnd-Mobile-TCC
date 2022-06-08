@@ -6,6 +6,7 @@ import { ActivityIndicator } from "react-native-paper";
 
 import { AuthContext } from "../contexts/AuthContext";
 import CardJobPreview from "../components/CardJobPreview";
+import { showMessage, showToast } from "../Functions";
 
 const SaveJob = () => {
   const {idUser, reloadPage, putReloadPage} = useContext(AuthContext)
@@ -26,6 +27,7 @@ const SaveJob = () => {
         }
       })
       .catch((error) => {
+        showMessage('Não foi possível carregar as vagas salvas')
         console.log('erro ao pegar vagas salvas => ', error.message)
         setError(true);
         return false;

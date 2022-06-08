@@ -139,20 +139,21 @@ const Filter = ({ route, navigation }) => {
   };
 
   const functionFilterData = () => {
-    navigation.navigate('Pesquisar', {vagasFiltro: 'deu certo'})
-   // const url = verificarItens();
-    //axiosURL
-     // .get(`${url}`)
-     // .then((response) => {
-      //  //navigation.navigate('Pesquisa', {vagasFiltro: 'deu ceerto'})
-
-      //  setVagasComFiltro(response.data.content);
-     //   console.log(response.data.content);
-     // })
-     // .catch((error) => {
-     //   showMessage("Houve algum erro ao filtrar as vagas. Tente novamente.");
-    //    console.log("erro ao pegar dados do filtro=> ", error);
-    //  });
+    const url = verificarItens();
+    axiosURL
+      .get(`${url}`)
+      .then((response) => {
+        //navigation.navigate('Pesquisa', {vagasFiltro: 'deu ceerto'})
+        navigation.navigate("Pesquisar", {
+          vagasFiltro: response.data.content,
+        });
+        setVagasComFiltro(response.data.content);
+        console.log(response.data.content);
+      })
+      .catch((error) => {
+        showMessage("Houve algum erro ao filtrar as vagas. Tente novamente.");
+        console.log("erro ao pegar dados do filtro=> ", error);
+      });
   };
 
   return (

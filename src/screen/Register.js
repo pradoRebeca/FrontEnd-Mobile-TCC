@@ -102,6 +102,7 @@ const Register = () => {
             keyObject="senha"
             label="Senha"
             nameIcon="lock"
+            security={true}
             mode={true}
           />
 
@@ -110,6 +111,7 @@ const Register = () => {
             onChangeObject={setPersonalData}
             keyObject="confirmeSenha"
             label="Confirme a senha"
+            security={true}
             nameIcon="lock"
             mode={true}
           />
@@ -123,10 +125,10 @@ const Register = () => {
           />
         </View>
 
-        <Image
+        {/* <Image
           style={style.imageWaveInferior}
           source={require("../img/waveInferior.png")}
-        />
+        /> */}
       </ScrollView>
 
       {/* cadastrar com o google */}

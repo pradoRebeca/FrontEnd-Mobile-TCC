@@ -102,7 +102,7 @@ const CandidateProfile = ({ route }) => {
           <View style={style.container}>
             <DisplayInformation
               titleSection="Cadastrar Endereço"
-              data={[endereco]}
+              data={endereco.cep ? [endereco] : undefined}
               nameSreen="Cadastrar Endereço"
               endereco={true}
             />

@@ -33,8 +33,8 @@ const Login = () => {
   
   const logon = () => {
    //console.log('dados login: ' ,personalData.email, personalData.senha)
-   //// singIn(personalData.email, personalData.senha)
-    navigation.navigate("CandidateHome");
+   singIn(personalData.email, personalData.senha)
+    // navigation.navigate("CandidateHome");
   };
 
   return (
@@ -60,6 +60,7 @@ const Login = () => {
             keyObject="senha"
             label="Senha"
             nameIcon="lock"
+            security={true}
             mode={true}
           />
         </View>

@@ -71,6 +71,7 @@ const RegisterAdress = ({ route }) => {
           .get(`https://viacep.com.br/ws/${cep.cep}/json/`)
           .then((response) => {
             setDisplayInformations(true);
+            console.log(response.data)
             setAdressAPI(response.data);
           })
           .catch(() => {
@@ -188,8 +189,7 @@ const RegisterAdress = ({ route }) => {
               // mask={'cep'}
             />
 
-            {displayInformations ||
-              (route.params.edit && (
+            {(displayInformations || route.params.edit)&&
                 <>
                   <InputData
                     key="rua"
@@ -240,7 +240,7 @@ const RegisterAdress = ({ route }) => {
                     onChangeObject={setSigla}
                   />
                 </>
-              ))}
+              }
 
             <TouchableOpacity onPress={pesquisarCep} style={style.button}>
               <Text style={{ color: "#1E7596" }}>Pesquisar CEP</Text>

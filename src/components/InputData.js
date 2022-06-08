@@ -18,6 +18,7 @@ const InputData = ({
   required,
   type,
   mask,
+  security
 }) => {
   //06693590
   const [text, setText] = useState("");
@@ -97,6 +98,7 @@ const InputData = ({
           )
         }
         editable={editable}
+        secureTextEntry={security ? true : false}
         // onEndEditing={(e) => onChangeText(e.nativeEvent.text)}
         numberOfLines={3}
         multiline={multiline}

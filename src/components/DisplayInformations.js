@@ -85,9 +85,9 @@ const enderecoExiste = () => {
 
 
   const buttonAdd = () => {
-    const exibirEndereco = enderecoExiste()
-    console.log(exibirEndereco)
-    if (addInformation == true || data == undefined || exibirEndereco == null) {
+    // const exibirEndereco = enderecoExiste()
+
+    if (addInformation == true || data == undefined) {
       return (
         <TouchableOpacity
           style={{ ...style.buttonAdd }}
