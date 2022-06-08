@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   ScrollView,
   SafeAreaView,
+  LogBox,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
@@ -22,7 +23,13 @@ import { AuthContext } from "../contexts/AuthContext";
 //import JobRequirements from "../components/JobRequirements";
 
 const JobDetails = ({ route }) => {
-  const { setRealoadPage, setPutReloadPage, putReloadPage, idUser, reloadPage } = useContext(AuthContext);
+  const {
+    setRealoadPage,
+    setPutReloadPage,
+    putReloadPage,
+    idUser,
+    reloadPage,
+  } = useContext(AuthContext);
 
   const navigation = useNavigation();
   const [dataVaga, setDataVaga] = useState(
@@ -36,9 +43,16 @@ const JobDetails = ({ route }) => {
   const [buttonsOptions, setButtonsOptions] = useState(0);
 
   const { type } = route.params;
+  useEffect(() => {
+    LogBox.ignoreLogs([
+      "VirtualizedLists should never be nested",
+      "Encountered two children with the same key",
+      'Each child in a list should have a unique "key" prop',
+    ]);
+  }, []);
 
-  console.log('PUT RELOAD', putReloadPage)
-  console.log('POST RELOAD', reloadPage)
+  console.log("PUT RELOAD", putReloadPage);
+  console.log("POST RELOAD", reloadPage);
 
   useEffect(() => {
     let actionOK;
@@ -65,8 +79,16 @@ const JobDetails = ({ route }) => {
     ) {
       if (type) {
         axiosURL
-          .put(`vaga/candidatar?idVaga=${dataVaga.id}&idStatus=${buttonsOptions}&idCandidato=${idUser}`)
+          .put(
+            `vaga/candidatar?idVaga=${dataVaga.id}&idStatus=${buttonsOptions}&idCandidato=${idUser}`
+          )
           .then((response) => {
+            LogBox.ignoreLogs([
+              "VirtualizedLists should never be nested",
+              "Encountered two children with the same key",
+              "Each child in a list should have a unique 'key' prop",
+            ]);
+
             setPutReloadPage(buttonsOptions);
             showMessage(`Vaga ${actionOK} com sucesso`);
             console.log(`Vaga ${actionOK} com sucesso`);
@@ -81,6 +103,12 @@ const JobDetails = ({ route }) => {
             `vaga/candidatar?idVaga=${dataVaga.id}&idStatus=${buttonsOptions}&idCandidato=${idUser}`
           )
           .then((response) => {
+            LogBox.ignoreLogs([
+              "VirtualizedLists should never be nested",
+              "Encountered two children with the same key",
+              "Each child in a list should have a unique 'key' prop",
+            ]);
+
             setRealoadPage(buttonsOptions);
             showMessage(`Vaga ${actionOK} com sucesso`);
             console.log(`Vaga ${actionOK} com sucesso`);
@@ -228,9 +256,9 @@ const JobDetails = ({ route }) => {
 
               {dataVaga.salario && (
                 <>
-                  <Text style={style.requisitoVaga}>Salario</Text>
+                  <Text style={style.requisitoVaga}>Salário</Text>
                   <Text style={style.descricaoRequisitoVaga}>
-                    {dataVaga.salario.salario}
+                    R$ {dataVaga.salario.salario}
                   </Text>
                 </>
               )}
@@ -243,28 +271,39 @@ const JobDetails = ({ route }) => {
                   </Text>
                 ))}
 
-              <Text style={style.requisitoVaga}>Beneficios</Text>
-              {dataVaga.beneficio.map((item) => (
-                <Text style={style.descricaoRequisitoVaga}>
-                  {item.beneficio}
-                </Text>
-              ))}
+              <Text style={style.requisitoVaga}>Benefícios</Text>
+              {dataVaga.beneficio &&
+                dataVaga.beneficio.map((item) => (
+                  <Text style={style.descricaoRequisitoVaga}>
+                    {item.beneficio}
+                  </Text>
+                ))}
 
-              <Text style={style.requisitoVaga}>Formaçoes Academicas</Text>
-              {dataVaga.formacaoDesejada.map((item) => (
-                <Text style={style.descricaoRequisitoVaga}>{item.curso}</Text>
-              ))}
+              <Text style={style.requisitoVaga}>Formaçoes Acadêmicas</Text>
+
+              {dataVaga.formacaoDesejada &&
+                dataVaga.formacaoDesejada.map((item) => (
+                  <Text style={style.descricaoRequisitoVaga}>{item.curso}</Text>
+                )) }
 
               <Text style={style.requisitoVaga}>Local de Trabalho</Text>
-              <Text style={style.descricaoRequisitoVaga}>
-                {dataVaga.localTrabalho.bairro}, {dataVaga.localTrabalho.cidade}
-                /{dataVaga.localTrabalho.estado}
-              </Text>
 
-              <Text style={style.requisitoVaga}>Horario</Text>
+              {dataVaga.localTrabalho && (
+                <Text style={style.descricaoRequisitoVaga}>
+                  {dataVaga.localTrabalho.bairro},{" "}
+                  {dataVaga.localTrabalho.cidade}/
+                  {dataVaga.localTrabalho.estado}
+                </Text>
+              )}
+
+              <Text style={style.requisitoVaga}>Horário</Text>
+
               <Text style={style.descricaoRequisitoVaga}>
-                {dataVaga.horario.horarioInicio} -{" "}
-                {dataVaga.horario.horarioFinal}
+                Horário Inicial : {dataVaga.horario.horarioInicio}
+              </Text>
+              <Text style={style.descricaoRequisitoVaga ?? "Não informado"}>
+                Horário Final :{" "}
+                {dataVaga.horario.horarioInicio ?? "Não informado"}
               </Text>
             </View>
             <View>

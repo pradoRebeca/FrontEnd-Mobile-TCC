@@ -32,7 +32,28 @@ const SaveJob = () => {
         setError(true);
         return false;
       });
-  }, [reloadPage || putReloadPage]);
+  }, [putReloadPage]);
+
+
+  useEffect(() => {
+    axiosURL
+      .get(`vaga/listar/vagas/status?idCandidato=${idUser}&idStatus=${2}`)
+      .then((response) => {
+        setJob(response.data.content);
+        console.log()
+        if(response.data.content.length != 0){
+          setError(false);
+        }else{
+          setError(true);
+        }
+      })
+      .catch((error) => {
+        showMessage('Não foi possível carregar as vagas salvas')
+        console.log('erro ao pegar vagas salvas => ', error.message)
+        setError(true);
+        return false;
+      });
+  }, [putReloadPage]);
 
   return (
     <SafeAreaView>

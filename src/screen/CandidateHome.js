@@ -6,6 +6,7 @@ import {
   StatusBar,
   Text,
   TouchableOpacity,
+  LogBox
 } from "react-native";
 import { Fontisto } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -19,12 +20,16 @@ import Filter from "../components/Filter";
 
 const CandidateHome = ({ navigation }) => {
   const { idUser, user, reloadPage } = useContext(AuthContext);
-
+  console.log("TELA DE CANDIDATEHOME");
   const [error, setError] = useState(false);
   const [displayReload, setDisplayReaload] = useState(true);
   const [job, setJob] = useState([]);
   const [reloadVagas, setRealoadVagas] = useState(true);
   //const imageWithouJob = "https://sim.marica.rj.gov.br/img/icones/empresa2.pngs";
+
+  useEffect(() => {
+    LogBox.ignoreLogs(["VirtualizedLists should never be nested", "Encountered two children with the same key", "Each child in a list should have a unique 'key' prop", "Picker has been extracted from react-native core and will be removed in a future release."]);
+  }, []);
 
   useEffect(() => {
     // if (reloadVagas) {
@@ -51,9 +56,8 @@ const CandidateHome = ({ navigation }) => {
   }, [reloadPage]);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView >
       <StatusBar backgroundColor="#1E7596" />
-
       <View style={style.contentSearch}>
         <View style={style.contentViewSearch}>
           <TouchableOpacity
@@ -74,16 +78,7 @@ const CandidateHome = ({ navigation }) => {
         </View>
       </View>
 
-      <View
-        style={
-          error
-            ? {
-                ...style.content,
-                justifyContent: "space-between",
-              }
-            : { ...style.content }
-        }
-      >
+      <View style={style.content}>
         {error && <NotFound />}
         <ActivityIndicator animating={displayReload} color={"#1E7596"} />
 
@@ -105,6 +100,7 @@ export default CandidateHome;
 
 const style = StyleSheet.create({
   content: {
+    // backgroundColor: "red",
     paddingBottom: 170,
     width: "100%",
     paddingLeft: 10,

@@ -11,6 +11,8 @@ const AuthProvider = ({ children }) => {
   const [reloadPage, setRealoadPage] = useState();
   const [putReloadPage, setPutReloadPage] = useState();
   const [putInfo, setPutInfo] = useState();
+  const [putInfoProfile, setPutInfoProfile] = useState();
+
   const navigation = useNavigation();
   const [user, setUser] = useState({});
 
@@ -52,7 +54,9 @@ const AuthProvider = ({ children }) => {
         putReloadPage,
         reloadPage,
         setPutInfo,
-        putInfo
+        putInfo,
+        putInfoProfile,
+        setPutInfoProfile
       }}
     >
       {children}

@@ -8,6 +8,7 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
+  LogBox,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import axios from "axios";
@@ -19,9 +20,10 @@ import CardJobPreview from "../components/CardJobPreview";
 import NotFound from "../components/NotFound";
 import SearchBar from "../components/SearchBar";
 import Filter from "../components/Filter";
+import PesquisarVaga from "../components/PesquisarVaga";
 // import { Searchbar } from "react-native-paper";
 
-const Search = ({route}) => {
+const Search = ({ route }) => {
   const { idUser, user, reloadPage } = useContext(AuthContext);
 
   const [textSearch, setTextSearch] = useState("");
@@ -30,7 +32,7 @@ const Search = ({route}) => {
   const [job, setJob] = useState([]);
   const [reloadVagas, setRealoadVagas] = useState(true);
 
-  const {vagasFiltro} = route.params ?? []
+  const { vagasFiltro } = route.params ?? [];
 
   //const imageWithouJob = "https://sim.marica.rj.gov.br/img/icones/empresa2.pngs";
 
@@ -55,12 +57,11 @@ const Search = ({route}) => {
   //        setDisplayReaload(false);
   //        setError(true);
   //      });
-    // }
+  // }
   // }, [reloadPage]);
 
-
   useEffect(() => {
-    if(vagasFiltro){
+    if (vagasFiltro) {
       if (vagasFiltro.length != 0) {
         setJob(vagasFiltro);
         console.log("com conteudo");
@@ -74,7 +75,13 @@ const Search = ({route}) => {
         setError(true);
       }
     }
-  }, [vagasFiltro])
+
+    LogBox.ignoreLogs([
+      "VirtualizedLists should never be nested",
+      "Encountered two children with the same key",
+      "Each child in a list should have a unique 'key' prop",
+    ]);
+  }, [vagasFiltro]);
 
   const resultSearch = () => {
     axiosURL
@@ -102,24 +109,23 @@ const Search = ({route}) => {
         setDisplayReaload(false);
         setError(true);
       });
+
+    LogBox.ignoreLogs([
+      "VirtualizedLists should never be nested",
+      "Encountered two children with the same key",
+      "Each child in a list should have a unique 'key' prop",
+    ]);
   };
 
   return (
     <SafeAreaView>
       <StatusBar backgroundColor="#1E7596" />
       <SearchBar onChangeText={setTextSearch} functionClicked={resultSearch} />
-      <View
-        style={
-          error
-            ? {
-                ...style.content,
-                justifyContent: "space-between",
-              }
-            : { ...style.content }
-        }
-      >
+      <View style={style.content}>
+        {displayReload && <PesquisarVaga />}
+
         {error && <NotFound />}
-        <ActivityIndicator animating={displayReload} color={"#1E7596"} />
+        {/* <ActivityIndicator animating={displayReload} color={"#1E7596"} /> */}
 
         {job && (
           <FlatList
@@ -139,12 +145,17 @@ export default Search;
 
 const style = StyleSheet.create({
   content: {
-    paddingBottom: 170,
+    paddingTop: 20,
     width: "100%",
+    display: "flex",
     paddingLeft: 10,
     paddingRight: 10,
-    display: "flex",
     flexDirection: "column",
     alignItems: "center",
+  },
+  flat: {
+    paddingTop: 20,
+
+    paddingBottom: 20,
   },
 });

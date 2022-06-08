@@ -24,6 +24,7 @@ const SearchBar = ({ onChangeText, functionClicked }) => {
       <View style={style.contentView}>
         <Searchbar
           // enablesReturnKeyAutomatically
+          autoFocus={true}
           style={style.search}
           placeholder="Pesquisar..."
           onChangeText={onChange}

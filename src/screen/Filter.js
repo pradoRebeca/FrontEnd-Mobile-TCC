@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, StatusBar, ScrollView, Text } from "react-native";
+import { StyleSheet, View, StatusBar, ScrollView, Text, LogBox } from "react-native";
 import { KeyboardAvoidingView } from "react-native";
 import axios from "axios";
 
@@ -49,6 +49,12 @@ const Filter = ({ route, navigation }) => {
   const [tipoDeficiencia, setTipoDeficiencia] = useState([]);
   const [deficiencia, setDeficiencia] = useState([]);
   const [cidade, setCidade] = useState([]);
+
+  useEffect(() => {
+    LogBox.ignoreLogs(["VirtualizedLists should never be nested", "Encountered two children with the same key", "Each child in a list should have a unique 'key' prop", "Picker has been extracted from react-native core and will be removed in a future release."]);
+  }, []);
+
+
 
   //ID'S FILTRO
   const [idSalario, setIdSalario] = useState();
@@ -102,6 +108,8 @@ const Filter = ({ route, navigation }) => {
       })
       .catch((error) => {});
   }, [idTipoDeficiencia]);
+
+
 
   //GET CIDADE
   useEffect(() => {

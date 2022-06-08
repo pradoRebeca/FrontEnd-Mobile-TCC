@@ -40,6 +40,26 @@ const [test , setTest] = useState(1)
       });
   }, [reloadPage || putReloadPage]);
 
+  useEffect(() => {
+    axiosURL
+      .get(`vaga/listar/vagas/status?idCandidato=${idUser}&idStatus=${1}`)
+      .then((response) => {
+        setJob(response.data.content);
+        if(response.data.content.length != 0){
+          setDisplayReaload(false)
+          setError(false);
+        }else{
+          setDisplayReaload(false)
+          setError(true);
+        }
+      })
+      .catch((error) => {
+        console.log('erro ao pegar vagas candidadatas => ', error.message)
+        setDisplayReaload(false)
+        setError(true);     
+      });
+  }, [putReloadPage]);
+
   return (
     <SafeAreaView>
   

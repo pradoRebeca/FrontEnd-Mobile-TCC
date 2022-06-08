@@ -31,9 +31,28 @@ const DispensadasJob = () => {
         setError(true);
         return false;
       });
-  }, [reloadPage || putReloadPage]);
+  }, [reloadPage]);
 
-  // console.log("dispensar ", job);
+
+  useEffect(() => {
+    axiosURL
+      .get(`vaga/listar/vagas/status?idCandidato=${idUser}&idStatus=${3}`)
+      .then((response) => {
+        setJob(response.data.content);
+        console.log();
+        if (response.data.content.length != 0) {
+          setError(false);
+        } else {
+          setError(true);
+        }
+      })
+      .catch((error) => {
+        console.log("erro ao pegar vagas dispensadas => ", error.message);
+        setError(true);
+        return false;
+      });
+  }, [putReloadPage]);
+
 
   return (
     <SafeAreaView>

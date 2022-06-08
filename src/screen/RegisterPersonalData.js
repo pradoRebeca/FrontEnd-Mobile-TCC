@@ -48,7 +48,7 @@ const def = [
 ];
 
 const RegisterPersonalData = ({ route }) => {
-  const { idUser } = useContext(AuthContext);
+  const { idUser, setPutInfoProfile } = useContext(AuthContext);
   const edit = true;
   const id = route.params.id;
 
@@ -136,7 +136,8 @@ const RegisterPersonalData = ({ route }) => {
           telefone: [personalData.telefone, personalData.outroTelefone],
         })
         .then((response) => {
-          navigation.navigate("Perfil", { reloadPost: 1 });
+          setPutInfoProfile(1)
+          // navigation.navigate("Perfil", { reloadPost: 1 });
           showToast("Dados atualizados com sucesso.");
           console.log(
             "registerPersonalData: ",

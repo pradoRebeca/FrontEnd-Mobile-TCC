@@ -12,7 +12,7 @@ import InputCalendar from "../components/InputCalendar";
 import axiosURL from "../API";
 
 const ProfissionalExperience = ({ route }) => {
-  const { idUser } = useContext(AuthContext);
+  const { idUser, setPutInfoProfile } = useContext(AuthContext);
   const navigation = useNavigation();
   const edit = route.params.edit;
   const id = route.params.id;
@@ -45,12 +45,15 @@ const ProfissionalExperience = ({ route }) => {
             nomeEmpresa: personalData.nomeEmpresa
           })
           .then((response) => {
+            setPutInfoProfile(245)
             showToast("Dados atualizados com sucesso");
             console.log("dados atualizados com sucesso");
             navigation.navigate("Perfil", { reloadEdit: 1 });
             return true;
           })
           .catch((error) => {
+            console.log(error)
+          
             showMessage("Erro ao atualizar dados");
             console.log("erro ao atualizar dados");
             return false;
@@ -66,6 +69,7 @@ const ProfissionalExperience = ({ route }) => {
             nomeEmpresa: personalData.nomeEmpresa
           })
           .then((response) => {
+            setPutInfoProfile(2)
             showToast("Dados cadastrados com sucesso");
             console.log("dados cadastrados com sucesso");
             console.log(response.status);

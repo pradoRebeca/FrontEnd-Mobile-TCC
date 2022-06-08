@@ -123,7 +123,7 @@ const CompanyProfile = ({ route }) => {
   console.log("vagas empresa ", companyJobs);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <ScrollView style={style.content}>
         <View style={style.contentInformation}>
           <View style={style.firstPart}>
@@ -178,9 +178,10 @@ const CompanyProfile = ({ route }) => {
           )}
         </View>
 
-        <Filter mode='company'/>
+        {/* <Filter mode='company'/> */}
 
         <FlatList
+        style={{paddingBottom: 30}}
           data={companyJobs}
           keyExtractor={(item) => item.id}
           renderItem={(item) => <CardJobPreview data={item.item} key={item} />}
@@ -194,7 +195,11 @@ export default CompanyProfile;
 
 const style = StyleSheet.create({
   content: {
-    padding: 10,
+    flex: 1,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 20,
+   
   },
   contentInformation: {
     paddingLeft: 10,

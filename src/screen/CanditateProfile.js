@@ -42,7 +42,7 @@ const enderecoRua = {
 };
 
 const CandidateProfile = ({ route }) => {
-  const { idUser } = useContext(AuthContext);
+  const { idUser, putInfoProfile } = useContext(AuthContext);
   // const [isReaload, setIsReaload] = useState()
   const navigation = useNavigation();
 
@@ -55,15 +55,20 @@ const CandidateProfile = ({ route }) => {
   const [display, setDisplay] = useState(true);
 
   useEffect(() => {
-    LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
+    LogBox.ignoreLogs([
+      "VirtualizedLists should never be nested",
+      "Encountered two children with the same key",
+      'Each child in a list should have a unique "key"'
+    ]);
   }, []);
 
   useEffect(() => {
-    console.log("teve reload");
-  }, [route.params]);
 
-  console.log(idUser, "iduser");
-  useEffect(() => {
+    LogBox.ignoreLogs([
+      "VirtualizedLists should never be nested",
+      "Encountered two children with the same key",
+      'Each child in a list should have a unique "key"'
+    ]);
     axiosURL
       .get(`candidato/buscar/${idUser}`)
       .then((response) => {
@@ -84,7 +89,41 @@ const CandidateProfile = ({ route }) => {
         console.log("nao deu para pegar dados do candidato => ", error.message);
         return false;
       });
-  }, [route.params]);
+
+  }, [route.params || putInfoProfile]);
+
+  console.log("valor atual", putInfoProfile);
+
+  useEffect(() => {
+    LogBox.ignoreLogs(['Each child in a list should have a unique "key"']);
+    LogBox.ignoreLogs(["VirtualizedLists should never be nested", "Encountered two children with the same key", "Each child in a list should have a unique 'key' prop", "Picker has been extracted from react-native core and will be removed in a future release."]);
+  }, []);
+
+  // useEffect(() => {
+  //   LogBox.ignoreLogs([
+  //     "VirtualizedLists should never be nested",
+  //     "Encountered two children with the same key",
+  //     "Each child in a list should have a unique 'key' prop",
+  //   ]);
+  //   axiosURL
+  //     .get(`candidato/buscar/${idUser}`)
+  //     .then((response) => {
+  //       setExperienceData(response.data.experiencia);
+  //       setCursoData(response.data.curso);
+  //       setDeficienciaData(response.data.deficiencia);
+  //       setEndereco(response.data.endereco);
+  //       setPersonalInformation({
+  //         ...response.data,
+  //         experiencia: null,
+  //         deficiencia: null,
+  //         endereco: null,
+  //         curso: null,
+  //       });
+  //     })
+  //     .catch((error) => {
+  //       console.log("nao deu para pegar dados do candidato => ", error.message);
+  //     });
+  // }, [putInfoProfile]);
 
   return (
     <SafeAreaView>
