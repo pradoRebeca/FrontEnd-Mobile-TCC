@@ -9,4 +9,4 @@ plataformas Web e Mobile com ênfase em acessibilidade.
 ## Repositórios 
 
 * `Back-End` https://github.com/pinceru/API-PCD-Job
-* `Fron-End Web` https://github.com/pradoRebeca/FrontEnd-Web-TCC
+* `Front-End Web` https://github.com/pradoRebeca/FrontEnd-Web-TCC
